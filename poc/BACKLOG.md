@@ -5,7 +5,24 @@ agent may add to "Product asks", which always come before "Engineering".
 
 ## Product asks
 
-- [ ] (none yet)
+These three come from `agents/LLOYDS_LAB_SCORECARD.md` and close gaps a Lab reviewer
+will score.
+
+- [ ] Programme: data audit for the weeks 1 to 3 backtest. Write `poc/DATA_AUDIT.md`:
+      every dataset the backtest needs (vessel or container tracking history, carrier
+      schedules, schedule reliability, delay causes), where it can be had, price,
+      licence, and a fallback. State plainly what can be done with public data only.
+      Then make a backtest run end to end with no mentor or syndicate data at all.
+      Why: reviewers mark down plans that hinge on data the Lab is unlikely to have.
+- [ ] Team and video: one command that walks the worked case on screen, from ETA
+      update to alert, to stock match, to a one-page term sheet (who lends what, when,
+      fee, yield, premium), readable by an underwriter. Output as text and as a
+      self-contained HTML page. Why: proof the team can build it, and the demo for
+      the application video.
+- [ ] Product: price the long stop. From a stated delay distribution, estimate the
+      chance the late boxes pass the long-stop date and the premium that implies, with
+      the method and assumptions written out, and compare with the $16,000
+      placeholder. Why: shows the Lloyd's market what it would be underwriting.
 
 ## Engineering
 

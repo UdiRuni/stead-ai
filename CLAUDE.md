@@ -8,6 +8,16 @@ proposed long-stop cover on the return leg. Team: Udi Bahat (CEO), Ronit Oren, P
 (CTO). First target: Lloyd's Lab Cohort 18 (applications open 9 Dec 2026, close
 17 Jan 2027). Udi is also looking at other pre-seed accelerators.
 
+## The goal
+
+Until 17 January 2027 there is one goal: stead.ai is accepted into Lloyd's Lab
+Cohort 18. Reviewers score team, product and programme, and reward clear writing, a
+short video and a deck of about 10 slides. `agents/LLOYDS_LAB_SCORECARD.md` holds the
+criteria, our honest score on each, and every gap with its owner. Read it every run
+and choose the work that closes the biggest gap you can close. Work that does not move
+a score waits. Winning never justifies an untrue or unsourced claim: reviewers are
+market experts, and one overclaim costs more than any gap.
+
 Two agents run here every day, each in a fresh session with no memory:
 
 - CEO/Product agent: charter in `agents/CEO_PRODUCT.md`
@@ -27,6 +37,8 @@ The repo is the only memory. Read `agents/LOG.md` first, write to it last.
 | `poc/` | Proof-of-concept code, tests and backlog | CTO agent, directly on main |
 | `tools/check_docs.py` | House-rule checks for deck and brief | Either agent |
 | `agents/LOG.md` | Shared run log, newest entry on top | Both, directly on main |
+| `agents/LLOYDS_LAB_SCORECARD.md` | Lloyd's Lab criteria, our scores and gaps | CEO agent owns it, directly on main |
+| `docs/application/` | Video script and draft application answers | CEO agent, by pull request |
 
 ## Approval rule
 
