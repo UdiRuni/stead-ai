@@ -55,6 +55,21 @@ POC code, the backlog and the log go straight to `main`, and only when all tests
     encoded in `poc/steadpoc/economics.py` and tested in `poc/tests/test_worked_case.py`.
     Deck, brief and code must always agree. Change all three together or none.
 
+## Git and pull requests in agent sessions
+
+- Start of a run: attach the repo with push access (the add_repo tool), then
+  `git clone https://github.com/UdiRuni/stead-ai` and work in the clone.
+- Push with `git -c push.negotiate=true push origin BRANCH`. A "push negotiation
+  failed" warning is harmless.
+- `gh pr create`, `gh pr list` and `gh pr view` do not work here (no GraphQL). Use REST:
+  - list open pull requests: `gh api "repos/UdiRuni/stead-ai/pulls?state=open"`
+  - open one: `gh api repos/UdiRuni/stead-ai/pulls -f title="..." -f head=BRANCH -f base=main -f body="..."`
+  - read review comments: `gh api repos/UdiRuni/stead-ai/pulls/N/comments` and
+    `gh api repos/UdiRuni/stead-ai/issues/N/comments`
+- Never merge a pull request and never force-push `main`.
+- If a push or pull request is refused, do not work around it. Say so in your final
+  report, with the exact error, and stop.
+
 ## Things no agent does
 
 No applications, forms, emails, messages or posts. No contact with any company or
