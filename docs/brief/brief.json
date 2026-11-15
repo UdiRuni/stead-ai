@@ -1,0 +1,232 @@
+{
+  "_how_to_edit": "This file is the only source of the 2-page brief. Edit text here, then run: python3 docs/brief/build_brief.py. Markup: **bold** and [link text](https://url). The build fails unless the result is exactly 2 pages. No em dashes.",
+  "footer": "stead.ai  ·  Lloyd’s Lab Cohort 18 application brief  ·  Illustrative figures are assumptions, not data",
+  "pages": [
+    [
+      {
+        "type": "header",
+        "kicker": "LLOYD’S LAB  ·  COHORT 18 APPLICATION BRIEF",
+        "title": "stead.ai",
+        "subtitle": "Insured stock swaps that keep factories running through shipping delays.",
+        "byline": "UDI BAHAT, CEO  ·  RONIT OREN, PHD, CTO  ·  NOVEMBER 2026"
+      },
+      {
+        "type": "lead",
+        "text": "stead.ai keeps a factory running when its boxes run late. We spot the delay days early, find identical stock in a distributor’s bonded warehouse, and make the deal safe: the plant buys it outright, or borrows it and the late boxes repay the loan. In our thin-stock case, a line stoppage of up to $1.08M becomes a $68,000 swap."
+      },
+      {
+        "type": "stats",
+        "items": [
+          {
+            "big": "$0",
+            "text": "paid for delay under ICC Clause 4.5, even when an insured peril caused it.",
+            "source": "[Institute Cargo Clauses (A)](https://cn.leman.com/media/lq5kz2jr/institute-cargo-clauses-a-01-01-2009.pdf)"
+          },
+          {
+            "big": "30 days",
+            "text": "typical delay deductible on Trade Disruption Insurance (TDI), reducible to 14, on named perils only.",
+            "source": "[Miller](https://miller-insurance.com/News-and-insights/Latest-insights/Securing-supply-chain-dependent-income)"
+          },
+          {
+            "big": "6.06 days",
+            "text": "average lateness of late vessels in July 2026, when schedule reliability was 56.4%.",
+            "source": "[Sea-Intelligence](https://container-news.com/global-schedule-reliability-falls-to-56-4-in-july/)"
+          }
+        ]
+      },
+      {
+        "type": "section",
+        "kicker": "THE GAP",
+        "heading": "Delay cover now exists, but it pays after the line stops"
+      },
+      {
+        "type": "para",
+        "text": "An 11-day delay stays with the assured: excluded by the cargo clauses and inside the TDI deductible. In systemic events, like the 2026 war that [lifted European polypropylene about 115% in ten weeks](https://www.chemorbis.com/en/premium-plastics-news/European-PP-market-slips-from-4-year-highs-as-buyer-resistance-and-imports-trigger-correction/2026/05/13/971616), lenders’ boxes are late too, so we target single-shipment delays. [Marsh](https://www.marsh.com/en/industries/cargo/expertise/parametric-coverage-for-cargo-delay.html)’s parametric cover, built by Lloyd’s Lab alumnus [Otonomi](https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator/alumni/otonomi), pays up to $250,000, but no cover keeps the line running."
+      },
+      {
+        "type": "section",
+        "kicker": "WHY NOT AT SEA",
+        "heading": "A mid-ocean title swap fails on day one; each barrier has a port-side substitute"
+      },
+      {
+        "type": "table",
+        "widths": [0.165, 0.43, 0.405],
+        "header": ["BARRIER", "WHY IT BLOCKS AN AT-SEA SWAP", "DAY-1 DESIGN"],
+        "rows": [
+          [
+            "**Cargo data**",
+            "AIS is open, but manifests, bills and certificates of analysis (CoAs) are private. [US manifest data can be bought](https://www.law.cornell.edu/cfr/text/19/103.31); EU entry data (ICS2) is closed.",
+            "We do not scan the sea. We read only our insureds and 3 to 5 distributors, through ERP, TMS or EDI links."
+          ],
+          [
+            "**Trust**",
+            "Two plants that never met will not lend each other stock.",
+            "One counterparty: a distributor acting as buffer hub, already holding the stock."
+          ],
+          [
+            "**eBL**",
+            "[About 12.8% of bills are electronic](https://www.bimco.org/media/25ufac3s/dcsa_fit-alliance-webinar_nov-27-2025.pdf), though [51% of survey respondents use some. Platform fragmentation is their top concern.](https://iccwbo.org/news-publications/news/electronic-bill-of-lading-adoption-grows-as-focus-shifts-to-interoperability/)",
+            "Delivery orders and bonded stock at the destination port. eBL is an upgrade where it already exists."
+          ],
+          [
+            "**Manifest cut-off**",
+            "A late consignee change brings fees, customs delays and double-VAT risk.",
+            "The plant stays consignee. Boxes change hands under customs suspension, after arrival."
+          ],
+          [
+            "**Vendor lock**",
+            "QA approves a plant and a grade, not a CAS number.",
+            "Same producer, plant and grade code, for example SABIC PP 575P for SABIC PP 575P."
+          ]
+        ]
+      },
+      {
+        "type": "section",
+        "kicker": "HOW ONE SWAP RUNS",
+        "heading": "The late boxes repay a stock loan, and duty is paid once"
+      },
+      {
+        "type": "para",
+        "text": "We buy the warning; we do not build it. Container-level tracking from [FourKites](https://www.businesswire.com/news/home/20260504510211/en/), [project44](https://www.project44.com/press-releases/project44-launches-ai-ocean-exceptions-agent-to-autonomously-resolve-rolled-container-disruptions/) or [Kpler](https://www.worldports.org/kpler-completes-acquisition-of-spire-maritime) flags rolled boxes, missed connections and congestion, the causes behind most delays. From a booking number, we compare each new ETA with the plant’s safety stock and alert only when the delay outruns it."
+      },
+      {
+        "type": "flow",
+        "left": {"title": "Distributor hub", "text": "Bonded stock in Rotterdam or Antwerp"},
+        "right": {"title": "Insured plant", "text": "Stays consignee on the late shipment"},
+        "top": {
+          "title": "T: stock goes out on loan",
+          "text": "Alert at T-12, match at T-10, swap bound at T-8. On the original date, the hub releases 40 TEU digitally. The plant clears them in its own name and pays duty and VAT once."
+        },
+        "bottom": {
+          "title": "T+11: the late boxes repay the loan",
+          "text": "The plant does not clear them. They wait in temporary storage, then move under T1 into the hub’s customs warehouse. Title passes, and duty and VAT stay suspended until the hub sells.",
+          "badge": "Proposed wrapper live until the boxes are back"
+        }
+      },
+      {
+        "type": "para",
+        "text": "T is the late shipment’s scheduled arrival. Day counts come from the illustrative case on page 2, and the 12-day alert is a target."
+      }
+    ],
+    [
+      {
+        "type": "section",
+        "kicker": "WHY IT WORKS TODAY",
+        "heading": "It runs on procedures ports already use"
+      },
+      {
+        "type": "bullets",
+        "items": [
+          "**Release is digital.** [Rotterdam’s Secure Chain](https://breakbulk.news/port-of-rotterdam-ends-use-of-fraud-sensitive-pin-codes-for-container-release/) and [Antwerp](https://en.flows.be/?p=76415) have retired PIN codes, so forwarders and hauliers enroll first.",
+          "**Customs stays suspended.** Goods may wait [90 days in temporary storage](https://belastingdienst.nl/wps/wcm/connect/bldcontenten/belastingdienst/customs/customs-processes/temporary-storage-of-goods/temporary-storage-of-goods). [T1](https://flexport.com/glossary/External-Transit-T1) moves them to an approved warehouse, where [duty and VAT stay suspended](https://guichet.public.lu/en/entreprises/import-export/importation/import-depuis-pays-tiers/entrepot-douanier.html) and [rights under the procedure can transfer](https://www.thetradehub.eu/en/reglementation/uk/eu/ucc-952-2013/article/218) to a qualified holder.",
+          "**eBL-ready, not eBL-dependent.** An eBL or sea waybill lets the delivery order change 72 hours before berthing. With a to-order eBL, [recognised in Dutch law since July 2026](https://www.iccwbo.nl/news/the-green-light-for-ebls), control can pass to the lender at loan start, as security, for counsel to confirm."
+        ]
+      },
+      {
+        "type": "section",
+        "kicker": "THE WRAPPER",
+        "heading": "The cover adds only what the cargo policy lacks"
+      },
+      {
+        "type": "para",
+        "text": "A distributor lends $1.2M of stock for 11 days only if the return leg is safe. Most of that safety exists already; we add the long stop."
+      },
+      {
+        "type": "table",
+        "widths": [0.2, 0.4, 0.4],
+        "header": ["LENDER’S FEAR", "HOW IT IS COVERED", "STATUS"],
+        "rows": [
+          [
+            "**The boxes are lost**",
+            "The plant’s cargo policy already insures them at [110% of CIF value](https://www.thetradehub.eu/en/glossary/insurance-obligation). The lender is named loss payee.",
+            "Existing cover. [A contingent interest is insurable](https://www.irishstatutebook.ie/1906/en/act/pub/0041/sec0007.html) and [Quadra v XL (2023) needs no title](https://7kbw.co.uk/insurable-interest-in-unascertained-goods), subject to counsel."
+          ],
+          [
+            "**General Average**",
+            "The plant’s cargo insurer issues the [average guarantee](https://blogs.tradlinx.com/general-average-explained-why-your-cargo-can-be-held-after-a-ship-casualty/), as it does today.",
+            "Existing practice."
+          ],
+          [
+            "**The boxes arrive far later**",
+            "New: pays an agreed value if the late boxes pass a long-stop date.",
+            "The one new risk. Our $16,000 premium is a placeholder."
+          ]
+        ]
+      },
+      {
+        "type": "para",
+        "text": "Plant default is credit risk, so it needs a pledge over the trailing cargo or trade credit cover. [Arranging cover is regulated](https://handbook.fca.org.uk/handbook/perg5), so stead.ai would act under a broker or coverholder. No Lloyd’s capacity is committed today."
+      },
+      {
+        "type": "section",
+        "kicker": "WHY WE WIN",
+        "heading": "Others warn, pay out or sell stock. We find the stock and make the deal safe"
+      },
+      {
+        "type": "table",
+        "compact": true,
+        "highlight_last": true,
+        "widths": [0.25, 0.105, 0.315, 0.33],
+        "header": ["40 TEU, 11 DAYS LATE", "STOPPED", "COST TO THE PLANT", "RESULT"],
+        "rows": [
+          ["**No action**", "6 days", "$180,000 to $1.08M, by downtime cost", "Excluded by ICC; assumes 5 days of stock"],
+          ["**Air freight:** [**Kuehne+Nagel**](https://home.kuehne-nagel.com/-/services/air-freight/time-critical)", "Partly", "$390,000 for a partial bridge", "Moves only part of the 40 TEU"],
+          ["**Delay cover:** [**Otonomi**](https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator/alumni/otonomi)**,** [**Marsh**](https://www.marsh.com/en/industries/cargo/expertise/parametric-coverage-for-cargo-delay.html)", "6 days", "Pays $137,500 to $187,500 at most", "Pays after the line stops"],
+          ["**Buy spot, with us or direct**", "0 days", "Market price + about $8,000 a month", "Needs cash and storage for double stock"],
+          ["**stead.ai swap**", "**0 days**", "**$68,000**", "**No double stock; long stop insured**"]
+        ]
+      },
+      {
+        "type": "para",
+        "text": "**Our advantage.** We found no one else who finds identical stock before the line stops and makes both routes safe: an outright purchase, or a loan the late boxes repay. [FourKites](https://www.businesswire.com/news/home/20260504510211/en/) and [project44](https://www.project44.com/press-releases/project44-launches-ai-ocean-exceptions-agent-to-autonomously-resolve-rolled-container-disruptions/) warn, without stock or cover."
+      },
+      {
+        "type": "bars",
+        "items": [
+          {"title": "$28,000 lender yield", "text": "about 77% annualized", "weight": 0.45, "color": "navy"},
+          {"title": "$16,000 premium", "text": "to the syndicate", "weight": 0.235, "color": "slate"},
+          {"title": "$24,000 stead.ai fee", "text": "2.0% of notional", "weight": 0.315, "color": "orange"}
+        ]
+      },
+      {
+        "type": "para",
+        "text": "**For the syndicate.** A new short delay line, about $1.6M of premium per 100 swaps, plus smaller TDI claims: above the deductible, the swap is a [TDI mitigation expense](https://www.aon.com/insights/articles/2022/mitigate-supply-chain-risk-with-trade-disruption-insurance); [ICC Clause 16 cannot fund it](https://www.irishstatutebook.ie/1906/en/act/pub/0041/sec0078.html), because sue and labour reaches only loss the policy covers."
+      },
+      {
+        "type": "section",
+        "kicker": "LIMITS",
+        "heading": "What we do not claim"
+      },
+      {
+        "type": "bullets",
+        "items": [
+          "**Demand is unproven.** Plants often hold [about 30 days of inventory](https://www.insurancebusinessmag.com/uk/news/sme/businesses-are-carrying-supply-chain-risk-brokers-could-insure-589617.aspx), and sellers carry delays on delivered terms.",
+          "**Stock depth and lead time are unmeasured** until a distributor opens its data. Customer interviews come first.",
+          "**QA, tax and form vary.** [Some programs need formal approval](https://www.marvalindustries.com/color-compounding-blogs/plastic-resin-suppliers/plastic-resin-suppliers-oems-materials-mid-program.html); [Dutch zero-rating needs proof](https://www.bdo.nl/en-gb/insights/application-of-0-vat-on-goods-not-yet-imported); the swap is two netted sales."
+        ]
+      },
+      {
+        "type": "section",
+        "kicker": "THE ASK",
+        "heading": "Ten weeks from backtest to shadow pilot"
+      },
+      {
+        "type": "cards",
+        "items": [
+          {"kicker": "WEEKS 1 TO 3", "title": "Backtest", "text": "Replay 24 months of tracking and schedule data, plus mentors’ delay claims."},
+          {"kicker": "WEEKS 4 TO 6", "title": "Wording", "text": "Draft the long-stop extension with counsel, for JCC review."},
+          {"kicker": "WEEKS 7 TO 8", "title": "Integration", "text": "Connect one distributor’s stock feed and the underwriting API."},
+          {"kicker": "WEEKS 9 TO 10", "title": "Shadow pilot", "text": "Shadow-clear a Rotterdam corridor. Scope a facility or MGA binder for Demo Day."}
+        ]
+      },
+      {
+        "type": "para",
+        "text": "**We need** a marine cargo or TDI underwriter, a claims lead, a specialty broker and one distributor. Targets are polymer houses ([Ravago](https://ravago.com/en-BE/markets/polymers), [Biesterfeld](https://www.biesterfeld.com/en/lu/service/competence-in-plastics)) and chemical distributors (Brenntag, Univar, Helm, Barentz). None is a partner yet."
+      },
+      {
+        "type": "para",
+        "text": "**Team:** Udi Bahat, CEO: lead PM for risk products at PayPal until October 2026, 20+ years in fintech, M.Sc. Computer Science, cum laude. Ronit Oren, PhD, CTO: Cornell PhD and algorithm developer, nearly six years leading product at Wix."
+      }
+    ]
+  ]
+}
