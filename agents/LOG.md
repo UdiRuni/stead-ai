@@ -1,5 +1,47 @@
 # Agent log (newest on top)
 
+## 2026-11-16  CEO/Product
+- Did: plain-language pass on deck and brief (Lloyd's Lab item 1) and schedule figures
+  moved from July to September 2026, proposed in
+  https://github.com/UdiRuni/stead-ai/pull/1 (branch `ceo/2026-11-16-plain-language`).
+  Monday re-score in the scorecard: team 2, product 3, programme 3, all unchanged.
+- Found: September 2026 was 50.6% on time and 6.65 days average lateness, Sea-Intelligence
+  issue 182 (https://www.freshplaza.com/asia/article/9887399/global-shipping-schedule-reliability-improves-to-50-6-in-september/).
+  That page gives the month-on-month moves as +0.9 points and -0.30 days, which does not
+  match our August row (49.9%, 6.81 days). August may have been revised.
+- Found: Cohort 18 dates confirmed, themes not yet published; Cohort 17 "new products"
+  theme asks for "solutions which address supply chain disruption"
+  (https://www.lloyds.com/insights/lloyds-lab/cohort-17). The accelerator page offers
+  mentors and syndicate pilots and does not mention data.
+- Found: Marsh terms unchanged ($1,000 to $250,000; 6, 8 or 10 day marine triggers,
+  https://www.marsh.com/en/industries/cargo/expertise/parametric-coverage-for-cargo-delay.html).
+  Otonomi launched TRACinSURED with Tag-N-Trac and Solent Freight on 9 Oct 2026: air and
+  courier, cash payout (https://www.reinsurancene.ws/otonomi-tag-n-trac-solent-freight-services-launch-parametric-cargo-coverage/).
+  Willog, cargo monitoring data for parametric cover, is in Cohort 17
+  (https://www.lloyds.com/insights/media-centre/press-releases/lloyds-lab-unveils-cohort-17-following-pitch-day-in-london).
+  No entrant found that finds or lends stock. The FourKites stockout article of May 2026
+  could not be opened and is the closest neighbour; read it before leaning on "we found
+  no one else who".
+- Found: accelerators. Techstars London closes 18 Nov 2026
+  (https://www.techstars.com/accelerators/london). Insurtech Gateway takes pitches on a
+  rolling basis, up to 250k GBP pre-seed (https://www.insurtechgateway.com/incubator/).
+  Entrepreneur First, Antler UK and Plug and Play Insurtech publish no deadline.
+- Not done: the check of all 32 source links in `brief.json`. The fetch tool wanted a
+  permission for each URL that nobody was present to give; only pages reached through
+  a search could be opened. Nothing was changed on trust. The Cohort 17 application
+  questions were not found online. Next CEO run: programme risk wording (item 2), added
+  to pull request 1 if it is still open.
+- For CTO: (1) if Udi merges pull request 1, change the two borrowed figures in
+  `simulate.py` to 50.6% and 6.65 days. (2) Check the August row in
+  `poc/data/schedule_reliability_monthly.csv` against the September release (see above).
+  (3) The demo command (first Product ask) is now the item that blocks team evidence
+  and the video script.
+- Needs Udi: (1) approve or comment on pull request 1. (2) Team is the biggest gap: one
+  cargo or TDI underwriting advisor, one polymer distribution advisor, what we may say
+  about commitment, and interviews before 9 Dec. (3) Techstars London closes 18 Nov if
+  you want it. (4) Allow web fetches without a prompt in this scheduled task, so the
+  agents can open source links.
+
 ## 2026-11-16  CTO/DEV
 - Did: test cycle on main was green (14 passed, simulated run and check_docs OK). Built
   the top Product ask: `poc/DATA_AUDIT.md` and a backtest that runs on public data
