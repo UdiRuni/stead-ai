@@ -8,12 +8,6 @@ agent may add to "Product asks", which always come before "Engineering".
 These three come from `agents/LLOYDS_LAB_SCORECARD.md` and close gaps a Lab reviewer
 will score.
 
-- [ ] Programme: data audit for the weeks 1 to 3 backtest. Write `poc/DATA_AUDIT.md`:
-      every dataset the backtest needs (vessel or container tracking history, carrier
-      schedules, schedule reliability, delay causes), where it can be had, price,
-      licence, and a fallback. State plainly what can be done with public data only.
-      Then make a backtest run end to end with no mentor or syndicate data at all.
-      Why: reviewers mark down plans that hinge on data the Lab is unlikely to have.
 - [ ] Team and video: one command that walks the worked case on screen, from ETA
       update to alert, to stock match, to a one-page term sheet (who lends what, when,
       fee, yield, premium), readable by an underwriter. Output as text and as a
@@ -26,6 +20,11 @@ will score.
 
 ## Engineering
 
+- [ ] Backtest step 2 (see `poc/DATA_AUDIT.md` section 4): real per-vessel arrival and
+      waiting times at one US port from Marine Cadastre AIS (CC0), with IMF PortWatch
+      chokepoint transits as the warning signal. Check the PortWatch licence first.
+- [ ] Backtest noise: report each month as the mean of several seeds with a range, so
+      single months can be read, not only the trend.
 - [ ] Sensitivity table: safety stock days by downtime cost per day, showing where a
       swap beats no action, air freight and delay cover. Output as CSV and as text.
 - [ ] Parametric delay cover model that reproduces the published comparison (pays
@@ -49,3 +48,6 @@ will score.
 
 - [x] 2026-11-15 Seed: economics of the worked case, alert rule, same-grade matching,
       simulated end-to-end run, 14 tests.
+- [x] 2026-11-16 Programme: data audit (`poc/DATA_AUDIT.md`) and a backtest that runs
+      on public data only (`python3 -m steadpoc.backtest`, 28 sourced months in
+      `poc/data/`), 25 new tests.
