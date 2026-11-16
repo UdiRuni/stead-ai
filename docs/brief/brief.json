@@ -12,14 +12,14 @@
       },
       {
         "type": "lead",
-        "text": "stead.ai keeps a factory running when its boxes run late. We spot the delay days early, find identical stock in a distributor’s bonded warehouse, and make the deal safe: the plant buys it outright, or borrows it and the late boxes repay the loan. In our thin-stock case, a line stoppage of up to $1.08M becomes a $68,000 swap."
+        "text": "stead.ai keeps a factory running when its shipping containers run late. We spot the delay days early, find identical stock in a distributor’s warehouse at the destination port, and make the deal safe: the plant buys it outright, or borrows it and the late boxes repay the loan. In our thin-stock case, a line stoppage of up to $1.08M becomes a $68,000 swap."
       },
       {
         "type": "stats",
         "items": [
           {
             "big": "$0",
-            "text": "paid for delay under ICC Clause 4.5, even when an insured peril caused it.",
+            "text": "paid for delay by a standard cargo policy (Institute Cargo Clauses, Clause 4.5), even when an insured peril caused it.",
             "source": "[Institute Cargo Clauses (A)](https://cn.leman.com/media/lq5kz2jr/institute-cargo-clauses-a-01-01-2009.pdf)"
           },
           {
@@ -28,9 +28,9 @@
             "source": "[Miller](https://miller-insurance.com/News-and-insights/Latest-insights/Securing-supply-chain-dependent-income)"
           },
           {
-            "big": "6.06 days",
-            "text": "average lateness of late vessels in July 2026, when schedule reliability was 56.4%.",
-            "source": "[Sea-Intelligence](https://container-news.com/global-schedule-reliability-falls-to-56-4-in-july/)"
+            "big": "6.65 days",
+            "text": "average lateness of late vessels in September 2026, when only 50.6% of vessels arrived on time.",
+            "source": "[Sea-Intelligence](https://www.freshplaza.com/asia/article/9887399/global-shipping-schedule-reliability-improves-to-50-6-in-september/)"
           }
         ]
       },
@@ -41,7 +41,7 @@
       },
       {
         "type": "para",
-        "text": "An 11-day delay stays with the assured: excluded by the cargo clauses and inside the TDI deductible. In systemic events, like the 2026 war that [lifted European polypropylene about 115% in ten weeks](https://www.chemorbis.com/en/premium-plastics-news/European-PP-market-slips-from-4-year-highs-as-buyer-resistance-and-imports-trigger-correction/2026/05/13/971616), lenders’ boxes are late too, so we target single-shipment delays. [Marsh](https://www.marsh.com/en/industries/cargo/expertise/parametric-coverage-for-cargo-delay.html)’s parametric cover, built by Lloyd’s Lab alumnus [Otonomi](https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator/alumni/otonomi), pays up to $250,000, but no cover keeps the line running."
+        "text": "An 11-day delay stays with the factory: the cargo policy excludes it, and it falls inside the TDI deductible. In systemic events, like the 2026 war that [lifted European polypropylene about 115% in ten weeks](https://www.chemorbis.com/en/premium-plastics-news/European-PP-market-slips-from-4-year-highs-as-buyer-resistance-and-imports-trigger-correction/2026/05/13/971616), lenders’ boxes are late too, so we target single-shipment delays. [Marsh](https://www.marsh.com/en/industries/cargo/expertise/parametric-coverage-for-cargo-delay.html)’s parametric cover, built by Lloyd’s Lab alumnus [Otonomi](https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator/alumni/otonomi), pays up to $250,000, but no cover keeps the line running."
       },
       {
         "type": "section",
@@ -55,8 +55,8 @@
         "rows": [
           [
             "**Cargo data**",
-            "AIS is open, but manifests, bills and certificates of analysis (CoAs) are private. [US manifest data can be bought](https://www.law.cornell.edu/cfr/text/19/103.31); EU entry data (ICS2) is closed.",
-            "We do not scan the sea. We read only our insureds and 3 to 5 distributors, through ERP, TMS or EDI links."
+            "Ship positions (AIS) are open, but manifests, bills of lading and certificates of analysis (CoAs) are private. [US manifest data can be bought](https://www.law.cornell.edu/cfr/text/19/103.31); EU entry data (ICS2) is closed.",
+            "We do not scan the sea. We read only our insureds and 3 to 5 distributors, through links to their order and transport systems."
           ],
           [
             "**Trust**",
@@ -65,17 +65,17 @@
           ],
           [
             "**eBL**",
-            "[About 12.8% of bills are electronic](https://www.bimco.org/media/25ufac3s/dcsa_fit-alliance-webinar_nov-27-2025.pdf), though [51% of survey respondents use some. Platform fragmentation is their top concern.](https://iccwbo.org/news-publications/news/electronic-bill-of-lading-adoption-grows-as-focus-shifts-to-interoperability/)",
+            "[About 12.8% of bills of lading are electronic (eBL)](https://www.bimco.org/media/25ufac3s/dcsa_fit-alliance-webinar_nov-27-2025.pdf), though [51% of survey respondents use some. Platform fragmentation is their top concern.](https://iccwbo.org/news-publications/news/electronic-bill-of-lading-adoption-grows-as-focus-shifts-to-interoperability/)",
             "Delivery orders and bonded stock at the destination port. eBL is an upgrade where it already exists."
           ],
           [
             "**Manifest cut-off**",
-            "A late consignee change brings fees, customs delays and double-VAT risk.",
+            "Changing the named receiver (consignee) late brings fees, customs delays and double-VAT risk.",
             "The plant stays consignee. Boxes change hands under customs suspension, after arrival."
           ],
           [
             "**Vendor lock**",
-            "QA approves a plant and a grade, not a CAS number.",
+            "A plant’s quality team approves one producer’s plant and grade, not a generic chemical.",
             "Same producer, plant and grade code, for example SABIC PP 575P for SABIC PP 575P."
           ]
         ]
@@ -87,7 +87,7 @@
       },
       {
         "type": "para",
-        "text": "We buy the warning; we do not build it. Container-level tracking from [FourKites](https://www.businesswire.com/news/home/20260504510211/en/), [project44](https://www.project44.com/press-releases/project44-launches-ai-ocean-exceptions-agent-to-autonomously-resolve-rolled-container-disruptions/) or [Kpler](https://www.worldports.org/kpler-completes-acquisition-of-spire-maritime) flags rolled boxes, missed connections and congestion, the causes behind most delays. From a booking number, we compare each new ETA with the plant’s safety stock and alert only when the delay outruns it."
+        "text": "We buy the warning; we do not build it. Container-level tracking from [FourKites](https://www.businesswire.com/news/home/20260504510211/en/), [project44](https://www.project44.com/press-releases/project44-launches-ai-ocean-exceptions-agent-to-autonomously-resolve-rolled-container-disruptions/) or [Kpler](https://www.worldports.org/kpler-completes-acquisition-of-spire-maritime) flags boxes bumped to a later ship (rolled), missed connections and congestion, the causes behind most delays. From a booking number, we compare each new arrival estimate (ETA) with the plant’s safety stock and alert only when the delay outruns it."
       },
       {
         "type": "flow",
@@ -95,11 +95,11 @@
         "right": {"title": "Insured plant", "text": "Stays consignee on the late shipment"},
         "top": {
           "title": "T: stock goes out on loan",
-          "text": "Alert at T-12, match at T-10, swap bound at T-8. On the original date, the hub releases 40 TEU digitally. The plant clears them in its own name and pays duty and VAT once."
+          "text": "Alert at T-12, match at T-10, swap bound at T-8. On the original date, the hub releases 40 containers (40 TEU) digitally. The plant clears them in its own name and pays duty and VAT once."
         },
         "bottom": {
           "title": "T+11: the late boxes repay the loan",
-          "text": "The plant does not clear them. They wait in temporary storage, then move under T1 into the hub’s customs warehouse. Title passes, and duty and VAT stay suspended until the hub sells.",
+          "text": "The plant does not clear them. They wait in temporary storage, then move under customs transit (T1) into the hub’s customs warehouse. Title passes, and duty and VAT stay suspended until the hub sells.",
           "badge": "Proposed wrapper live until the boxes are back"
         }
       },
@@ -118,8 +118,8 @@
         "type": "bullets",
         "items": [
           "**Release is digital.** [Rotterdam’s Secure Chain](https://breakbulk.news/port-of-rotterdam-ends-use-of-fraud-sensitive-pin-codes-for-container-release/) and [Antwerp](https://en.flows.be/?p=76415) have retired PIN codes, so forwarders and hauliers enroll first.",
-          "**Customs stays suspended.** Goods may wait [90 days in temporary storage](https://belastingdienst.nl/wps/wcm/connect/bldcontenten/belastingdienst/customs/customs-processes/temporary-storage-of-goods/temporary-storage-of-goods). [T1](https://flexport.com/glossary/External-Transit-T1) moves them to an approved warehouse, where [duty and VAT stay suspended](https://guichet.public.lu/en/entreprises/import-export/importation/import-depuis-pays-tiers/entrepot-douanier.html) and [rights under the procedure can transfer](https://www.thetradehub.eu/en/reglementation/uk/eu/ucc-952-2013/article/218) to a qualified holder.",
-          "**eBL-ready, not eBL-dependent.** An eBL or sea waybill lets the delivery order change 72 hours before berthing. With a to-order eBL, [recognised in Dutch law since July 2026](https://www.iccwbo.nl/news/the-green-light-for-ebls), control can pass to the lender at loan start, as security, for counsel to confirm."
+          "**Customs stays suspended.** Goods may wait [90 days in temporary storage](https://belastingdienst.nl/wps/wcm/connect/bldcontenten/belastingdienst/customs/customs-processes/temporary-storage-of-goods/temporary-storage-of-goods). [Customs transit (T1)](https://flexport.com/glossary/External-Transit-T1) moves them to an approved warehouse, where [duty and VAT stay suspended](https://guichet.public.lu/en/entreprises/import-export/importation/import-depuis-pays-tiers/entrepot-douanier.html) and [rights under the procedure can transfer](https://www.thetradehub.eu/en/reglementation/uk/eu/ucc-952-2013/article/218) to a qualified holder.",
+          "**eBL-ready, not eBL-dependent.** An electronic bill of lading (eBL) or sea waybill lets the delivery order change 72 hours before berthing. With a to-order eBL, [recognised in Dutch law since July 2026](https://www.iccwbo.nl/news/the-green-light-for-ebls), control can pass to the lender at loan start, as security, for counsel to confirm."
         ]
       },
       {
@@ -138,7 +138,7 @@
         "rows": [
           [
             "**The boxes are lost**",
-            "The plant’s cargo policy already insures them at [110% of CIF value](https://www.thetradehub.eu/en/glossary/insurance-obligation). The lender is named loss payee.",
+            "The plant’s cargo policy already insures them at [110% of cost, insurance and freight (CIF) value](https://www.thetradehub.eu/en/glossary/insurance-obligation). The lender is named loss payee.",
             "Existing cover. [A contingent interest is insurable](https://www.irishstatutebook.ie/1906/en/act/pub/0041/sec0007.html) and [Quadra v XL (2023) needs no title](https://7kbw.co.uk/insurable-interest-in-unascertained-goods), subject to counsel."
           ],
           [
@@ -169,7 +169,7 @@
         "widths": [0.25, 0.105, 0.315, 0.33],
         "header": ["40 TEU, 11 DAYS LATE", "STOPPED", "COST TO THE PLANT", "RESULT"],
         "rows": [
-          ["**No action**", "6 days", "$180,000 to $1.08M, by downtime cost", "Excluded by ICC; assumes 5 days of stock"],
+          ["**No action**", "6 days", "$180,000 to $1.08M, by downtime cost", "Excluded by the cargo policy; assumes 5 days of stock"],
           ["**Air freight:** [**Kuehne+Nagel**](https://home.kuehne-nagel.com/-/services/air-freight/time-critical)", "Partly", "$390,000 for a partial bridge", "Moves only part of the 40 TEU"],
           ["**Delay cover:** [**Otonomi**](https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator/alumni/otonomi)**,** [**Marsh**](https://www.marsh.com/en/industries/cargo/expertise/parametric-coverage-for-cargo-delay.html)", "6 days", "Pays $137,500 to $187,500 at most", "Pays after the line stops"],
           ["**Buy spot, with us or direct**", "0 days", "Market price + about $8,000 a month", "Needs cash and storage for double stock"],
