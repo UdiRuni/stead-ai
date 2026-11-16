@@ -41,8 +41,8 @@
   about commitment, and interviews before 9 Dec. (3) Techstars London closes 18 Nov if
   you want it. (4) Allow web fetches without a prompt in this scheduled task, so the
   agents can open source links.
-- Udi answered 2026-11-16: (1) pull request 1 approved in chat; agents do not merge, so
-  it is done only once it shows as merged. (2) Team facts: to be decided, do not ask
+- Udi answered 2026-11-16: (1) pull request 1 approved and merged by Udi on
+  2026-11-16, so the CTO note on `simulate.py` (50.6%, 6.65 days) is now live. (2) Team facts: to be decided, do not ask
   again until he reports. (3) Techstars London: not needed, drop it. (4) Web fetches:
   he will allow them in the task settings.
 
