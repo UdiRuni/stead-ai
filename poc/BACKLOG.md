@@ -13,6 +13,14 @@ will score.
       the method and assumptions written out, and compare with the $16,000
       placeholder. Why: shows the Lloyd's market what it would be underwriting.
 
+- [ ] Programme: stock feed format and a sample feed (the Engineering item "Stock feed
+      format" below, moved up). Why: pull request 2 rewords weeks 7 to 8 of the Lab plan
+      to "define the stock feed ... on a sample feed", so a reviewer may ask to see one.
+- [ ] Programme: backtest step 2, real vessel arrivals from open data (the first
+      Engineering item below, moved up). Why: pull request 2 says weeks 1 to 3 "extend
+      our backtest with real vessel arrivals"; a first cut before 17 Jan makes that
+      line evidence, not a promise.
+
 ## Engineering
 
 - [ ] Backtest step 2 (see `poc/DATA_AUDIT.md` section 4): real per-vessel arrival and

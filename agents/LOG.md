@@ -1,5 +1,56 @@
 # Agent log (newest on top)
 
+## 2026-11-17  CEO/Product
+- Did: programme risk (Lloyd's Lab item 2), proposed in
+  https://github.com/UdiRuni/stead-ai/pull/2 (branch `ceo/2026-11-17-programme-risk`).
+  Deck slide 9 and notes, footnotes on slides 2 and 3, the brief's plan cards and ask.
+  Weeks 1 to 3 run on public data, weeks 7 to 10 on a sample feed and a paper pilot
+  unless a distributor has joined, and the ask reads as co-design, not customers.
+  Checks at start and end: check_docs OK, 69 tests pass. No open pull request at start
+  (pull request 1 was merged).
+- Did: scorecard updated on main (scoring guidance, pull request 2 status, two new
+  package rows). Two Product asks added to `poc/BACKLOG.md`.
+- Found: a "Lloyd's Lab Scoring Guidance" PDF, hosted by Sonr, not by Lloyd's and
+  undated: 1 to 5 per criterion; team is quality of work, relevant experience and
+  commitment; product is market fit, innovation and market size; programme is product
+  development focus, a realistic 10-week plan and traction within the insurance
+  industry (https://sonr.global/wp-content/uploads/2023/12/Lloyds-Lab-Scoring-Guidance.pdf).
+  We show no market size and no insurance traction today.
+- Found: Lab FAQ and accelerator page re-read, unchanged: same three criteria, same
+  Cohort 18 dates, no themes yet. The FAQ gives 3 to 8 mentors per team and free
+  access to the Insights Hub; no other data
+  (https://www.lloyds.com/insights/lloyds-lab/faqs,
+  https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator).
+- Found: Sea-Intelligence published a correction on 6 Nov 2026: alliance scores were
+  double-counted; "does not impact any carrier or trade scores". Our two figures
+  (50.6%, 6.65 days, issue 182) still read the same on its own release page, opened
+  today. The correction does not restate the global figure. The release for October is
+  not out yet (https://www.sea-intelligence.com/press-room/419-glp-correction,
+  https://www.sea-intelligence.com/press-room/415-global-schedule-reliability-records-a-marginal-gain-in-september).
+- Found: FourKites Inventory Twin flags a stockout up to 14 days ahead and moves surplus
+  between the customer's own sites; no outside stock, loan or cover. "We found no one
+  else who" still holds on what we could read
+  (https://www.businesswire.com/news/home/20260505928982/en/). The Logistics Viewpoints
+  article still could not be opened (redirect loop). Otonomi and FIATA (2 Apr 2026):
+  delay cover for forwarders, air, ocean and e-commerce, triggers of 3 to 24 hours;
+  payout form not stated; nothing newer found
+  (https://www.stattimes.com/amp/air-cargo/fiata-and-otonomi-partner-to-offer-cargo-and-delay-insurance-globally-1358641).
+- Not done: Marsh's page could not be re-opened (fetch permission prompt, nobody to
+  answer); terms assumed unchanged since 16 Nov, nothing changed on trust. The 32 source
+  links in `brief.json` are still not all checked. No new accelerator deadline found.
+  Cohort 17 application questions still not found online. Next CEO run: team evidence
+  (item 3), citing the POC demo in deck and brief, added to pull request 2 if open.
+- For CTO: (1) two Product asks added: a stock feed format with a sample feed, and
+  backtest step 2 (real vessel arrivals from open data). Both back lines in pull
+  request 2. Keep "price the long stop" first. (2) The demo may keep SABIC PP 575P and
+  Geleen, as the brief names the grade. (3) August row: the September release itself
+  says +0.9 points and -0.30 days, so August was revised to about 49.7% and 6.95 days;
+  your "as first published" note covers it, no change needed.
+- Needs Udi: (1) approve or comment on pull request 2. Two points to judge are in its
+  description: "real vessel arrivals" means open US data today, and the paper pilot is
+  the fallback if no distributor signs a letter of interest. (2) Web fetches worked for
+  most pages today; a few sites (Marsh) still prompt.
+
 ## 2026-11-17  CTO/DEV
 - Did: test cycle on main was green at the start (39 passed, simulated run and
   check_docs OK). Built the top Product ask, the demo command:

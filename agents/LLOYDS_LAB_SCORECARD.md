@@ -19,6 +19,17 @@ Dates: applications open 9 Dec 2026, close 17 Jan 2027, shortlist 5 Feb 2027,
 Pitch Day 10 Mar 2027, Welcome Week 19 Apr 2027, Demo Day 23 Jun 2027 (confirmed on the
 accelerator page 2026-11-16). Target: application ready for Udi's final review by 5 Jan 2027.
 
+Scoring detail found 2026-11-17 in a "Lloyd's Lab Scoring Guidance" PDF hosted by Sonr
+(https://sonr.global/wp-content/uploads/2023/12/Lloyds-Lab-Scoring-Guidance.pdf, linked
+from Sonr's Cohort 17 page, https://sonr.global/?p=13687). It is not on lloyds.com and
+carries no date, so treat it as a guide, not as the rule. Each criterion is scored 1 to 5.
+Team: quality of work, relevant experience, commitment to the programme. Product:
+suitability to the Lloyd's market, innovation, market size. Programme: product
+development focus, a realistic and achievable 10-week plan, traction within the
+insurance industry. Lloyd's staff score every application, the top 40% go to market
+mentors, the top 24 pitch, and 10 to 12 are chosen. Two things we do not show at all
+today: market size, and traction within the insurance industry.
+
 ## How to use this file
 
 Both agents read it every run. The CEO agent owns it and re-scores it every Monday as
@@ -54,7 +65,7 @@ not yet approved, so it does not count.
 | A problem the market recognises | ICC Clause 4.5, TDI deductible, Otonomi and Marsh cover | No voice of an underwriter or plant | Udi | Interviews; one quotable, attributable line would lift this |
 | What is in it for Lloyd's | New short delay line, smaller TDI claims | Premium is a placeholder ($16,000) | CTO | Price the long stop from a delay distribution and show the method |
 | Specific, not generic | Worked case, port procedures, wording of the gap | Reads dense to a non-logistics reviewer | CEO, then Udi | Plain-language pass proposed 2026-11-16 in pull request 1; waits for Udi's approval |
-| Honest about competitors | "Why we win" table | Must stay current. Willog (cargo monitoring data for parametric cover) is in Cohort 17, so reviewers have just seen a cargo-data pitch | CEO | Daily watch. Decide in the outside-reader test whether to name Willog as a neighbour |
+| Honest about competitors | "Why we win" table | Must stay current. Willog (cargo monitoring data for parametric cover) is in Cohort 17, so reviewers have just seen a cargo-data pitch | CEO | Daily watch. Decide in the outside-reader test whether to name Willog as a neighbour. FourKites Inventory Twin read 2026-11-17: it moves surplus between the customer's own sites, no outside stock, loan or cover (https://www.businesswire.com/news/home/20260505928982/en/) |
 
 ## 3. Programme: would the 10-week plan work at the Lab?
 
@@ -64,9 +75,9 @@ still carry the old wording, and weeks 7 to 10 still need a distributor we do no
 
 | Reviewer will look for | What we show today | Gap | Owner | Next step |
 |---|---|---|---|---|
-| Does not hinge on data the Lab is unlikely to have | Weeks 1 to 3 replay tracking data "plus mentors' delay claims" | Syndicate delay claims data may not be shareable; 24 months of tracking data must be bought or found | CEO | CTO part done 2026-11-16 (`poc/DATA_AUDIT.md`, public-data backtest). Remaining: reword weeks 1 to 3 in deck and brief; next CEO run |
-| Realistic in 10 weeks | Backtest, wording, integration, shadow pilot | Weeks 7 to 10 need a distributor we do not have | Udi and CEO | Either secure a distributor's letter of interest before applying, or rescope the pilot to a paper replay that needs none |
-| Uses the Lab for co-design, not as a sales channel | "Who we want to work with" lists underwriters, claims, brokers | Wording must never read as a request for customers | CEO | Frame every ask as building market wording and underwriting method together |
+| Does not hinge on data the Lab is unlikely to have | Weeks 1 to 3 replay tracking data "plus mentors' delay claims" | Syndicate delay claims data may not be shareable; 24 months of tracking data must be bought or found | CEO, then Udi | CTO part done 2026-11-16 (`poc/DATA_AUDIT.md`, public-data backtest). Rewording proposed 2026-11-17 in pull request 2; waits for Udi's approval |
+| Realistic in 10 weeks | Backtest, wording, integration, shadow pilot | Weeks 7 to 10 need a distributor we do not have | Udi and CEO | Paper pilot and sample feed proposed 2026-11-17 in pull request 2, with a distributor as an upgrade. A letter of interest would still lift this; Udi's call |
+| Uses the Lab for co-design, not as a sales channel | "Who we want to work with" lists underwriters, claims, brokers | Wording must never read as a request for customers | CEO, then Udi | Co-design wording proposed 2026-11-17 in pull request 2 |
 | A clear outcome by Demo Day | Lead syndicate alongside us, facility or MGA binder scoped | Fine | CEO | Keep |
 
 ## Application package
@@ -78,6 +89,8 @@ still carry the old wording, and weeks 7 to 10 still need a distributor we do no
 | Video under 5 minutes | Not started. Needs a script, a storyboard and a POC demo to show on screen | CEO script, CTO demo, Udi records |
 | Written answers to the application form | Form opens 9 Dec. Draft from the Cohort 17 questions first | CEO |
 | Clear writing | Not yet tested on an outside reader | CEO |
+| Market size (Product, per the scoring guidance) | Not shown anywhere. Needs a sourced figure or an honest "not yet sized" | CEO, in the application answers |
+| Traction in the insurance industry (Programme, per the scoring guidance) | None. Interviews with underwriters would be the first evidence | Udi |
 
 ## Biggest gap, 2026-11-16
 
