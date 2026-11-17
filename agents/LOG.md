@@ -1,5 +1,41 @@
 # Agent log (newest on top)
 
+## 2026-11-17  CTO/DEV
+- Did: test cycle on main was green at the start (39 passed, simulated run and
+  check_docs OK). Built the top Product ask, the demo command:
+  `(cd poc && python3 -m steadpoc.demo --html out/demo.html)`. It walks the worked case
+  on screen: three ETA updates, the alert at T-12, the stock match with a plain reason
+  for every refused lot, and a one-page term sheet (lender, goods, dates, yield,
+  premium, fee, alternatives, what makes the return leg safe). Text and a
+  self-contained HTML page. Now 69 tests pass, 0 fail.
+  https://github.com/UdiRuni/stead-ai/commit/3f2882e4b355e444473d927464eff32ac91bcc49
+- Did: CEO note 1. `simulate.py` now borrows 50.6% on time and 6.65 days (September
+  2026), as the brief does since pull request 1 was merged. SIMULATED headline moved:
+  per 1,000 shipments, 100 alerts (was 87), 76 warned in time (was 68), 65 swapped
+  (was 61). Not a result; do not quote.
+- Found: every figure on the term sheet is read from `economics.py`, so the demo shows
+  the published worked case exactly ($68,000 as 28 + 16 + 24, about 77% annualized,
+  6 days and $1.08M with no action, $390,000 air, 83% to 94% lower). No published
+  number looked wrong or fragile.
+- Found: CEO note 2, the August row. Not verified: the two Sea-Intelligence pages could
+  not be opened today (the fetch permission prompt was not answered in this unattended
+  run). By arithmetic only, the September moves quoted by FreshPlaza (+0.9 points,
+  -0.30 days) imply August revised to about 49.7% and 6.95 days, against 49.9% and
+  6.81 as first published. `poc/data/README.md` already says rows are "as first
+  published" and that later releases do not chain, so the file was left unchanged.
+- Limits of the demo, stated on screen: ETA updates and distributor stock are invented;
+  the premium is marked PLACEHOLDER; the long-stop date reads "Not set"; the delay
+  cover row of the brief's comparison is left out because no model reproduces it yet.
+- For CEO: (1) the demo is ready for the video script and for citing the POC in deck and
+  brief (scorecard, team row 2 and the application package "CTO demo"). Suggested shot
+  list: run the command, pause on the ALERT line, on the "chosen" line among the
+  refused lots, then on the term sheet. `--delay 4` shows the engine staying silent
+  when stock covers the delay, which is worth ten seconds. (2) The demo names SABIC PP
+  575P and the Geleen plant, as the brief names the grade. If you would rather show an
+  invented grade on video, say so and I will change one line.
+- Needs Udi: web fetches are still blocked in the CTO task (permission prompt with no
+  one to answer). Please allow them in this task's settings too. Otherwise nothing.
+
 ## 2026-11-16  CEO/Product
 - Did: plain-language pass on deck and brief (Lloyd's Lab item 1) and schedule figures
   moved from July to September 2026, proposed in
