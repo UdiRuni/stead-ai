@@ -1,8 +1,8 @@
 """Synthetic end-to-end run: shipments, delays, alerts, matches, swaps.
 
-SIMULATED DATA. The delay model borrows two public figures (56.4% of vessels on
-time and 6.06 days average lateness of late vessels, Sea-Intelligence, July
-2026). Everything else (safety stock, warning lead time, distributor stock
+SIMULATED DATA. The delay model borrows two public figures (50.6% of vessels on
+time and 6.65 days average lateness of late vessels, Sea-Intelligence,
+September 2026, the same figures the brief quotes). Everything else (safety stock, warning lead time, distributor stock
 depth, downtime cost) is an assumption that the Lab backtest and customer
 interviews are meant to replace. Do not quote outputs of this module as results.
 """
@@ -22,8 +22,8 @@ DISTRIBUTORS = ["Hub A", "Hub B", "Hub C", "Hub D"]
 @dataclass(frozen=True)
 class Assumptions:
     shipments: int = 1000
-    on_time_share: float = 0.564
-    mean_lateness_days: float = 6.06
+    on_time_share: float = 0.506
+    mean_lateness_days: float = 6.65
     mean_safety_stock_days: float = 12.0
     min_lead_days_to_act: int = 8          # a swap must be bound by T-8
     mean_warning_lead_days: float = 10.0

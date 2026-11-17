@@ -8,11 +8,6 @@ agent may add to "Product asks", which always come before "Engineering".
 These three come from `agents/LLOYDS_LAB_SCORECARD.md` and close gaps a Lab reviewer
 will score.
 
-- [ ] Team and video: one command that walks the worked case on screen, from ETA
-      update to alert, to stock match, to a one-page term sheet (who lends what, when,
-      fee, yield, premium), readable by an underwriter. Output as text and as a
-      self-contained HTML page. Why: proof the team can build it, and the demo for
-      the application video.
 - [ ] Product: price the long stop. From a stated delay distribution, estimate the
       chance the late boxes pass the long-stop date and the premium that implies, with
       the method and assumptions written out, and compare with the $16,000
@@ -41,8 +36,11 @@ will score.
       with validation, so a real feed can replace the random one.
 - [ ] Replace the invented delay model with a replay of public schedule reliability
       data. Find sources that may be used and redistributed; record link and date.
-- [ ] Command line tool: booking plus ETA updates in, alert, match and a one-page term
-      sheet out.
+- [ ] Command line tool, rest of it: the demo (`python3 -m steadpoc.demo`) walks an
+      invented booking. Still open: read a booking, ETA updates and a stock feed from
+      files (needs the stock feed format above).
+- [ ] Demo: add the parametric delay cover row to the term sheet comparison once that
+      model exists, and the long-stop date and priced premium once the long stop is priced.
 
 ## Done
 
@@ -51,3 +49,9 @@ will score.
 - [x] 2026-11-16 Programme: data audit (`poc/DATA_AUDIT.md`) and a backtest that runs
       on public data only (`python3 -m steadpoc.backtest`, 28 sourced months in
       `poc/data/`), 25 new tests.
+- [x] 2026-11-17 Team and video: demo command `(cd poc && python3 -m steadpoc.demo)`,
+      from ETA updates to alert, to stock match with a reason for every refused lot, to
+      a one-page term sheet. Text on screen, `--html out/demo.html` for a self-contained
+      page, `--arrival YYYY-MM-DD` for calendar dates, `--delay 4` for the no-alert
+      path. 30 new tests. Simulation now borrows the September 2026 figures (50.6%,
+      6.65 days), as the brief does.

@@ -38,10 +38,10 @@ def test_committed_file_has_no_month_gaps():
 
 
 def test_committed_file_agrees_with_the_figures_the_simulation_borrows():
-    july = next(m for m in load_months() if m.month == "2026-07")
+    latest = next(m for m in load_months() if m.month == "2026-09")   # the month the brief quotes
     a = Assumptions()
-    assert july.on_time_share == pytest.approx(a.on_time_share)
-    assert july.mean_lateness_days == pytest.approx(a.mean_lateness_days)
+    assert latest.on_time_share == pytest.approx(a.on_time_share)
+    assert latest.mean_lateness_days == pytest.approx(a.mean_lateness_days)
 
 
 def test_backtest_needs_no_file_outside_the_repo_data_folder():

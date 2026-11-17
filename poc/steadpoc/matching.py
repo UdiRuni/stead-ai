@@ -39,13 +39,25 @@ class Match:
         return sum(lot.teu for lot in self.lots)
 
 
+def why_not(lot: Lot, need: Need) -> str | None:
+    """Why a lot cannot serve the need, in plain words, or None if it fits."""
+    if lot.producer != need.producer:
+        return "different producer"
+    if lot.plant != need.plant:
+        return "different producing plant"
+    if lot.grade != need.grade:
+        return "different grade code"
+    if lot.port != need.port:
+        return "wrong port"
+    if lot.teu <= 0:
+        return "no stock in the lot"
+    if lot.days_until_available > need.days_until_needed:
+        return "available too late"
+    return None
+
+
 def _fits(lot: Lot, need: Need) -> bool:
-    return (
-        (lot.producer, lot.plant, lot.grade, lot.port)
-        == (need.producer, need.plant, need.grade, need.port)
-        and lot.teu > 0
-        and lot.days_until_available <= need.days_until_needed
-    )
+    return why_not(lot, need) is None
 
 
 def find_match(need: Need, lots: list[Lot]) -> Match | None:
