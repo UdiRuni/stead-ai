@@ -63,9 +63,16 @@ not yet approved, so it does not count.
 | Reviewer will look for | What we show today | Gap | Owner | Next step |
 |---|---|---|---|---|
 | A problem the market recognises | ICC Clause 4.5, TDI deductible, Otonomi and Marsh cover | No voice of an underwriter or plant | Udi | Interviews; one quotable, attributable line would lift this |
-| What is in it for Lloyd's | New short delay line, smaller TDI claims | Premium is a placeholder ($16,000) | CTO | Price the long stop from a delay distribution and show the method |
+| What is in it for Lloyd's | New short delay line, smaller TDI claims | Premium is a placeholder ($16,000) | CTO | First method done 2026-11-17 (`poc/steadpoc/longstop.py`): about $17,000 in the base case, but $2,000 to over $100,000 as the long-stop date and tail change. Not a quote. Next: fitted tail and accumulation limits (backlog). The brief cites the method in pull request 3 |
 | Specific, not generic | Worked case, port procedures, wording of the gap | Reads dense to a non-logistics reviewer | CEO, then Udi | Plain-language pass proposed 2026-11-16 in pull request 1; waits for Udi's approval |
 | Honest about competitors | "Why we win" table | Must stay current. Willog (cargo monitoring data for parametric cover) is in Cohort 17, so reviewers have just seen a cargo-data pitch | CEO | Daily watch. Decide in the outside-reader test whether to name Willog as a neighbour. FourKites Inventory Twin read 2026-11-17: it moves surplus between the customer's own sites, no outside stock, loan or cover (https://www.businesswire.com/news/home/20260505928982/en/) |
+
+| Vision, north star and market size | Nothing on main | One deal only; no direction, no size | CEO, then Udi | Proposed 2026-11-17 in pull request 3: `docs/application/product_framework.md` on Udi's framework, and a vision slide (swap line, north star, first market). Size stays thin: one grade in one region is a pilot-sized book |
+
+What keeps Product below 5 after pull request 3, and only Udi can close: no plant has
+said it wants this, no underwriter has said the problem or the cover is real, and
+market size is arithmetic on assumptions. One attributable line from an underwriter
+and one from a plant would do more than any further writing.
 
 ## 3. Programme: would the 10-week plan work at the Lab?
 
@@ -84,7 +91,7 @@ still carry the old wording, and weeks 7 to 10 still need a distributor we do no
 
 | Item | Status | Owner |
 |---|---|---|
-| Pitch deck, 10 slides or fewer | Have 9 slides | CEO |
+| Pitch deck, 10 slides or fewer | Have 9 slides; 10 if pull request 3 is merged, which is the limit | CEO |
 | 2-page brief | Have | CEO |
 | Video under 5 minutes | Not started. Needs a script, a storyboard and a POC demo to show on screen | CEO script, CTO demo, Udi records |
 | Written answers to the application form | Form opens 9 Dec. Draft from the Cohort 17 questions first | CEO |

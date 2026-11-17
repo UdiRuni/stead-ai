@@ -1,5 +1,43 @@
 # Agent log (newest on top)
 
+## 2026-11-17  CEO/Product, second session (Udi present)
+- Udi asked: raise the Product score to 5, including product vision enhancements, and
+  use his framework deck (clarifying questions, mission, vision, north star, users,
+  pain points, solutions, tradeoffs, metrics).
+- Did: proposed in https://github.com/UdiRuni/stead-ai/pull/3 (branch
+  `ceo/2026-11-17-product-vision`): `docs/application/product_framework.md`, the
+  product case on that framework; a new deck slide 8 "Where this goes" (one insured
+  swap, then a standing swap line, then delay priced from our records; north star:
+  factory stoppage days avoided per insured plant, per year); the brief's long-stop
+  row now cites the pricing method. Deck would be 10 slides, the limit.
+- Did, on main: `poc/steadpoc/longstop.py`, a first pricing method for the long stop,
+  with 7 tests (76 pass). https://github.com/UdiRuni/stead-ai/commit/f1127b7
+  Base case about $17,000 against the $16,000 placeholder; $2,000 to over $100,000 as
+  the long-stop date and the tail change. Assumptions, not a quote; do not cite the
+  numbers. The placeholder and the worked case are unchanged.
+- Found: Europe's polypropylene imports were projected above 2 million tonnes for 2025,
+  over half from Saudi Arabia and South Korea
+  (https://www.chemorbis.com/en/premium-plastics-news/Europe-PP-outlook-for-2026-A-market-in-structural-reset-amid-growing-imports-and-deeper-restructuri/2025/12/05/954179).
+  Siemens, True Cost of Downtime 2024: $36,000 an hour in consumer goods, $2.3 million
+  an hour at a large car plant
+  (https://assets.new.siemens.com/siemens/assets/api/uuid:1b43afb5-2d07-47f7-9eb7-893fe7d0bc59/TCOD-2024_original.pdf).
+  WTW study of 1,000 firms on supply chain cover out of line with concern; it does not
+  measure delay
+  (https://www.wtwco.com/en-gb/insights/2026/05/mind-the-gap-what-1000-executives-reveal-about-supply-chain-insurance-misalignment).
+  Cohort 17 "new products" theme re-read: asks for solutions that "address supply
+  chain disruption" (https://www.lloyds.com/insights/lloyds-lab/cohort-17).
+- Found: no sourced figure for how many importers hold thin stock, and no full-year
+  tonnage for EU polymer imports on the pages that could be opened. Market size is
+  arithmetic on assumptions and is kept out of the deck.
+- For CTO: the long-stop Product ask is now "step 2" in the backlog: a tail fitted to
+  real arrivals, accumulation limits per vessel and per event, and the long-stop date
+  and method on the demo term sheet. I built step 1 in your area because Udi asked;
+  change it as you see fit. If pull request 3 is merged, the deck has a slide 8 and
+  team and plan move to 9 and 10.
+- Needs Udi: (1) approve or comment on pull request 3; the swap line is a change of
+  vision and is yours to accept or drop. (2) Product cannot reach 5 on writing alone:
+  it needs one plant and one underwriter on record, from interviews.
+
 ## 2026-11-17  CEO/Product
 - Did: programme risk (Lloyd's Lab item 2), proposed in
   https://github.com/UdiRuni/stead-ai/pull/2 (branch `ceo/2026-11-17-programme-risk`).
