@@ -213,15 +213,15 @@
       {
         "type": "cards",
         "items": [
-          {"kicker": "WEEKS 1 TO 3", "title": "Backtest", "text": "Replay 24 months of tracking and schedule data, plus mentors’ delay claims."},
+          {"kicker": "WEEKS 1 TO 3", "title": "Backtest", "text": "Extend our public-data backtest with real vessel arrivals. No mentor data needed."},
           {"kicker": "WEEKS 4 TO 6", "title": "Wording", "text": "Draft the long-stop extension with counsel, for JCC review."},
-          {"kicker": "WEEKS 7 TO 8", "title": "Integration", "text": "Connect one distributor’s stock feed and the underwriting API."},
-          {"kicker": "WEEKS 9 TO 10", "title": "Shadow pilot", "text": "Shadow-clear a Rotterdam corridor. Scope a facility or MGA binder for Demo Day."}
+          {"kicker": "WEEKS 7 TO 8", "title": "Integration", "text": "Define the stock feed and risk score API, on a sample or a distributor’s feed."},
+          {"kicker": "WEEKS 9 TO 10", "title": "Shadow pilot", "text": "Walk a late Rotterdam shipment through every step on paper. Scope a facility or MGA binder."}
         ]
       },
       {
         "type": "para",
-        "text": "**We need** a marine cargo or TDI underwriter, a claims lead, a specialty broker and one distributor. Targets are polymer houses ([Ravago](https://ravago.com/en-BE/markets/polymers), [Biesterfeld](https://www.biesterfeld.com/en/lu/service/competence-in-plastics)) and chemical distributors (Brenntag, Univar, Helm, Barentz). None is a partner yet."
+        "text": "**From the Lab we ask for co-design, not customers:** a marine cargo or TDI underwriter and a claims lead to shape wording and pricing, and a specialty broker. We recruit the distributor ourselves. Targets are polymer houses ([Ravago](https://ravago.com/en-BE/markets/polymers), [Biesterfeld](https://www.biesterfeld.com/en/lu/service/competence-in-plastics)) and chemical distributors (Brenntag, Univar, Helm, Barentz). None is a partner yet."
       },
       {
         "type": "para",
