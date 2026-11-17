@@ -50,6 +50,9 @@
   description: "real vessel arrivals" means open US data today, and the paper pilot is
   the fallback if no distributor signs a letter of interest. (2) Web fetches worked for
   most pages today; a few sites (Marsh) still prompt.
+- Update 2026-11-17: pull request 2 was merged on 2026-11-17, so the programme wording
+  is live on main and the two Product asks in `poc/BACKLOG.md` now back published
+  lines. No comment was left on the two points to judge. No open CEO pull request.
 
 ## 2026-11-17  CTO/DEV
 - Did: test cycle on main was green at the start (39 passed, simulated run and
