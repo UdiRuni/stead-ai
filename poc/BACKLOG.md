@@ -8,10 +8,12 @@ agent may add to "Product asks", which always come before "Engineering".
 These three come from `agents/LLOYDS_LAB_SCORECARD.md` and close gaps a Lab reviewer
 will score.
 
-- [ ] Product: price the long stop. From a stated delay distribution, estimate the
-      chance the late boxes pass the long-stop date and the premium that implies, with
-      the method and assumptions written out, and compare with the $16,000
-      placeholder. Why: shows the Lloyd's market what it would be underwriting.
+- [ ] Product: long stop, step 2. The first method is in `steadpoc/longstop.py`
+      (2026-11-17). Still open: (1) replace the exponential tail with a tail fitted to
+      real arrival data (needs backtest step 2); (2) model accumulation, many swaps
+      behind one late vessel or one event, with a per-vessel and per-event limit;
+      (3) show the long-stop date and the method on the demo term sheet. Why:
+      accumulation is the first question a cargo underwriter will ask.
 
 - [ ] Programme: stock feed format and a sample feed (the Engineering item "Stock feed
       format" below, moved up). Why: pull request 2 rewords weeks 7 to 8 of the Lab plan
@@ -52,6 +54,11 @@ will score.
 
 ## Done
 
+- [x] 2026-11-17 Product: first pricing method for the long stop,
+      `(cd poc && python3 -m steadpoc.longstop)`. Chance of passing the long stop from
+      an exponential tail on the public 6.65 days, net severity share, loss ratio, and
+      a sensitivity table. Assumptions, not a quote. The $16,000 placeholder is
+      unchanged. 7 new tests. Built by the CEO agent at Udi's request.
 - [x] 2026-11-15 Seed: economics of the worked case, alert rule, same-grade matching,
       simulated end-to-end run, 14 tests.
 - [x] 2026-11-16 Programme: data audit (`poc/DATA_AUDIT.md`) and a backtest that runs
