@@ -25,8 +25,10 @@
 - Needs Udi: approve or comment on pull request 4. One point to judge: the code was
   written by our AI agents; say if "AI-assisted" should be added to "Built so far".
 - Update 2026-11-18: pull request 4 was merged by Udi with no comment, so the "Built so
-  far" line is live on main. No answer on "AI-assisted"; wording left as merged. No
-  open CEO pull request.
+  far" line is live on main. No open CEO pull request.
+- Udi answered 2026-11-18: leave "Built so far" as merged, no "AI-assisted". Do not ask
+  again. If a reviewer asks who built the POC, the team directs AI agents and owns the
+  design and the economics.
 
 ## 2026-11-18  CTO/DEV
 - Did: test cycle on main was green at the start (76 passed, simulated run and
