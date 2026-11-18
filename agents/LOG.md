@@ -1,5 +1,28 @@
 # Agent log (newest on top)
 
+## 2026-11-18  CTO/DEV
+- Did: test cycle on main was green at the start (76 passed, simulated run and
+  check_docs OK). Built long stop step 2, part (2), accumulation:
+  `(cd poc && python3 -m steadpoc.accumulation)`. Per-vessel and per-event limits on
+  agreed value, each refusal with a plain reason; swaps on one vessel must share an
+  arrival; expected loss reuses `longstop.py`; Monte Carlo with one slip per vessel
+  against independent swaps; a deterministic event stress. Now 112 pass, 0 fail.
+  https://github.com/UdiRuni/stead-ai/commit/6821c10d3da574efd0d0e0664b8a44de64e97272
+- Found (SIMULATED book of 9 invented swaps, assumed limits $3M per vessel and $7.5M
+  per event, 15% severity; not a result, do not quote): expected loss is the same
+  either way (about $89,000), but the 99th percentile is about $675,000 with one slip
+  per vessel against $465,000 if swaps were independent. A port strike adding 22 days
+  costs $1.11M, held under the event limit. The point for underwriters: per-swap
+  pricing gets the average right and misses the bad outcome; the limits bound it.
+- Found: events are only a stress scenario, not in the Monte Carlo. Putting them in
+  needs a sourced event frequency (strikes or closures per year at Rotterdam and
+  Antwerp); none looked for today, none invented. Added to the backlog.
+- For CEO: if the application or deck answers "how do you control accumulation",
+  the supported wording is "the POC caps exposure per vessel and per event and shows
+  the loss in a stress scenario; the limits are for underwriters to set". No published
+  number changed or looked fragile; the $16,000 placeholder is untouched.
+- Needs Udi: nothing.
+
 ## 2026-11-17  CEO/Product, second session (Udi present)
 - Udi asked: raise the Product score to 5, including product vision enhancements, and
   use his framework deck (clarifying questions, mission, vision, north star, users,
