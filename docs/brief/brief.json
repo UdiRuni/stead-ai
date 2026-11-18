@@ -119,7 +119,7 @@
         "items": [
           "**Release is digital.** [Rotterdam’s Secure Chain](https://breakbulk.news/port-of-rotterdam-ends-use-of-fraud-sensitive-pin-codes-for-container-release/) and [Antwerp](https://en.flows.be/?p=76415) have retired PIN codes, so forwarders and hauliers enroll first.",
           "**Customs stays suspended.** Goods may wait [90 days in temporary storage](https://belastingdienst.nl/wps/wcm/connect/bldcontenten/belastingdienst/customs/customs-processes/temporary-storage-of-goods/temporary-storage-of-goods). [Customs transit (T1)](https://flexport.com/glossary/External-Transit-T1) moves them to an approved warehouse, where [duty and VAT stay suspended](https://guichet.public.lu/en/entreprises/import-export/importation/import-depuis-pays-tiers/entrepot-douanier.html) and [rights under the procedure can transfer](https://www.thetradehub.eu/en/reglementation/uk/eu/ucc-952-2013/article/218) to a qualified holder.",
-          "**eBL-ready, not eBL-dependent.** An electronic bill of lading (eBL) or sea waybill lets the delivery order change 72 hours before berthing. With a to-order eBL, [recognised in Dutch law since July 2026](https://www.iccwbo.nl/news/the-green-light-for-ebls), control can pass to the lender at loan start, as security, for counsel to confirm."
+          "**eBL-ready, not eBL-dependent.** An electronic bill of lading (eBL) or sea waybill lets the delivery order change 72 hours before berthing. With a to-order eBL, [recognised in Dutch law since July 2026](https://www.iccwbo.nl/news/the-green-light-for-ebls), control can pass to the lender as security, for counsel to confirm."
         ]
       },
       {
@@ -225,7 +225,7 @@
       },
       {
         "type": "para",
-        "text": "**Team:** Udi Bahat, CEO: lead PM for risk products at PayPal until October 2026, 20+ years in fintech, M.Sc. Computer Science, cum laude. Ronit Oren, PhD, CTO: Cornell PhD and algorithm developer, nearly six years leading product at Wix."
+        "text": "**Team:** Udi Bahat, CEO: lead PM for risk products at PayPal until October 2026, 20+ years in fintech, M.Sc. Computer Science, cum laude. Ronit Oren, PhD, CTO: Cornell PhD and algorithm developer, nearly six years leading product at Wix. **Built so far:** a proof of concept that runs one swap from alert to term sheet on illustrative data."
       }
     ]
   ]
