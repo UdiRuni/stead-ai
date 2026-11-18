@@ -97,7 +97,7 @@ def report() -> str:
         lines.append(f"{tail:<13} T+{d:<9}" + "".join(f"${p:>9,.0f} " for p in premiums))
     lines += ["", "Reading: the premium is driven by the long-stop date and the tail, the two",
               "things underwriters and real delay data must set. Accumulation (many swaps",
-              "behind one late vessel or one event) is not modelled here."]
+              "behind one late vessel or one event): python3 -m steadpoc.accumulation"]
     return "\n".join(lines)
 
 

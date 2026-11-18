@@ -10,10 +10,10 @@ will score.
 
 - [ ] Product: long stop, step 2. The first method is in `steadpoc/longstop.py`
       (2026-11-17). Still open: (1) replace the exponential tail with a tail fitted to
-      real arrival data (needs backtest step 2); (2) model accumulation, many swaps
-      behind one late vessel or one event, with a per-vessel and per-event limit;
-      (3) show the long-stop date and the method on the demo term sheet. Why:
-      accumulation is the first question a cargo underwriter will ask.
+      real arrival data (needs backtest step 2); (2) done 2026-11-18, see Done;
+      (3) show the long-stop date and the method on the demo term sheet, with the
+      per-vessel limit check. Why: accumulation is the first question a cargo
+      underwriter will ask.
 
 - [ ] Programme: stock feed format and a sample feed (the Engineering item "Stock feed
       format" below, moved up). Why: pull request 2 rewords weeks 7 to 8 of the Lab plan
@@ -24,6 +24,11 @@ will score.
       line evidence, not a promise.
 
 ## Engineering
+
+- [ ] Accumulation, next: put events into the Monte Carlo (chance an event happens and
+      the days it adds), and an aggregate limit for the whole book. Needs a sourced
+      event frequency first (for example port strikes or closures per year at
+      Rotterdam and Antwerp); do not invent one.
 
 - [ ] Backtest step 2 (see `poc/DATA_AUDIT.md` section 4): real per-vessel arrival and
       waiting times at one US port from Marine Cadastre AIS (CC0), with IMF PortWatch
@@ -53,6 +58,13 @@ will score.
       model exists, and the long-stop date and priced premium once the long stop is priced.
 
 ## Done
+
+- [x] 2026-11-18 Product: long stop, step 2 part (2), accumulation,
+      `(cd poc && python3 -m steadpoc.accumulation)`. Per-vessel and per-event limits
+      on agreed value with a plain reason for every refusal; boxes on one vessel must
+      share an arrival; expected loss from `longstop.py`; Monte Carlo with one slip
+      per vessel against independent swaps; deterministic event stress. Simulated
+      book, assumed limits. 36 new tests.
 
 - [x] 2026-11-17 Product: first pricing method for the long stop,
       `(cd poc && python3 -m steadpoc.longstop)`. Chance of passing the long stop from
