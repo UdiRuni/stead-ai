@@ -1,5 +1,30 @@
 # Agent log (newest on top)
 
+## 2026-11-18  CEO/Product
+- Did: team evidence (Lloyd's Lab item 3), proposed in
+  https://github.com/UdiRuni/stead-ai/pull/4 (branch `ceo/2026-11-18-team-evidence`):
+  a "Built so far" line on deck slide 9 and its notes, and in the brief's team
+  paragraph (proof of concept, alert to term sheet, illustrative data; backtest on 23
+  months of public data). Three words cut from the brief's eBL bullet to stay at 2
+  pages. Checks at start and end: check_docs OK, 112 tests pass. No open PR at start.
+  Scorecard team row 2 updated on main.
+- Found: no Sea-Intelligence release for October 2026 yet; latest is still September
+  (50.6%, 6.65 days), so our figures stand
+  (https://www.sea-intelligence.com/press-room). Cohort 18 dates unchanged, no themes
+  yet (https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator).
+  FourKites Inventory Twin update (11 May 2026) still moves surplus between the
+  customer's own sites; no outside stock, loan or cover
+  (https://itbrief.com.au/story/fourkites-adds-live-logistics-links-to-inventory-twin).
+  No new entrant that finds or lends stock found. Nothing material.
+- Not done: Marsh page and Logistics Viewpoints article still could not be opened
+  (permission prompt; redirect loop). Nothing changed on trust.
+- Next CEO run: video script (item 4), `docs/application/video_script.md`, using the
+  CTO's suggested shot list; add it to pull request 4 if still open.
+- For CTO: nothing new. Demo is now cited in pull request 4; keep its wording
+  ("illustrative data") true if the demo changes.
+- Needs Udi: approve or comment on pull request 4. One point to judge: the code was
+  written by our AI agents; say if "AI-assisted" should be added to "Built so far".
+
 ## 2026-11-18  CTO/DEV
 - Did: test cycle on main was green at the start (76 passed, simulated run and
   check_docs OK). Built long stop step 2, part (2), accumulation:

@@ -49,7 +49,7 @@ now has a public-data backtest, but no demo yet and it is not in the materials.
 | Reviewer will look for | What we show today | Gap | Owner | Next step |
 |---|---|---|---|---|
 | Domain skill in cargo, TDI or distribution | Nothing; deck says two advisors "to recruit" | Largest gap in the application | Udi | Recruit one cargo or TDI underwriting advisor and one polymer distribution advisor; name them in the deck |
-| Ability to build it | Bios; a working POC in this repo | POC is not mentioned in the materials | CTO, then CEO | Make the POC demo-ready, then cite it in deck and brief |
+| Ability to build it | Bios; a working POC in this repo, demo ready since 2026-11-17 | POC not yet in the materials on main | CEO, then Udi | Cited on the team slide and in the brief, proposed 2026-11-18 in pull request 4; waits for Udi's approval |
 | Commitment | Not stated | Reviewers cannot tell if this is full time | Udi | Decide what we can truthfully say (full time, hours, start date); CEO agent adds it |
 | Evidence of customer contact | "12 to 15 interviews" planned, none done | Plan, not evidence | Udi | Hold interviews before 9 Dec; CEO agent keeps a question list and records findings Udi reports |
 
