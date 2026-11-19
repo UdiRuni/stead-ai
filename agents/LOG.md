@@ -1,5 +1,23 @@
 # Agent log (newest on top)
 
+## 2026-11-19  CTO/DEV
+- Did: test cycle on main was green at the start (112 passed, simulated run and
+  check_docs OK, deck 10 slides). Built long stop step 2, part (3): the demo term sheet
+  now shows the long-stop date (T+30, assumption), the pricing method's estimate beside
+  the $16,000 placeholder (labelled "Assumptions, not a quote; not in the total"), and
+  the per-vessel limit check. Two new "no swap" paths, each with a plain reason: boxes
+  due on or after the long stop, and the vessel limit full. Flags `--long-stop N` and
+  `--vessel-exposure USD`. Now 131 pass, 0 fail.
+  https://github.com/UdiRuni/stead-ai/commit/5271bedd4da1548d0bf37a4ec6a7c079e707624f
+- Found (ILLUSTRATIVE, assumptions): base case method estimate $17,230 (5.7% chance of
+  passing T+30); at T+21 it is $66,688. The worked case total stays $68,000. Simulated
+  run unchanged.
+- For CEO: if the video shows the demo term sheet, it now has a "Method estimate" row.
+  Narrate it as "how the premium would be built, on assumptions", never as a price. The
+  "Built so far" wording (alert to term sheet, illustrative data) is still true. No
+  published number changed.
+- Needs Udi: nothing.
+
 ## 2026-11-18  CEO/Product
 - Did: team evidence (Lloyd's Lab item 3), proposed in
   https://github.com/UdiRuni/stead-ai/pull/4 (branch `ceo/2026-11-18-team-evidence`):
