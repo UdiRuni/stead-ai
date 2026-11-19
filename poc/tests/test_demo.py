@@ -73,7 +73,8 @@ def test_output_is_labelled_and_claims_nothing(output):
     assert "PLACEHOLDER" in plain and "Proposed. No insurer is committed" in plain
     assert chr(0x2014) not in plain and "lodestar" not in plain.lower()
     assert "risk-free" not in plain.lower() and "guarantee" not in plain.lower().replace("average guarantee", "")
-    assert "Long-stop date" in plain and "Not set" in plain
+    assert "Long-stop date" in plain and "to be set with underwriters" in plain
+    assert "Assumptions, not a quote; not in the total" in plain and "per-vessel limit (assumption)" in plain
 
 
 def test_html_is_self_contained_and_escaped():
@@ -206,3 +207,114 @@ def test_cli_no_alert_and_bad_input(capsys):
     assert "non-negative" in capsys.readouterr().err
     with pytest.raises(SystemExit):
         main(["--arrival", "next week"])
+
+
+# ---- long-stop date, pricing method and vessel limit on the term sheet ----
+
+from steadpoc.accumulation import Limits
+from steadpoc.demo import LONG_STOP_DAY, VESSEL, cover_for
+from steadpoc.longstop import LongStop
+
+
+def test_term_sheet_shows_long_stop_date_and_method_without_changing_the_total():
+    r = rows()
+    base = LongStop()
+    assert LONG_STOP_DAY == 30
+    assert r["Long-stop date"].startswith("T+30: 19 days after the expected return")
+    assert r["Method estimate"].startswith(f"${base.premium_usd:,.0f}: {base.chance_of_passing:.1%} chance")
+    assert "$180,000 net loss (15% of value) / 60% loss ratio" in r["Method estimate"]
+    assert r["Long-stop premium"].startswith("$16,000") and r["Total"] == "$68,000"
+    assert r["Vessel limit"] == f"$1,200,000 on {VESSEL} with this swap, within the $3,000,000 per-vessel limit (assumption)"
+
+
+def test_long_stop_date_shows_on_the_calendar():
+    r = rows(build_demo(arrival=date(2027, 3, 1)))
+    assert r["Long-stop date"].startswith("T+30 (31 Mar 2027)")
+
+
+def test_earlier_long_stop_raises_the_method_estimate_only():
+    early, late = rows(build_demo(long_stop_day=21)), rows(build_demo(long_stop_day=45))
+    price = lambda r: float(r["Method estimate"].split(":")[0].strip("$").replace(",", ""))
+    assert price(early) > price(rows()) > price(late)
+    assert early["Total"] == late["Total"] == "$68,000"
+    assert early["Long-stop date"].startswith("T+21: 10 days after")
+
+
+def test_method_estimate_follows_a_changed_case():
+    r = rows(build_demo(replace(CASE, delay_days=9)))
+    expected = LongStop(expected_delay_days=9).premium_usd
+    assert r["Method estimate"].startswith(f"${expected:,.0f}:")
+    assert r["Long-stop date"].startswith("T+30: 21 days after")
+
+
+@pytest.mark.parametrize("long_stop", [11, 10, 1])
+def test_no_swap_when_boxes_are_due_on_or_after_the_long_stop(long_stop):
+    d = build_demo(long_stop_day=long_stop)
+    assert d.term_sheet is None and d.match is not None
+    assert d.outcome.startswith("No swap") and f"long-stop date T+{long_stop}" in d.outcome
+
+
+def test_one_day_of_margin_still_offers_a_swap():
+    d = build_demo(long_stop_day=12)
+    assert d.term_sheet is not None
+    assert rows(d)["Long-stop date"].startswith("T+12: 1 day after")
+
+
+def test_vessel_limit_full_refuses_with_the_reason():
+    d = build_demo(other_on_vessel_usd=2_500_000)
+    assert d.term_sheet is None and d.match is not None
+    assert "would carry $3,700,000, over the $3,000,000 per-vessel limit" in d.outcome
+    assert "assumed limit" in d.outcome
+
+
+def test_vessel_limit_exactly_reached_is_accepted():
+    d = build_demo(other_on_vessel_usd=1_800_000)
+    assert d.term_sheet is not None
+    assert rows(d)["Vessel limit"].startswith("$3,000,000 on")
+
+
+def test_vessel_limit_one_dollar_over_is_refused():
+    assert build_demo(other_on_vessel_usd=1_800_001).term_sheet is None
+
+
+def test_custom_limits_apply():
+    assert build_demo(limits=Limits(per_vessel_usd=1_000_000)).term_sheet is None
+    r = rows(build_demo(limits=Limits(per_vessel_usd=5_000_000), other_on_vessel_usd=3_000_000))
+    assert "$4,200,000 on" in r["Vessel limit"] and "$5,000,000 per-vessel" in r["Vessel limit"]
+
+
+def test_no_alert_path_never_checks_cover():
+    d = build_demo(replace(CASE, delay_days=4), long_stop_day=1, other_on_vessel_usd=9e9)
+    assert d.alert is None and d.outcome.startswith("No alert")
+
+
+@pytest.mark.parametrize("kwargs", [{"long_stop_day": 0}, {"long_stop_day": -5},
+                                    {"other_on_vessel_usd": -1}])
+def test_bad_cover_inputs_are_refused(kwargs):
+    with pytest.raises(ValueError):
+        build_demo(**kwargs)
+
+
+def test_cover_for_refuses_bad_inputs():
+    with pytest.raises(ValueError):
+        cover_for(CASE, long_stop_day=CASE.delay_days)
+    with pytest.raises(ValueError):
+        cover_for(CASE, other_on_vessel_usd=-10)
+    assert cover_for(CASE).decision.accepted and cover_for(CASE).on_vessel_usd == CASE.notional_usd
+
+
+def test_cover_rows_render_in_html():
+    assert "Method estimate" in HTML and "Vessel limit" in HTML and "T+30" in HTML
+
+
+def test_cli_long_stop_and_vessel_exposure(capsys):
+    assert main(["--long-stop", "21"]) == 0
+    assert "T+21: 10 days after" in capsys.readouterr().out
+    assert main(["--vessel-exposure", "2500000"]) == 0
+    assert "per-vessel limit" in capsys.readouterr().out
+    assert main(["--long-stop", "11"]) == 0
+    assert "cannot be covered" in capsys.readouterr().out
+    assert main(["--long-stop", "0"]) == 2
+    assert "after T" in capsys.readouterr().err
+    assert main(["--vessel-exposure", "-1"]) == 2
+    assert "negative" in capsys.readouterr().err

@@ -9,10 +9,18 @@ the demo. The money comes from steadpoc.economics.SwapCase, which is the worked
 case published in the deck and the brief: assumptions, not data. The long-stop
 cover is proposed, its premium is a placeholder, and no insurer is committed.
 
+The term sheet also shows the long-stop date, the pricing method from
+steadpoc.longstop (an estimate on assumptions, shown beside the placeholder,
+never in the total) and the per-vessel limit check from steadpoc.accumulation.
+The long-stop date, the limit, the vessel and any other exposure on it are
+assumptions for underwriters to set.
+
 Run:  (cd poc && python3 -m steadpoc.demo)
       (cd poc && python3 -m steadpoc.demo --html out/demo.html)
       (cd poc && python3 -m steadpoc.demo --delay 4)          no alert
       (cd poc && python3 -m steadpoc.demo --arrival 2027-03-01)  calendar dates
+      (cd poc && python3 -m steadpoc.demo --long-stop 21)     earlier long stop
+      (cd poc && python3 -m steadpoc.demo --vessel-exposure 2500000)  vessel limit full
 """
 import argparse
 import sys
@@ -21,7 +29,9 @@ from datetime import date, timedelta
 from html import escape
 from pathlib import Path
 
+from .accumulation import Book, Decision, Limits, Swap
 from .economics import SwapCase
+from .longstop import LongStop
 from .matching import Lot, Match, Need, find_match, why_not
 from .warning import Alert, EtaUpdate, evaluate
 
@@ -30,6 +40,38 @@ NO_CAPACITY = ("The long-stop cover is proposed. Its premium is a placeholder, n
                "No Lloyd's capacity, insurer, distributor or customer is committed today.")
 BOOKING = "BK-DEMO-001"
 TEMPORARY_STORAGE_LIMIT_DAYS = 90     # customs limit quoted in the brief
+VESSEL = "MV DEMO"                    # invented vessel carrying the late boxes
+LONG_STOP_DAY = LongStop().long_stop_day   # T+30, assumption, as in longstop.py
+
+
+@dataclass(frozen=True)
+class Cover:
+    """The long-stop terms and the accumulation check for one swap. Assumptions."""
+    pricing: LongStop
+    vessel: str
+    limits: Limits
+    other_on_vessel_usd: float        # agreed value of other swaps already on the vessel
+    decision: Decision
+
+    @property
+    def on_vessel_usd(self) -> float:
+        return self.other_on_vessel_usd + self.pricing.agreed_value_usd
+
+
+def cover_for(case: SwapCase, long_stop_day: int = LONG_STOP_DAY, vessel: str = VESSEL,
+              limits: Limits = Limits(), other_on_vessel_usd: float = 0.0) -> Cover:
+    """Price the long stop and check the per-vessel limit. Raises ValueError if the
+    long stop does not fall after the expected return, or inputs are negative."""
+    if other_on_vessel_usd < 0:
+        raise ValueError("other exposure on the vessel cannot be negative")
+    pricing = LongStop(agreed_value_usd=case.notional_usd, expected_delay_days=case.delay_days,
+                       long_stop_day=long_stop_day)
+    book = Book(limits=limits)
+    if other_on_vessel_usd > 0:
+        # the swaps already on this vessel wait for the same boxes' arrival
+        book.swaps.append(Swap("OTHER", vessel, other_on_vessel_usd, case.delay_days, long_stop_day))
+    swap = Swap(BOOKING, vessel, case.notional_usd, case.delay_days, long_stop_day)
+    return Cover(pricing, vessel, limits, other_on_vessel_usd, book.check(swap))
 
 
 @dataclass(frozen=True)
@@ -73,6 +115,7 @@ class TermSheet:
     lots: tuple[Lot, ...]
     case: SwapCase
     schedule: Schedule
+    cover: Cover
 
     @property
     def return_day(self) -> int:
@@ -137,11 +180,16 @@ def _verdict(lot: Lot, need: Need, match: Match | None, stock: list[Lot]) -> str
 
 def build_demo(case: SwapCase = SwapCase(), schedule: Schedule = Schedule(),
                stock: list[Lot] | None = None, feed: tuple[Feed, ...] | None = None,
-               arrival: date | None = None) -> Demo:
+               arrival: date | None = None, long_stop_day: int = LONG_STOP_DAY,
+               limits: Limits = Limits(), other_on_vessel_usd: float = 0.0) -> Demo:
     if case.delay_days < 0 or case.safety_stock_days < 0:
         raise ValueError("delay_days and safety_stock_days must be non-negative")
     if case.teu <= 0:
         raise ValueError("teu must be positive")
+    if long_stop_day <= 0:
+        raise ValueError("the long-stop date must fall after T")
+    if other_on_vessel_usd < 0:
+        raise ValueError("other exposure on the vessel cannot be negative")
     stock = demo_stock() if stock is None else stock
     feed = demo_feed(case, schedule) if feed is None else feed
     producer, plant, grade, port = NEED_GOODS
@@ -172,8 +220,16 @@ def build_demo(case: SwapCase = SwapCase(), schedule: Schedule = Schedule(),
                     "in time. The plant is told at once, with the days left to act.", verdicts)
     if not case.swap_is_worth_it:
         return done("No swap: it would cost more than the stoppage it avoids.", verdicts, match)
+    if long_stop_day <= case.delay_days:
+        return done(f"No swap: the late boxes are expected at T+{case.delay_days}, on or after the "
+                    f"long-stop date T+{long_stop_day}, so the return leg cannot be covered.",
+                    verdicts, match)
+    cover = cover_for(case, long_stop_day, VESSEL, limits, other_on_vessel_usd)
+    if not cover.decision.accepted:
+        return done("No swap: " + "; ".join(cover.decision.reasons) + ". The assumed limit is "
+                    "full, so the cover could not be bound.", verdicts, match)
     sheet = TermSheet(BOOKING, match.distributor, f"{producer} {grade}, produced at {plant}",
-                      port, case.teu, match.lots, case, schedule)
+                      port, case.teu, match.lots, case, schedule, cover)
     return done("Swap offered: the term sheet below goes to the plant, the distributor and "
                 "the underwriter.", verdicts, match, sheet)
 
@@ -191,9 +247,14 @@ def day(offset: int, arrival: date | None = None) -> str:
     return f"{label} ({(arrival + timedelta(days=offset)).strftime('%d %b %Y')})"
 
 
+def _days(n: int) -> str:
+    return f"{n} day" if n == 1 else f"{n} days"
+
+
 def term_sheet_rows(sheet: TermSheet, arrival: date | None = None) -> list[tuple[str, list[tuple[str, str]]]]:
     """The term sheet as sections of (label, value) rows; text and HTML both render this."""
-    c, s = sheet.case, sheet.schedule
+    c, s, cv = sheet.case, sheet.schedule, sheet.cover
+    ls = cv.pricing
     lots = "; ".join(f"{lot.teu} TEU, " + ("in bond at the port now" if lot.days_until_available == 0
                      else f"free in {lot.days_until_available} days") for lot in sheet.lots)
     return [
@@ -218,12 +279,17 @@ def term_sheet_rows(sheet: TermSheet, arrival: date | None = None) -> list[tuple
             ("Loan repaid", f"{day(sheet.return_day, arrival)}: the late boxes go to the lender's customs "
                             f"warehouse under customs transit (T1), not cleared by the plant"),
             ("Loan length", f"{c.loan_days} days"),
-            ("Long-stop date", "Not set. To be designed with underwriters"),
+            ("Long-stop date", f"{day(ls.long_stop_day, arrival)}: {_days(ls.long_stop_day - sheet.return_day)} "
+                               f"after the expected return (assumption, to be set with underwriters)"),
         ]),
         ("Cost of the swap", [
             ("Lender's yield", f"{usd(c.lender_yield_usd)}, about {c.lender_annualized_yield:.0%} "
                                f"annualized (simple, on {c.loan_days} days)"),
             ("Long-stop premium", f"{usd(c.premium_usd)}, PLACEHOLDER, not yet priced"),
+            ("Method estimate", f"{usd(ls.premium_usd)}: {ls.chance_of_passing:.1%} chance the boxes pass "
+                                f"the long stop x {usd(ls.net_loss_usd)} net loss "
+                                f"({ls.net_severity_share:.0%} of value) / {ls.target_loss_ratio:.0%} loss ratio. "
+                                f"Assumptions, not a quote; not in the total"),
             ("stead.ai fee", f"{usd(c.fee_usd)}, {c.fee_rate:.1%} of value"),
             ("Total", usd(c.swap_cost_usd)),
         ]),
@@ -239,6 +305,8 @@ def term_sheet_rows(sheet: TermSheet, arrival: date | None = None) -> list[tuple
             ("Boxes lost", "Existing cover: the plant's cargo policy, with the lender named loss payee"),
             ("General Average", "Existing practice: the plant's cargo insurer issues the average guarantee"),
             ("Boxes far later", "New and proposed: pays an agreed value if the late boxes pass the long-stop date"),
+            ("Vessel limit", f"{usd(cv.on_vessel_usd)} on {cv.vessel} with this swap, within the "
+                             f"{usd(cv.limits.per_vessel_usd)} per-vessel limit (assumption)"),
             ("Customs", f"The late boxes may wait up to {TEMPORARY_STORAGE_LIMIT_DAYS} days in temporary "
                         f"storage before the T1 move; duty and VAT stay suspended"),
             ("Not covered", "Plant default is credit risk: it needs a pledge over the late cargo or trade credit cover"),
@@ -351,6 +419,10 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--delay", type=int, help="days late (default: the worked case, 11)")
     p.add_argument("--stock-days", type=int, help="plant safety stock in days (default: 5)")
     p.add_argument("--arrival", type=date.fromisoformat, help="scheduled arrival, YYYY-MM-DD, to show calendar dates")
+    p.add_argument("--long-stop", type=int, default=LONG_STOP_DAY,
+                   help=f"long-stop date in days after T (default: {LONG_STOP_DAY}, an assumption)")
+    p.add_argument("--vessel-exposure", type=float, default=0.0,
+                   help="agreed value of other swaps already on the same vessel, USD (default: 0)")
     p.add_argument("--html", type=Path, help="also write a self-contained HTML page to this path")
     args = p.parse_args(argv)
     case = SwapCase()
@@ -359,7 +431,8 @@ def main(argv: list[str] | None = None) -> int:
     if args.stock_days is not None:
         case = replace(case, safety_stock_days=args.stock_days)
     try:
-        demo = build_demo(case, arrival=args.arrival)
+        demo = build_demo(case, arrival=args.arrival, long_stop_day=args.long_stop,
+                          other_on_vessel_usd=args.vessel_exposure)
     except ValueError as err:
         print(f"error: {err}", file=sys.stderr)
         return 2

@@ -10,10 +10,9 @@ will score.
 
 - [ ] Product: long stop, step 2. The first method is in `steadpoc/longstop.py`
       (2026-11-17). Still open: (1) replace the exponential tail with a tail fitted to
-      real arrival data (needs backtest step 2); (2) done 2026-11-18, see Done;
-      (3) show the long-stop date and the method on the demo term sheet, with the
-      per-vessel limit check. Why: accumulation is the first question a cargo
-      underwriter will ask.
+      real arrival data (needs backtest step 2, so it waits for that item below);
+      (2) done 2026-11-18 and (3) done 2026-11-19, see Done. Why: accumulation is the
+      first question a cargo underwriter will ask.
 
 - [ ] Programme: stock feed format and a sample feed (the Engineering item "Stock feed
       format" below, moved up). Why: pull request 2 rewords weeks 7 to 8 of the Lab plan
@@ -55,9 +54,18 @@ will score.
       invented booking. Still open: read a booking, ETA updates and a stock feed from
       files (needs the stock feed format above).
 - [ ] Demo: add the parametric delay cover row to the term sheet comparison once that
-      model exists, and the long-stop date and priced premium once the long stop is priced.
+      model exists. (Long-stop date and method estimate added 2026-11-19.)
+- [ ] Demo: warn when the long-stop date falls beyond the 90 day temporary storage
+      limit, if that matters for the return leg; check the customs rule first.
 
 ## Done
+
+- [x] 2026-11-19 Product: long stop, step 2 part (3). The demo term sheet now shows
+      the long-stop date (T+30, assumption), the method estimate from `longstop.py`
+      beside the $16,000 placeholder (never in the total), and the per-vessel limit
+      check from `accumulation.py`. Two new "no swap" paths with plain reasons: boxes
+      due on or after the long stop, and vessel limit full. New flags `--long-stop N`
+      and `--vessel-exposure USD`. 19 new tests.
 
 - [x] 2026-11-18 Product: long stop, step 2 part (2), accumulation,
       `(cd poc && python3 -m steadpoc.accumulation)`. Per-vessel and per-event limits
