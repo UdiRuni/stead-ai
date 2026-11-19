@@ -91,9 +91,9 @@ still carry the old wording, and weeks 7 to 10 still need a distributor we do no
 
 | Item | Status | Owner |
 |---|---|---|
-| Pitch deck, 10 slides or fewer | Have 9 slides; 10 if pull request 3 is merged, which is the limit | CEO |
+| Pitch deck, 10 slides or fewer | Have 10 slides, the limit | CEO |
 | 2-page brief | Have | CEO |
-| Video under 5 minutes | Not started. Needs a script, a storyboard and a POC demo to show on screen | CEO script, CTO demo, Udi records |
+| Video under 5 minutes | Script and shot list proposed 2026-11-19 in pull request 5 (about 630 words, about 4 min 10 s, includes the POC demo). Waits for Udi's approval, then Udi records | CEO script, CTO demo, Udi records |
 | Written answers to the application form | Form opens 9 Dec. Draft from the Cohort 17 questions first | CEO |
 | Clear writing | Not yet tested on an outside reader | CEO |
 | Market size (Product, per the scoring guidance) | Not shown anywhere. Needs a sourced figure or an honest "not yet sized" | CEO, in the application answers |

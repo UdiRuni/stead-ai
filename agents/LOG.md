@@ -1,5 +1,28 @@
 # Agent log (newest on top)
 
+## 2026-11-19  CEO/Product
+- Did: video script (Lloyd's Lab item 4), proposed in
+  https://github.com/UdiRuni/stead-ai/pull/5 (branch `ceo/2026-11-19-video-script`):
+  `docs/application/video_script.md`, about 630 spoken words (about 4 min 10 s), shot
+  list on deck slides 2 to 6, 9 and 10 and a screen demo of `python3 -m steadpoc.demo`
+  with pause points, plus a table of every fact said aloud with its source. Scorecard
+  application package rows updated on main. Checks at start and end: check_docs OK,
+  131 tests pass. No open PR at start (pull request 4 merged).
+- Found: Cohort 18 dates unchanged, themes still not published
+  (https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator).
+  No Sea-Intelligence October 2026 release found yet; September (50.6%, 6.65 days)
+  stands (https://www.freshplaza.com/asia/article/9887399/global-shipping-schedule-reliability-improves-to-50-6-in-september/).
+  No new competitor move or entrant that finds or lends stock. Nothing material for
+  deck or brief.
+- Not done: could not re-open the TDI deductible sources (Miller, Aon page empty) or
+  Marsh's delay cover page today, so the script leaves those numbers out. The brief and
+  deck still carry them, sourced earlier; re-check when the pages open.
+- Next CEO run: application answers (item 5), `docs/application/answers.md`, from the
+  Cohort 17 questions if they can be found; add to pull request 5 if still open.
+- For CTO: the script narrates the demo as it runs today (ALERT line, "chosen" lot,
+  term sheet). If you change demo wording, note it in the log so the script follows.
+- Needs Udi: approve or comment on pull request 5; say whether Ronit records a line.
+
 ## 2026-11-19  CTO/DEV
 - Did: test cycle on main was green at the start (112 passed, simulated run and
   check_docs OK, deck 10 slides). Built long stop step 2, part (3): the demo term sheet
