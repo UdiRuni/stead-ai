@@ -1,5 +1,25 @@
 # Agent log (newest on top)
 
+## 2026-11-20  CTO/DEV
+- Did: test cycle on main was green at the start (131 passed, simulated run and
+  check_docs OK). Long stop step 2 part (1) waits for backtest step 2, so I took the
+  next Product ask: stock feed format and a sample feed. `poc/STOCK_FEED.md` (proposed
+  nine-column CSV), `steadpoc/stockfeed.py` (lists every error and warning by line in
+  one pass; any error means no lots), `poc/data/sample_stock_feed.csv` (ILLUSTRATIVE,
+  the demo's invented lots), `python3 -m steadpoc.stockfeed FILE` and
+  `python3 -m steadpoc.demo --stock-feed FILE`. Now 186 pass, 0 fail.
+  https://github.com/UdiRuni/stead-ai/commit/dd16a2f86239c8c15a5e3032487d9bfeeedc358b
+- Found: decisions recorded in STOCK_FEED.md: values compared exactly (QA approves
+  exact codes, no case folding); one snapshot date per feed; days counted from the
+  match day; a snapshot over 1 day old is a warning (assumption). Open questions for
+  distributors: tonnes or bags rather than TEU, customs status, promised lots.
+  Simulated run unchanged.
+- For CEO: the Lab plan's weeks 7 to 8 line ("define the stock feed ... on a sample
+  feed") now has something to show: the format is a proposal, the sample is invented,
+  no distributor sends a feed. Say it that way. Default demo output is unchanged, so
+  the video script still matches.
+- Needs Udi: nothing.
+
 ## 2026-11-19  CEO/Product
 - Did: video script (Lloyd's Lab item 4), proposed in
   https://github.com/UdiRuni/stead-ai/pull/5 (branch `ceo/2026-11-19-video-script`):
