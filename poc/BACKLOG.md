@@ -5,7 +5,7 @@ agent may add to "Product asks", which always come before "Engineering".
 
 ## Product asks
 
-These three come from `agents/LLOYDS_LAB_SCORECARD.md` and close gaps a Lab reviewer
+These come from `agents/LLOYDS_LAB_SCORECARD.md` and close gaps a Lab reviewer
 will score.
 
 - [ ] Product: long stop, step 2. The first method is in `steadpoc/longstop.py`
@@ -14,9 +14,6 @@ will score.
       (2) done 2026-11-18 and (3) done 2026-11-19, see Done. Why: accumulation is the
       first question a cargo underwriter will ask.
 
-- [ ] Programme: stock feed format and a sample feed (the Engineering item "Stock feed
-      format" below, moved up). Why: pull request 2 rewords weeks 7 to 8 of the Lab plan
-      to "define the stock feed ... on a sample feed", so a reviewer may ask to see one.
 - [ ] Programme: backtest step 2, real vessel arrivals from open data (the first
       Engineering item below, moved up). Why: pull request 2 says weeks 1 to 3 "extend
       our backtest with real vessel arrivals"; a first cut before 17 Jan makes that
@@ -46,19 +43,28 @@ will score.
       late boxes as stock, against the loan route.
 - [ ] Swap timeline as a state machine (alert, match, bind, release, return) with the
       customs limits checked, including the 90 day temporary storage limit.
-- [ ] Stock feed format: a simple CSV schema for a distributor's stock and a parser
-      with validation, so a real feed can replace the random one.
+- [ ] Stock feed, next: the simulation still draws random stock; let it read a feed
+      (or several) instead. Open questions for distributors are listed in
+      `poc/STOCK_FEED.md` (tonnes or bags, not TEU; customs status; promised lots).
 - [ ] Replace the invented delay model with a replay of public schedule reliability
       data. Find sources that may be used and redistributed; record link and date.
 - [ ] Command line tool, rest of it: the demo (`python3 -m steadpoc.demo`) walks an
       invented booking. Still open: read a booking, ETA updates and a stock feed from
-      files (needs the stock feed format above).
+      files. The stock feed part is done (`--stock-feed`, 2026-11-20); booking and ETA
+      updates from files are still open.
 - [ ] Demo: add the parametric delay cover row to the term sheet comparison once that
       model exists. (Long-stop date and method estimate added 2026-11-19.)
 - [ ] Demo: warn when the long-stop date falls beyond the 90 day temporary storage
       limit, if that matters for the return leg; check the customs rule first.
 
 ## Done
+
+- [x] 2026-11-20 Programme: stock feed format and a sample feed. `poc/STOCK_FEED.md`
+      (proposed CSV schema, nine columns), `steadpoc/stockfeed.py` (parser that lists
+      every error and warning with its line number in one pass and returns no lots if
+      any error), `poc/data/sample_stock_feed.csv` (ILLUSTRATIVE, the demo's lots),
+      `python3 -m steadpoc.stockfeed FILE` to check a feed, and
+      `python3 -m steadpoc.demo --stock-feed FILE`. 55 new tests.
 
 - [x] 2026-11-19 Product: long stop, step 2 part (3). The demo term sheet now shows
       the long-stop date (T+30, assumption), the method estimate from `longstop.py`

@@ -20,3 +20,10 @@ September 2026 (28 months).
   store only the two headline numbers per month, with attribution and a link. This is
   not the paid report or its data file (those may only be shared inside the
   subscribing company). If the repo is ever made public, review this file first.
+
+## sample_stock_feed.csv
+
+ILLUSTRATIVE stock feed in the proposed format (`poc/STOCK_FEED.md`). Every lot is
+invented: the same seven lots as the demo's built-in stock, so the demo gives the same
+match when it reads this file. It is not stock of any real distributor. Written by us,
+free to share.

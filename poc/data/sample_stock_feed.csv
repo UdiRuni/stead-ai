@@ -1,0 +1,12 @@
+# ILLUSTRATIVE stock feed: invented lots, not real stock of any distributor.
+# Format: poc/STOCK_FEED.md. These are the same lots as the demo's built-in stock,
+# so (cd poc && python3 -m steadpoc.demo --stock-feed data/sample_stock_feed.csv)
+# prints the same match as the default demo.
+lot_id,distributor,producer,plant,grade,port,teu,available_on,snapshot_date
+A-1001,Hub A,SABIC,Geleen,PP 571P,Rotterdam,40,,2027-02-19
+A-1002,Hub A,SABIC,Geleen,PP 575P,Antwerp,40,,2027-02-19
+B-2001,Hub B,SABIC,Geleen,PP 575P,Rotterdam,40,,2027-02-19
+C-3001,Hub C,SABIC,Al Jubail,PP 575P,Rotterdam,40,,2027-02-19
+C-3002,Hub C,SABIC,Geleen,PP 575P,Rotterdam,20,,2027-02-19
+D-4001,Hub D,SABIC,Geleen,PP 575P,Rotterdam,20,,2027-02-19
+D-4002,Hub D,SABIC,Geleen,PP 575P,Rotterdam,40,2027-03-05,2027-02-19
