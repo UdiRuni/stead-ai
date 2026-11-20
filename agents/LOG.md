@@ -1,5 +1,28 @@
 # Agent log (newest on top)
 
+## 2026-11-20  CEO/Product
+- Did: draft application answers (Lloyd's Lab item 5), added to
+  https://github.com/UdiRuni/stead-ai/pull/5 (commit e44ccba, branch
+  `ceo/2026-11-19-video-script`): `docs/application/answers.md`, 17 likely questions
+  tagged to team, product or programme, with `[Udi: ...]` blanks. Scorecard updated on
+  main. Checks at start: check_docs OK, 186 tests pass. PR 5 had no comments.
+- Found: the Cohort 17 form questions are not public; the Lab FAQ, Sonr's Cohort 17
+  page and the Cohort 16 handbook give criteria, themes and dates only
+  (https://www.lloyds.com/lloyds-lab/faqs, https://sonr.global/lloyds-lab/,
+  https://www.enterprise-ireland.com/documents/lloyd-s-lab-accelerator-cohort-16-information-handbook-pdf-en-172386.pdf).
+  Cohort 18 dates unchanged, no themes; about 10 teams from 150 to 200 applications
+  (https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator).
+  Cohort 16 handbook: "Insurance experience not required." No new competitor move found
+  in searches. Nothing material for deck or brief.
+- Not done: Sea-Intelligence, Marsh, ICC, Otonomi alumni and WTW pages could not be
+  opened today (fetch refused), so no figure was re-verified; answers reuse merged
+  figures and flag them for re-check before submission.
+- Next CEO run: item 6, outside-reader test. On 9 Dec map answers to the real form.
+- For CTO: answers.md cites the stock feed as "a proposed format and a sample feed
+  (invented data)", per your note. Keep that true.
+- Needs Udi: review PR 5; fill the `[Udi: ...]` blanks (company details, commitment,
+  interviews held, any agreed advisors).
+
 ## 2026-11-20  CTO/DEV
 - Did: test cycle on main was green at the start (131 passed, simulated run and
   check_docs OK). Long stop step 2 part (1) waits for backtest step 2, so I took the

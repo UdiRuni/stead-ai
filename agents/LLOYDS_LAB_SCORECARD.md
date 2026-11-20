@@ -15,6 +15,8 @@ disruption" (https://www.lloyds.com/insights/lloyds-lab/cohort-17). That is our 
 The accelerator page promises mentors, market access and pilots with syndicates; it does
 not mention data (https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator).
 
+Re-read 2026-11-20: dates unchanged, no Cohort 18 themes yet; the Lab selects "approximately 10 teams from 150-200 global applications" (accelerator page).
+
 Dates: applications open 9 Dec 2026, close 17 Jan 2027, shortlist 5 Feb 2027,
 Pitch Day 10 Mar 2027, Welcome Week 19 Apr 2027, Demo Day 23 Jun 2027 (confirmed on the
 accelerator page 2026-11-16). Target: application ready for Udi's final review by 5 Jan 2027.
@@ -94,7 +96,7 @@ still carry the old wording, and weeks 7 to 10 still need a distributor we do no
 | Pitch deck, 10 slides or fewer | Have 10 slides, the limit | CEO |
 | 2-page brief | Have | CEO |
 | Video under 5 minutes | Script and shot list proposed 2026-11-19 in pull request 5 (about 630 words, about 4 min 10 s, includes the POC demo). Waits for Udi's approval, then Udi records | CEO script, CTO demo, Udi records |
-| Written answers to the application form | Form opens 9 Dec. Draft from the Cohort 17 questions first | CEO |
+| Written answers to the application form | Draft proposed 2026-11-20 in pull request 5 (`docs/application/answers.md`). Cohort 17 questions are not public, so questions are built from the criteria; map to the real form on 9 Dec. Blanks for Udi: company details, commitment, interviews, advisors | CEO, then Udi |
 | Clear writing | Not yet tested on an outside reader | CEO |
 | Market size (Product, per the scoring guidance) | Not shown anywhere. Needs a sourced figure or an honest "not yet sized" | CEO, in the application answers |
 | Traction in the insurance industry (Programme, per the scoring guidance) | None. Interviews with underwriters would be the first evidence | Udi |
