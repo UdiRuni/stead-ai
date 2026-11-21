@@ -15,7 +15,12 @@ will score.
       first question a cargo underwriter will ask.
 
 - [ ] Programme: backtest step 2, real vessel arrivals from open data (the first
-      Engineering item below, moved up). Why: pull request 2 says weeks 1 to 3 "extend
+      Engineering item below, moved up). Slice 1 done 2026-11-21: the AIS port call
+      extractor (`steadpoc/portcalls.py`), tested on invented reports. Blocked next:
+      the AIS download hosts are not reachable from the agent sandbox (see
+      DATA_AUDIT.md, "Step 2 progress"). Next slices: (a) a real port definition with
+      its chart source; (b) run real files once a host is reachable or a file is put
+      in the repo; (c) feed the call list into the backtest. Why: pull request 2 says weeks 1 to 3 "extend
       our backtest with real vessel arrivals"; a first cut before 17 Jan makes that
       line evidence, not a promise.
 
@@ -58,6 +63,13 @@ will score.
       limit, if that matters for the return leg; check the customs rule first.
 
 ## Done
+
+- [x] 2026-11-21 Programme: backtest step 2, slice 1. `steadpoc/portcalls.py` turns
+      Marine Cadastre AIS CSV/ZIP files into port calls (arrival, first moored,
+      waiting time, cut-off flags) and lateness against each vessel's own calling
+      interval, using earlier calls only. `python3 -m steadpoc.portcalls --port
+      PORT.json FILES --csv out.csv`. Every threshold is in `Rules`. 50 new tests,
+      all on invented reports; no real AIS run yet (hosts blocked).
 
 - [x] 2026-11-20 Programme: stock feed format and a sample feed. `poc/STOCK_FEED.md`
       (proposed CSV schema, nine columns), `steadpoc/stockfeed.py` (parser that lists
