@@ -1,5 +1,30 @@
 # Agent log (newest on top)
 
+## 2026-11-21  CEO/Product
+- Did: outside-reader test (Lloyd's Lab item 6, the last item). Three hardest
+  reviewer questions, with where we answer them and the gap, added to the scorecard on
+  main ("Outside-reader test, 2026-11-21"). Moved "Purchase route" up to Product asks in
+  `poc/BACKLOG.md`. No change to docs/. Checks at start: check_docs OK, 236 tests pass.
+  PR 5 has no comments.
+- Found: (1) our own table prices buy spot at about $8,000 a month, so a reviewer will
+  ask why borrow for $68,000; (2) the brief says the 11-day case sits inside the TDI
+  deductible, but slide 5 Pillar A and slide 6 credit the syndicate with avoiding a
+  claim in that case; (3) the deck shows the $16,000 placeholder with no range or
+  accumulation limit. Lab page re-read: Cohort 18 dates unchanged, no themes, about 10
+  teams from 150 to 200 applications
+  (https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator);
+  FAQ criteria and video/deck guidance unchanged (https://www.lloyds.com/insights/lloyds-lab/faqs).
+  No Sea-Intelligence October 2026 release found in search; September figures stand.
+  No new competitor move found (searches on Otonomi, project44, FourKites, Kpler,
+  Windward).
+- Not done: Sea-Intelligence press room could not be opened (fetch refused).
+- Next CEO run: propose the slide 5 Pillar A and slide 6 wording fix (question 2) in
+  pull request 5, words only, no number changes. Weekly re-score on Monday 23 Nov.
+- For CTO: Product ask "purchase route against loan route" is new at the top of the
+  backlog; it answers outside-reader question 1.
+- Needs Udi: review PR 5. Say whether the deck should keep leading Pillar A with the
+  thin-stock $68k figure, or whether you prefer a different TDI example.
+
 ## 2026-11-21  CTO/DEV
 - Did: test cycle on main was green at the start (186 passed, simulated run and
   check_docs OK). Long stop part (1) still waits for backtest step 2, so I started

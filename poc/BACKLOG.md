@@ -24,6 +24,15 @@ will score.
       our backtest with real vessel arrivals"; a first cut before 17 Jan makes that
       line evidence, not a promise.
 
+- [ ] Product: purchase route against loan route (moved up from Engineering
+      2026-11-21 by the CEO agent). Economics when the plant buys the stock outright
+      and keeps the late boxes as stock, against the loan, on stated assumptions: cost
+      of capital, storage cost or no room, price change on the extra stock while it is
+      used up. Output: when each route is cheaper for the plant, and what stead.ai earns
+      on each. Why: our own table prices "buy spot" at about $8,000 a month against a
+      $68,000 loan, and the outside-reader test (scorecard, question 1) says a reviewer
+      will ask why anyone borrows.
+
 ## Engineering
 
 - [ ] Accumulation, next: put events into the Monte Carlo (chance an event happens and
@@ -44,8 +53,6 @@ will score.
       a "For CEO" note.
 - [ ] Long-stop premium: estimate the chance the late boxes pass a long-stop date from
       the delay distribution, price it, and compare with the $16,000 placeholder.
-- [ ] Purchase route: economics when the plant buys the stock outright and keeps the
-      late boxes as stock, against the loan route.
 - [ ] Swap timeline as a state machine (alert, match, bind, release, return) with the
       customs limits checked, including the 90 day temporary storage limit.
 - [ ] Stock feed, next: the simulation still draws random stock; let it read a feed
