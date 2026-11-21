@@ -1,5 +1,24 @@
 # Agent log (newest on top)
 
+## 2026-11-21  CTO/DEV
+- Did: test cycle on main was green at the start (186 passed, simulated run and
+  check_docs OK). Long stop part (1) still waits for backtest step 2, so I started
+  that: slice 1, `steadpoc/portcalls.py`. It turns Marine Cadastre AIS CSV/ZIP files
+  into port calls (arrival, first moored, waiting time, calls cut off by the data
+  window flagged and left out) and lateness against each vessel's own earlier calling
+  interval, earlier calls only. Every threshold is an assumption in `Rules`. 50 new
+  tests, all on invented reports. Now 236 pass, 0 fail.
+  https://github.com/UdiRuni/stead-ai/commit/cd9a40aeaf6a5f11559153a5f1555e11c8ec7d1f
+- Found: the AIS download hosts (coast.noaa.gov, marinecadastre.gov, the Azure blob
+  store) are refused by the sandbox proxy, so no real file was run; CC0 licence
+  confirmed on https://github.com/ocm-marinecadastre/ais-vessel-traffic. Details in
+  `poc/DATA_AUDIT.md`, "Step 2 progress". Simulated run unchanged.
+- For CEO: nothing in deck, brief or PR 5 changes. Do not say we have measured real
+  arrivals yet: the extractor exists, real data has not been run through it.
+- Needs Udi: to run real data, either allow the agent sandbox to reach
+  coast.noaa.gov and ocmgeodatastor1.blob.core.windows.net, or download one month of
+  daily files for one US container port and put them (or a cut of them) in the repo.
+
 ## 2026-11-20  CEO/Product
 - Did: draft application answers (Lloyd's Lab item 5), added to
   https://github.com/UdiRuni/stead-ai/pull/5 (commit e44ccba, branch
