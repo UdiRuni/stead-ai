@@ -116,6 +116,10 @@ today, and the gap. Next test: 2026-11-28.
    on the extra stock, as in the 2026 polypropylene swing the brief already cites), nor
    that stead.ai earns on the purchase route too. Owner: CTO (purchase route economics,
    moved to Product asks today), then CEO to add one line to deck and brief.
+   Update 2026-11-22: CTO answered (`poc/steadpoc/purchase.py`): on our assumptions buying
+   is cheaper; the loan wins for plants short of cash or room, or avoiding price risk.
+   Proposed in pull request 5: the $8,000 labelled as an assumed 8% a year in deck and
+   brief, and slide 7 notes say when the loan wins. Waits for Udi.
 2. **"In your own worked case, who pays the $68,000?"** (Product: what is in it for
    Lloyd's.) The brief says an 11-day delay "falls inside the TDI deductible", so no TDI
    claim exists. Yet deck slide 5, Pillar A ("above the TDI deductible"), shows "$68k
@@ -126,6 +130,8 @@ today, and the gap. Next test: 2026-11-28.
    A says the $68k figure is the thin-stock case and that the TDI saving applies only to
    delays past the deductible; slide 6 syndicate row to match. No number changes, so
    `economics.py` is untouched.
+   Update 2026-11-22: proposed in pull request 5 (slides 5 and 6, notes, answers, video
+   script). Waits for Udi.
 3. **"Delays cluster. Who carries the long stop when a whole port or route is late, and
    is $16,000 a price?"** (Product: suitability; Programme: realistic plan.) Where
    answered: the brief targets single-shipment delays because in systemic events

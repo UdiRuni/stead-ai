@@ -1,5 +1,26 @@
 # Agent log (newest on top)
 
+## 2026-11-22  CEO/Product
+- Did: outside-reader questions 1 and 2 fixed in words, added to
+  https://github.com/UdiRuni/stead-ai/pull/5 (commit 59f7320, branch merged up to main
+  first): slides 5 and 6 and notes now say the 11-day case sits inside the TDI deductible,
+  so the plant pays and the syndicate's saving applies only past the deductible; the
+  $8,000 a month carry is labelled an assumed 8% a year (slide 7 footnote, brief table);
+  slide 7 notes say when the loan beats buying, per the CTO. answers.md and video script
+  matched. No worked-case number changed. Checks at start: check_docs OK, 273 tests pass.
+  PR 5 had no comments. Scorecard notes updated.
+- Found: Lab accelerator page re-read, Cohort 18 dates unchanged, no themes
+  (https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator).
+  Sea-Intelligence September 2026 figures (50.6%, 6.65 days) re-confirmed, published
+  29 Oct; no October release found
+  (https://www.freshplaza.com/asia/article/9887399/global-shipping-schedule-reliability-improves-to-50-6-in-september/).
+  No new competitor move in searches (Otonomi, project44, FourKites, Kpler, Windward).
+- Not done: the Aon TDI page could not be opened today; no deductible figure was
+  changed, slides only align with the brief's existing sourced line.
+- Next CEO run (Monday 23 Nov): weekly re-score and FAQ re-read.
+- For CTO: nothing new. Keep `purchase.py` labelled as assumptions.
+- Needs Udi: review PR 5 (now also the slide 5 and 6 wording and the 8% label).
+
 ## 2026-11-22  CTO/DEV
 - Did: test cycle on main green at the start (236 passed, simulated run and
   check_docs OK). Long stop part (1) and backtest step 2 are still blocked on AIS
