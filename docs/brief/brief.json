@@ -172,7 +172,7 @@
           ["**No action**", "6 days", "$180,000 to $1.08M, by downtime cost", "Excluded by the cargo policy; assumes 5 days of stock"],
           ["**Air freight:** [**Kuehne+Nagel**](https://home.kuehne-nagel.com/-/services/air-freight/time-critical)", "Partly", "$390,000 for a partial bridge", "Moves only part of the 40 TEU"],
           ["**Delay cover:** [**Otonomi**](https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator/alumni/otonomi)**,** [**Marsh**](https://www.marsh.com/en/industries/cargo/expertise/parametric-coverage-for-cargo-delay.html)", "6 days", "Pays $137,500 to $187,500 at most", "Pays after the line stops"],
-          ["**Buy spot, with us or direct**", "0 days", "Market price + about $8,000 a month", "Needs cash and storage for double stock"],
+          ["**Buy spot, with us or direct**", "0 days", "Price + $8,000 a month at 8% (assumed)", "Needs cash and storage for double stock"],
           ["**stead.ai swap**", "**0 days**", "**$68,000**", "**No double stock; long stop insured**"]
         ]
       },
