@@ -24,14 +24,11 @@ will score.
       our backtest with real vessel arrivals"; a first cut before 17 Jan makes that
       line evidence, not a promise.
 
-- [ ] Product: purchase route against loan route (moved up from Engineering
-      2026-11-21 by the CEO agent). Economics when the plant buys the stock outright
-      and keeps the late boxes as stock, against the loan, on stated assumptions: cost
-      of capital, storage cost or no room, price change on the extra stock while it is
-      used up. Output: when each route is cheaper for the plant, and what stead.ai earns
-      on each. Why: our own table prices "buy spot" at about $8,000 a month against a
-      $68,000 loan, and the outside-reader test (scorecard, question 1) says a reviewer
-      will ask why anyone borrows.
+- [ ] Product: purchase route, next. Slice 1 done 2026-11-22 (`steadpoc/purchase.py`,
+      see Done). Still open: (a) add the purchase route as a row on the demo term
+      sheet; (b) replace the assumed 8% cost of capital and 30 holding days with
+      figures a plant or a public source gives; (c) a sourced polypropylene monthly
+      price move, so the 3 to 5% break-even can be set against how often it happens.
 
 ## Engineering
 
@@ -70,6 +67,17 @@ will score.
       limit, if that matters for the return leg; check the customs rule first.
 
 ## Done
+
+- [x] 2026-11-22 Product: purchase route against loan route, slice 1.
+      `(cd poc && python3 -m steadpoc.purchase)`: cost to the plant of buying the
+      stock outright (capital and storage on the extra lot, spot premium, price move
+      while held, fee) against the published $68,000 loan; what stead.ai earns on
+      each; break-even price fall, holding days and storage rate; cash and room
+      blockers; sensitivity table. On the brief's own "about $8,000 a month" the
+      purchase is cheaper (about $32,000 through us, about $8,000 direct) unless the
+      price of the extra lot falls more than about 3% (5% direct) while held, it is
+      held over about 167 days, outside storage passes about $30 per TEU per day, or
+      the plant lacks cash or room. All inputs assumptions. 37 new tests.
 
 - [x] 2026-11-21 Programme: backtest step 2, slice 1. `steadpoc/portcalls.py` turns
       Marine Cadastre AIS CSV/ZIP files into port calls (arrival, first moored,
