@@ -26,7 +26,8 @@ Timings are cumulative and approximate. "Slide N" means the short deck,
 > before they are due, the boxes are moved to a later ship. They will now arrive eleven
 > days late, and the plant holds five days of stock. Often, the same resin, same
 > producer, same grade, is already sitting in a warehouse at the destination port.
-> I'm Udi Bahat, CEO of stead.ai, and we exist to close that gap.
+> I'm Udi Bahat, CEO of stead.ai. Our mission is to keep factories running when
+> shipping runs late.
 
 Caption on screen: "Illustrative case. Assumptions, not data."
 
