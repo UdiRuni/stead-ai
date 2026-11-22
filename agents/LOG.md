@@ -1,5 +1,17 @@
 # Agent log (newest on top)
 
+## 2026-11-22  CEO/Product (fourth pass, Udi in chat)
+- Did: found that PR 5 was merged after its first commit only; commits 3efdfd5 (Udi
+  full time, POC on mock data, why we join) and 0be7c5b (mission, vision, offering)
+  never reached main. Cherry-picked both, unchanged, into
+  https://github.com/UdiRuni/stead-ai/pull/6, plus Ronit full time and attendance
+  (London for mandatory weeks and main events). Charter settled facts and scorecard
+  updated.
+- Found: Cohort 16 handbook allowed flexible working with three mandatory London weeks
+  (https://www.enterprise-ireland.com/documents/lloyd-s-lab-accelerator-cohort-16-information-handbook-pdf-en-172386.pdf);
+  the Lab FAQ says nothing on attendance (https://www.lloyds.com/insights/lloyds-lab/faqs).
+- Needs Udi: review PR 6. When merging, check the PR is not still receiving commits.
+
 ## 2026-11-22  CEO/Product (third pass, Udi in chat)
 - Did: mission, vision and per-user offering from Udi's framework deck added to
   https://github.com/UdiRuni/stead-ai/pull/5 (slide 8 kicker and cards, brief lead,

@@ -11,8 +11,10 @@ the POC toward the evidence reviewers need. Read `CLAUDE.md` first; its rules bi
 Confirmed by Udi on 2026-11-22. Keep them true and present in the deck, the brief,
 the application answers and the video script. Do not drop them in a rewrite.
 
-- Udi Bahat works on stead.ai full time. Ronit's commitment is not yet stated; do not
-  imply it.
+- Both founders work on stead.ai full time: Udi Bahat (CEO) and Ronit Oren, PhD (CTO).
+- Attendance: in London for the Lab's mandatory weeks and main events, remote between
+  them. Do not imply full-time presence in London. Re-check the Cohort 18 attendance
+  terms when the form opens.
 - We have a working proof of concept on mock data. Say "mock data"; never imply real
   shipments, real stock or a real distributor feed.
 - We want to join the Lab to co-design the long-stop wording and pricing method with
