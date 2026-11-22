@@ -150,8 +150,8 @@ Cornell PhD and algorithm developer there, then nearly six years leading product
 Wix (Head of Product for the Wix CMS platform, GM of Wix Multilingual, Wix Stores).
 
 We come from the loss side of payments: pricing and stopping losses in real time on
-noisy signals. Built so far: a working proof of concept that runs one swap from alert
-to stock match to term sheet on illustrative data, a backtest on 23 months of public
+noisy signals. Built so far: a working proof of concept, on mock data, that runs one
+swap from alert to stock match to term sheet, a backtest on 23 months of public
 schedule data, and a first pricing and accumulation method for the long stop.
 
 What we lack is marine cargo and trade disruption experience. We say so, and it is the
@@ -160,13 +160,14 @@ agreed]`
 
 **Q. How committed are you to the programme?** (Team: commitment)
 
-`[Udi: full time or not, from when, both founders or one, able to attend the London
-weeks. Reviewers cannot tell today; one honest sentence is enough.]`
+Udi Bahat, our CEO, works on stead.ai full time. `[Udi: Ronit's time commitment, from
+when, and whether you can both attend the London weeks.]`
 
 **Q. Have you spoken to customers or the market?** (Programme: traction within the
 insurance industry)
 
-Not yet. `[Udi: number of interviews held by submission, with whom by role (plant,
+Not yet. In the Lab we plan more interviews with underwriters, brokers and insured plants
+met through mentors. `[Udi: number of interviews held by submission, with whom by role (plant,
 distributor, underwriter, broker), and one finding each. If none, say "planned: 12 to
 15 interviews" and the date of the first.]`
 
@@ -189,9 +190,13 @@ product development focus)
 
 **Q. What do you need from the Lab?** (Programme)
 
-Co-design, not customers: a marine cargo or trade disruption underwriter and a claims
-lead to shape the wording and the pricing method, and a specialty broker to tell us how
-it would be placed. We recruit the distributor ourselves; none is a partner yet.
+Co-design, not customers. That is why we want to join. We want a marine cargo or trade
+disruption underwriter and a claims lead to shape the wording and the pricing method
+with us, and a specialty broker to tell us how it would be placed. We also want to
+interview underwriters, claims teams, brokers and their insured plants met through
+mentors, to test the problem with the market before we build further. These are
+research interviews, not sales calls. We recruit the distributor ourselves; none is a
+partner yet.
 
 **Q. What does success look like at Demo Day?** (Programme)
 
