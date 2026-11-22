@@ -80,9 +80,9 @@ Optional 10 seconds, if time allows: run `python3 -m steadpoc.demo --delay 4`.
 
 ### 5. What is in it for syndicates (3:00 to 3:35). Slide 5, then slide 6
 
-> For a syndicate there are two things. Above a trade disruption deductible, the swap
-> is a mitigation expense: in our worked case, sixty-eight thousand dollars instead of
-> a claim that could pass one million. Below it, there is one new risk, the long stop:
+> For a syndicate there are two things. On delays past a trade disruption deductible,
+> the swap could be a mitigation expense instead of a stoppage claim. Our worked case
+> sits below the deductible, so there the plant pays. Below it, there is one new risk, the long stop:
 > the late boxes arriving far later than agreed. That is the cover we want to word and
 > price with you. All of these figures are assumptions, and the premium per swap is
 > small. We say so.

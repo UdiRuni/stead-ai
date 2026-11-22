@@ -112,9 +112,11 @@ the long-stop cover on the return leg. In our illustrative case the premium is a
 $16,000 placeholder on a $1.2M swap; our proof of concept shows a first pricing method
 that lands near it in the base case but ranges from under $2,000 to over $100,000 as
 the long-stop date and the delay tail change, which is exactly what we want to set with
-underwriters. Second, smaller trade disruption claims: above the deductible, a $68,000
-swap can replace a stoppage claim of $390,000 to $1.08M in our illustrative case, as a
-mitigation expense. All figures are assumptions, not data.
+underwriters. Second, smaller trade disruption claims: on delays that run past the
+deductible, the syndicate could fund a swap as a mitigation expense instead of paying a
+stoppage claim. Our illustrative 11-day case sits inside a typical deductible, so there
+the plant pays the $68,000 itself, against a loss of up to $1.08M. All figures are
+assumptions, not data.
 
 **Q. How big is the market?** (Product: market size)
 
