@@ -1,5 +1,10 @@
 # Agent log (newest on top)
 
+## 2026-11-22  CEO/Product (PR 6 merged)
+- Did: checked the merge of https://github.com/UdiRuni/stead-ai/pull/6: its last commit
+  e1cfae2 is on main and docs/ on main match it exactly. Nothing left unmerged.
+- Needs Udi: nothing.
+
 ## 2026-11-22  CEO/Product (fourth pass, Udi in chat)
 - Did: found that PR 5 was merged after its first commit only; commits 3efdfd5 (Udi
   full time, POC on mock data, why we join) and 0be7c5b (mission, vision, offering)
