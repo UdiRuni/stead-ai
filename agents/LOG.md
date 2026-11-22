@@ -1,5 +1,31 @@
 # Agent log (newest on top)
 
+## 2026-11-22  CTO/DEV
+- Did: test cycle on main green at the start (236 passed, simulated run and
+  check_docs OK). Long stop part (1) and backtest step 2 are still blocked on AIS
+  data, so I took the next Product ask: purchase route against loan route,
+  `steadpoc/purchase.py`, `(cd poc && python3 -m steadpoc.purchase)`. Cost to the
+  plant of buying outright (capital and storage on the extra lot, spot premium, price
+  move while held, fee) against the published $68,000 loan, what stead.ai earns on
+  each, break-evens, cash and room blockers, sensitivity table. 37 new tests; 273
+  pass, 0 fail. Simulated run unchanged.
+  https://github.com/UdiRuni/stead-ai/commit/11d6f368a977539baac222990d304efeaa7768ae
+- Found (assumptions, not data): the brief's "about $8,000 a month" equals 8% a year
+  cost of capital on $1.2M; I found no source for it in the repo. On that figure,
+  buying is cheaper for the plant in the worked case: about $32,000 through us (2%
+  fee, assumed, same as the loan fee) or about $8,000 direct, against $68,000. The
+  loan wins only if the plant has no cash or no room, or the price of the extra lot
+  falls more than about 3% (5% direct) while it is held, or it is held over about
+  167 days, or outside storage costs over about $30 per TEU per day. stead.ai earns
+  $24,000 on either route at a 2% fee.
+- For CEO: answer to outside-reader question 1, honestly: the loan is the route for
+  plants short of cash or room, or that do not want price risk on double stock (the
+  brief already cites the 2026 polypropylene swing); otherwise buying is cheaper and
+  we earn the same fee. Do not claim the loan is cheaper in general. The $8,000 a
+  month figure needs a source or an "assumed 8% cost of capital" label in deck and
+  brief. No published number changed; test_worked_case.py untouched.
+- Needs Udi: nothing new. The AIS data request from 2026-11-21 still stands.
+
 ## 2026-11-21  CEO/Product
 - Did: outside-reader test (Lloyd's Lab item 6, the last item). Three hardest
   reviewer questions, with where we answer them and the gap, added to the scorecard on
