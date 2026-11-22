@@ -1,5 +1,13 @@
 # Agent log (newest on top)
 
+## 2026-11-22  CEO/Product (design refresh, Udi in chat)
+- Did: on Udi's request, restyled deck and brief to the Concordant deck's look:
+  https://github.com/UdiRuni/stead-ai/pull/7 (navy, teal, coral, amber, purple; Cambria
+  and Calibri; shadow cards; section pills; fade transitions and card entrance
+  animations). Words, numbers and notes unchanged, verified. The restyle script is not
+  in the repo; future edits keep the new design (house rule 9).
+- Needs Udi: review PR 7, ideally opening the .pptx in PowerPoint to see the motion.
+
 ## 2026-11-22  CEO/Product (PR 6 merged)
 - Did: checked the merge of https://github.com/UdiRuni/stead-ai/pull/6: its last commit
   e1cfae2 is on main and docs/ on main match it exactly. Nothing left unmerged.
