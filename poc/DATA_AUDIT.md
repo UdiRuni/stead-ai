@@ -145,6 +145,25 @@ Steps 1 and 2 need nothing from the Lab. Steps 4 and 5 are where a Lab mentor co
 help most: not with claims data, but with an introduction to a shipper or forwarder
 whose past bookings can be replayed.
 
+### Step 2 progress, 2026-11-21
+
+- Built: `steadpoc/portcalls.py`, the extractor. It reads Marine Cadastre AIS CSV or
+  ZIP files, keeps reports inside a port's anchorage and berth boxes, groups them
+  into port calls, and gives arrival, first moored time, waiting time, and lateness
+  against each vessel's own earlier calling interval (no look-ahead). Calls cut off
+  by the data window are flagged and left out of the figures. Tested on invented
+  reports only (`tests/test_portcalls.py`).
+- Blocked: from the agent sandbox on 2026-11-21, coast.noaa.gov, marinecadastre.gov,
+  hub.marinecadastre.gov and the Azure blob store with the GeoParquet files
+  (ocmgeodatastor1.blob.core.windows.net) all returned a proxy refusal or no
+  connection. Only the GitHub readme could be read
+  (https://github.com/ocm-marinecadastre/ais-vessel-traffic, CC0 confirmed there).
+  So no real AIS file has been run yet.
+- Still to do: a real port definition (boxes drawn from a chart or 33 CFR Part 110,
+  with the source in the file), check the column names on a real file, run a month
+  at one port, commit the derived call list (CC0 allows it), then feed real waiting
+  and lateness into the backtest and the long-stop tail.
+
 ## 5. Not verified today
 
 - Sea-Intelligence's definition of "on time" (a secondary source cites plus or minus

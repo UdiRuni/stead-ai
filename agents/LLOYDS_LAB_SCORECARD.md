@@ -15,6 +15,8 @@ disruption" (https://www.lloyds.com/insights/lloyds-lab/cohort-17). That is our 
 The accelerator page promises mentors, market access and pilots with syndicates; it does
 not mention data (https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator).
 
+Re-read 2026-11-20: dates unchanged, no Cohort 18 themes yet; the Lab selects "approximately 10 teams from 150-200 global applications" (accelerator page).
+
 Dates: applications open 9 Dec 2026, close 17 Jan 2027, shortlist 5 Feb 2027,
 Pitch Day 10 Mar 2027, Welcome Week 19 Apr 2027, Demo Day 23 Jun 2027 (confirmed on the
 accelerator page 2026-11-16). Target: application ready for Udi's final review by 5 Jan 2027.
@@ -91,13 +93,48 @@ still carry the old wording, and weeks 7 to 10 still need a distributor we do no
 
 | Item | Status | Owner |
 |---|---|---|
-| Pitch deck, 10 slides or fewer | Have 9 slides; 10 if pull request 3 is merged, which is the limit | CEO |
+| Pitch deck, 10 slides or fewer | Have 10 slides, the limit | CEO |
 | 2-page brief | Have | CEO |
-| Video under 5 minutes | Not started. Needs a script, a storyboard and a POC demo to show on screen | CEO script, CTO demo, Udi records |
-| Written answers to the application form | Form opens 9 Dec. Draft from the Cohort 17 questions first | CEO |
-| Clear writing | Not yet tested on an outside reader | CEO |
+| Video under 5 minutes | Script and shot list proposed 2026-11-19 in pull request 5 (about 630 words, about 4 min 10 s, includes the POC demo). Waits for Udi's approval, then Udi records | CEO script, CTO demo, Udi records |
+| Written answers to the application form | Draft proposed 2026-11-20 in pull request 5 (`docs/application/answers.md`). Cohort 17 questions are not public, so questions are built from the criteria; map to the real form on 9 Dec. Blanks for Udi: company details, commitment, interviews, advisors | CEO, then Udi |
+| Clear writing | First outside-reader test 2026-11-21 (section below); plain-language pass still waits in pull request 1 | CEO |
 | Market size (Product, per the scoring guidance) | Not shown anywhere. Needs a sourced figure or an honest "not yet sized" | CEO, in the application answers |
 | Traction in the insurance industry (Programme, per the scoring guidance) | None. Interviews with underwriters would be the first evidence | Udi |
+
+## Outside-reader test, 2026-11-21
+
+Read cold as a sceptical Lab reviewer: the short deck and the 2-page brief on main, and
+the draft answers in pull request 5. The three hardest questions, where we answer them
+today, and the gap. Next test: 2026-11-28.
+
+1. **"Why borrow for $68,000 when buying spot costs about $8,000 a month to carry?"**
+   (Product: a specific use case.) Our own comparison (deck slide 7, brief "Why we win"
+   table) prices "buy spot, with us or direct" at market price plus about $8,000 a month,
+   0 days stopped. A reviewer will compare that with the $68,000 loan and ask why anyone borrows.
+   Where answered: only "needs cash and storage for double stock". Gap: we never say
+   when the loan beats the purchase (cash tied up, no room for double stock, price risk
+   on the extra stock, as in the 2026 polypropylene swing the brief already cites), nor
+   that stead.ai earns on the purchase route too. Owner: CTO (purchase route economics,
+   moved to Product asks today), then CEO to add one line to deck and brief.
+2. **"In your own worked case, who pays the $68,000?"** (Product: what is in it for
+   Lloyd's.) The brief says an 11-day delay "falls inside the TDI deductible", so no TDI
+   claim exists. Yet deck slide 5, Pillar A ("above the TDI deductible"), shows "$68k
+   instead of a $390k to $1.08M claim", and slide 6 gives the syndicate "avoids the claim
+   where covered". In the worked case the plant pays, and the syndicate earns only the
+   long-stop premium. A market reviewer will catch this. Where answered: nowhere clearly.
+   Gap: wording. Owner: CEO, then Udi. Next step: propose in the next CEO run that Pillar
+   A says the $68k figure is the thin-stock case and that the TDI saving applies only to
+   delays past the deductible; slide 6 syndicate row to match. No number changes, so
+   `economics.py` is untouched.
+3. **"Delays cluster. Who carries the long stop when a whole port or route is late, and
+   is $16,000 a price?"** (Product: suitability; Programme: realistic plan.) Where
+   answered: the brief targets single-shipment delays because in systemic events
+   lenders' boxes are late too; the POC has a per-vessel limit and a first pricing method
+   ($2,000 to over $100,000 as the long-stop date and tail change, scorecard Product row).
+   Gap: the deck shows only the $16,000 placeholder, with no range and no word on
+   accumulation limits; there is no book-level limit yet and no sourced event frequency.
+   Owner: CTO (accumulation, Engineering backlog; needs a sourced event frequency), then
+   CEO adds one line on limits to slide 5 once it exists.
 
 ## Biggest gap, 2026-11-16
 

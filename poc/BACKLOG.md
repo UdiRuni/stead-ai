@@ -5,7 +5,7 @@ agent may add to "Product asks", which always come before "Engineering".
 
 ## Product asks
 
-These three come from `agents/LLOYDS_LAB_SCORECARD.md` and close gaps a Lab reviewer
+These come from `agents/LLOYDS_LAB_SCORECARD.md` and close gaps a Lab reviewer
 will score.
 
 - [ ] Product: long stop, step 2. The first method is in `steadpoc/longstop.py`
@@ -14,13 +14,21 @@ will score.
       (2) done 2026-11-18 and (3) done 2026-11-19, see Done. Why: accumulation is the
       first question a cargo underwriter will ask.
 
-- [ ] Programme: stock feed format and a sample feed (the Engineering item "Stock feed
-      format" below, moved up). Why: pull request 2 rewords weeks 7 to 8 of the Lab plan
-      to "define the stock feed ... on a sample feed", so a reviewer may ask to see one.
 - [ ] Programme: backtest step 2, real vessel arrivals from open data (the first
-      Engineering item below, moved up). Why: pull request 2 says weeks 1 to 3 "extend
+      Engineering item below, moved up). Slice 1 done 2026-11-21: the AIS port call
+      extractor (`steadpoc/portcalls.py`), tested on invented reports. Blocked next:
+      the AIS download hosts are not reachable from the agent sandbox (see
+      DATA_AUDIT.md, "Step 2 progress"). Next slices: (a) a real port definition with
+      its chart source; (b) run real files once a host is reachable or a file is put
+      in the repo; (c) feed the call list into the backtest. Why: pull request 2 says weeks 1 to 3 "extend
       our backtest with real vessel arrivals"; a first cut before 17 Jan makes that
       line evidence, not a promise.
+
+- [ ] Product: purchase route, next. Slice 1 done 2026-11-22 (`steadpoc/purchase.py`,
+      see Done). Still open: (a) add the purchase route as a row on the demo term
+      sheet; (b) replace the assumed 8% cost of capital and 30 holding days with
+      figures a plant or a public source gives; (c) a sourced polypropylene monthly
+      price move, so the 3 to 5% break-even can be set against how often it happens.
 
 ## Engineering
 
@@ -42,23 +50,48 @@ will score.
       a "For CEO" note.
 - [ ] Long-stop premium: estimate the chance the late boxes pass a long-stop date from
       the delay distribution, price it, and compare with the $16,000 placeholder.
-- [ ] Purchase route: economics when the plant buys the stock outright and keeps the
-      late boxes as stock, against the loan route.
 - [ ] Swap timeline as a state machine (alert, match, bind, release, return) with the
       customs limits checked, including the 90 day temporary storage limit.
-- [ ] Stock feed format: a simple CSV schema for a distributor's stock and a parser
-      with validation, so a real feed can replace the random one.
+- [ ] Stock feed, next: the simulation still draws random stock; let it read a feed
+      (or several) instead. Open questions for distributors are listed in
+      `poc/STOCK_FEED.md` (tonnes or bags, not TEU; customs status; promised lots).
 - [ ] Replace the invented delay model with a replay of public schedule reliability
       data. Find sources that may be used and redistributed; record link and date.
 - [ ] Command line tool, rest of it: the demo (`python3 -m steadpoc.demo`) walks an
       invented booking. Still open: read a booking, ETA updates and a stock feed from
-      files (needs the stock feed format above).
+      files. The stock feed part is done (`--stock-feed`, 2026-11-20); booking and ETA
+      updates from files are still open.
 - [ ] Demo: add the parametric delay cover row to the term sheet comparison once that
       model exists. (Long-stop date and method estimate added 2026-11-19.)
 - [ ] Demo: warn when the long-stop date falls beyond the 90 day temporary storage
       limit, if that matters for the return leg; check the customs rule first.
 
 ## Done
+
+- [x] 2026-11-22 Product: purchase route against loan route, slice 1.
+      `(cd poc && python3 -m steadpoc.purchase)`: cost to the plant of buying the
+      stock outright (capital and storage on the extra lot, spot premium, price move
+      while held, fee) against the published $68,000 loan; what stead.ai earns on
+      each; break-even price fall, holding days and storage rate; cash and room
+      blockers; sensitivity table. On the brief's own "about $8,000 a month" the
+      purchase is cheaper (about $32,000 through us, about $8,000 direct) unless the
+      price of the extra lot falls more than about 3% (5% direct) while held, it is
+      held over about 167 days, outside storage passes about $30 per TEU per day, or
+      the plant lacks cash or room. All inputs assumptions. 37 new tests.
+
+- [x] 2026-11-21 Programme: backtest step 2, slice 1. `steadpoc/portcalls.py` turns
+      Marine Cadastre AIS CSV/ZIP files into port calls (arrival, first moored,
+      waiting time, cut-off flags) and lateness against each vessel's own calling
+      interval, using earlier calls only. `python3 -m steadpoc.portcalls --port
+      PORT.json FILES --csv out.csv`. Every threshold is in `Rules`. 50 new tests,
+      all on invented reports; no real AIS run yet (hosts blocked).
+
+- [x] 2026-11-20 Programme: stock feed format and a sample feed. `poc/STOCK_FEED.md`
+      (proposed CSV schema, nine columns), `steadpoc/stockfeed.py` (parser that lists
+      every error and warning with its line number in one pass and returns no lots if
+      any error), `poc/data/sample_stock_feed.csv` (ILLUSTRATIVE, the demo's lots),
+      `python3 -m steadpoc.stockfeed FILE` to check a feed, and
+      `python3 -m steadpoc.demo --stock-feed FILE`. 55 new tests.
 
 - [x] 2026-11-19 Product: long stop, step 2 part (3). The demo term sheet now shows
       the long-stop date (T+30, assumption), the method estimate from `longstop.py`

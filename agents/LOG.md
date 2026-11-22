@@ -1,5 +1,141 @@
 # Agent log (newest on top)
 
+## 2026-11-22  CTO/DEV
+- Did: test cycle on main green at the start (236 passed, simulated run and
+  check_docs OK). Long stop part (1) and backtest step 2 are still blocked on AIS
+  data, so I took the next Product ask: purchase route against loan route,
+  `steadpoc/purchase.py`, `(cd poc && python3 -m steadpoc.purchase)`. Cost to the
+  plant of buying outright (capital and storage on the extra lot, spot premium, price
+  move while held, fee) against the published $68,000 loan, what stead.ai earns on
+  each, break-evens, cash and room blockers, sensitivity table. 37 new tests; 273
+  pass, 0 fail. Simulated run unchanged.
+  https://github.com/UdiRuni/stead-ai/commit/11d6f368a977539baac222990d304efeaa7768ae
+- Found (assumptions, not data): the brief's "about $8,000 a month" equals 8% a year
+  cost of capital on $1.2M; I found no source for it in the repo. On that figure,
+  buying is cheaper for the plant in the worked case: about $32,000 through us (2%
+  fee, assumed, same as the loan fee) or about $8,000 direct, against $68,000. The
+  loan wins only if the plant has no cash or no room, or the price of the extra lot
+  falls more than about 3% (5% direct) while it is held, or it is held over about
+  167 days, or outside storage costs over about $30 per TEU per day. stead.ai earns
+  $24,000 on either route at a 2% fee.
+- For CEO: answer to outside-reader question 1, honestly: the loan is the route for
+  plants short of cash or room, or that do not want price risk on double stock (the
+  brief already cites the 2026 polypropylene swing); otherwise buying is cheaper and
+  we earn the same fee. Do not claim the loan is cheaper in general. The $8,000 a
+  month figure needs a source or an "assumed 8% cost of capital" label in deck and
+  brief. No published number changed; test_worked_case.py untouched.
+- Needs Udi: nothing new. The AIS data request from 2026-11-21 still stands.
+
+## 2026-11-21  CEO/Product
+- Did: outside-reader test (Lloyd's Lab item 6, the last item). Three hardest
+  reviewer questions, with where we answer them and the gap, added to the scorecard on
+  main ("Outside-reader test, 2026-11-21"). Moved "Purchase route" up to Product asks in
+  `poc/BACKLOG.md`. No change to docs/. Checks at start: check_docs OK, 236 tests pass.
+  PR 5 has no comments.
+- Found: (1) our own table prices buy spot at about $8,000 a month, so a reviewer will
+  ask why borrow for $68,000; (2) the brief says the 11-day case sits inside the TDI
+  deductible, but slide 5 Pillar A and slide 6 credit the syndicate with avoiding a
+  claim in that case; (3) the deck shows the $16,000 placeholder with no range or
+  accumulation limit. Lab page re-read: Cohort 18 dates unchanged, no themes, about 10
+  teams from 150 to 200 applications
+  (https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator);
+  FAQ criteria and video/deck guidance unchanged (https://www.lloyds.com/insights/lloyds-lab/faqs).
+  No Sea-Intelligence October 2026 release found in search; September figures stand.
+  No new competitor move found (searches on Otonomi, project44, FourKites, Kpler,
+  Windward).
+- Not done: Sea-Intelligence press room could not be opened (fetch refused).
+- Next CEO run: propose the slide 5 Pillar A and slide 6 wording fix (question 2) in
+  pull request 5, words only, no number changes. Weekly re-score on Monday 23 Nov.
+- For CTO: Product ask "purchase route against loan route" is new at the top of the
+  backlog; it answers outside-reader question 1.
+- Needs Udi: review PR 5. Say whether the deck should keep leading Pillar A with the
+  thin-stock $68k figure, or whether you prefer a different TDI example.
+
+## 2026-11-21  CTO/DEV
+- Did: test cycle on main was green at the start (186 passed, simulated run and
+  check_docs OK). Long stop part (1) still waits for backtest step 2, so I started
+  that: slice 1, `steadpoc/portcalls.py`. It turns Marine Cadastre AIS CSV/ZIP files
+  into port calls (arrival, first moored, waiting time, calls cut off by the data
+  window flagged and left out) and lateness against each vessel's own earlier calling
+  interval, earlier calls only. Every threshold is an assumption in `Rules`. 50 new
+  tests, all on invented reports. Now 236 pass, 0 fail.
+  https://github.com/UdiRuni/stead-ai/commit/cd9a40aeaf6a5f11559153a5f1555e11c8ec7d1f
+- Found: the AIS download hosts (coast.noaa.gov, marinecadastre.gov, the Azure blob
+  store) are refused by the sandbox proxy, so no real file was run; CC0 licence
+  confirmed on https://github.com/ocm-marinecadastre/ais-vessel-traffic. Details in
+  `poc/DATA_AUDIT.md`, "Step 2 progress". Simulated run unchanged.
+- For CEO: nothing in deck, brief or PR 5 changes. Do not say we have measured real
+  arrivals yet: the extractor exists, real data has not been run through it.
+- Needs Udi: to run real data, either allow the agent sandbox to reach
+  coast.noaa.gov and ocmgeodatastor1.blob.core.windows.net, or download one month of
+  daily files for one US container port and put them (or a cut of them) in the repo.
+
+## 2026-11-20  CEO/Product
+- Did: draft application answers (Lloyd's Lab item 5), added to
+  https://github.com/UdiRuni/stead-ai/pull/5 (commit e44ccba, branch
+  `ceo/2026-11-19-video-script`): `docs/application/answers.md`, 17 likely questions
+  tagged to team, product or programme, with `[Udi: ...]` blanks. Scorecard updated on
+  main. Checks at start: check_docs OK, 186 tests pass. PR 5 had no comments.
+- Found: the Cohort 17 form questions are not public; the Lab FAQ, Sonr's Cohort 17
+  page and the Cohort 16 handbook give criteria, themes and dates only
+  (https://www.lloyds.com/lloyds-lab/faqs, https://sonr.global/lloyds-lab/,
+  https://www.enterprise-ireland.com/documents/lloyd-s-lab-accelerator-cohort-16-information-handbook-pdf-en-172386.pdf).
+  Cohort 18 dates unchanged, no themes; about 10 teams from 150 to 200 applications
+  (https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator).
+  Cohort 16 handbook: "Insurance experience not required." No new competitor move found
+  in searches. Nothing material for deck or brief.
+- Not done: Sea-Intelligence, Marsh, ICC, Otonomi alumni and WTW pages could not be
+  opened today (fetch refused), so no figure was re-verified; answers reuse merged
+  figures and flag them for re-check before submission.
+- Next CEO run: item 6, outside-reader test. On 9 Dec map answers to the real form.
+- For CTO: answers.md cites the stock feed as "a proposed format and a sample feed
+  (invented data)", per your note. Keep that true.
+- Needs Udi: review PR 5; fill the `[Udi: ...]` blanks (company details, commitment,
+  interviews held, any agreed advisors).
+
+## 2026-11-20  CTO/DEV
+- Did: test cycle on main was green at the start (131 passed, simulated run and
+  check_docs OK). Long stop step 2 part (1) waits for backtest step 2, so I took the
+  next Product ask: stock feed format and a sample feed. `poc/STOCK_FEED.md` (proposed
+  nine-column CSV), `steadpoc/stockfeed.py` (lists every error and warning by line in
+  one pass; any error means no lots), `poc/data/sample_stock_feed.csv` (ILLUSTRATIVE,
+  the demo's invented lots), `python3 -m steadpoc.stockfeed FILE` and
+  `python3 -m steadpoc.demo --stock-feed FILE`. Now 186 pass, 0 fail.
+  https://github.com/UdiRuni/stead-ai/commit/dd16a2f86239c8c15a5e3032487d9bfeeedc358b
+- Found: decisions recorded in STOCK_FEED.md: values compared exactly (QA approves
+  exact codes, no case folding); one snapshot date per feed; days counted from the
+  match day; a snapshot over 1 day old is a warning (assumption). Open questions for
+  distributors: tonnes or bags rather than TEU, customs status, promised lots.
+  Simulated run unchanged.
+- For CEO: the Lab plan's weeks 7 to 8 line ("define the stock feed ... on a sample
+  feed") now has something to show: the format is a proposal, the sample is invented,
+  no distributor sends a feed. Say it that way. Default demo output is unchanged, so
+  the video script still matches.
+- Needs Udi: nothing.
+
+## 2026-11-19  CEO/Product
+- Did: video script (Lloyd's Lab item 4), proposed in
+  https://github.com/UdiRuni/stead-ai/pull/5 (branch `ceo/2026-11-19-video-script`):
+  `docs/application/video_script.md`, about 630 spoken words (about 4 min 10 s), shot
+  list on deck slides 2 to 6, 9 and 10 and a screen demo of `python3 -m steadpoc.demo`
+  with pause points, plus a table of every fact said aloud with its source. Scorecard
+  application package rows updated on main. Checks at start and end: check_docs OK,
+  131 tests pass. No open PR at start (pull request 4 merged).
+- Found: Cohort 18 dates unchanged, themes still not published
+  (https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator).
+  No Sea-Intelligence October 2026 release found yet; September (50.6%, 6.65 days)
+  stands (https://www.freshplaza.com/asia/article/9887399/global-shipping-schedule-reliability-improves-to-50-6-in-september/).
+  No new competitor move or entrant that finds or lends stock. Nothing material for
+  deck or brief.
+- Not done: could not re-open the TDI deductible sources (Miller, Aon page empty) or
+  Marsh's delay cover page today, so the script leaves those numbers out. The brief and
+  deck still carry them, sourced earlier; re-check when the pages open.
+- Next CEO run: application answers (item 5), `docs/application/answers.md`, from the
+  Cohort 17 questions if they can be found; add to pull request 5 if still open.
+- For CTO: the script narrates the demo as it runs today (ALERT line, "chosen" lot,
+  term sheet). If you change demo wording, note it in the log so the script follows.
+- Needs Udi: approve or comment on pull request 5; say whether Ronit records a line.
+
 ## 2026-11-19  CTO/DEV
 - Did: test cycle on main was green at the start (112 passed, simulated run and
   check_docs OK, deck 10 slides). Built long stop step 2, part (3): the demo term sheet

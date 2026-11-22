@@ -21,6 +21,8 @@ Run:  (cd poc && python3 -m steadpoc.demo)
       (cd poc && python3 -m steadpoc.demo --arrival 2027-03-01)  calendar dates
       (cd poc && python3 -m steadpoc.demo --long-stop 21)     earlier long stop
       (cd poc && python3 -m steadpoc.demo --vessel-exposure 2500000)  vessel limit full
+      (cd poc && python3 -m steadpoc.demo --stock-feed data/sample_stock_feed.csv)
+                                              stock read from a feed file (steadpoc.stockfeed)
 """
 import argparse
 import sys
@@ -33,6 +35,7 @@ from .accumulation import Book, Decision, Limits, Swap
 from .economics import SwapCase
 from .longstop import LongStop
 from .matching import Lot, Match, Need, find_match, why_not
+from .stockfeed import FeedError, load_feed
 from .warning import Alert, EtaUpdate, evaluate
 
 BANNER = "ILLUSTRATIVE CASE: assumptions, not data. Not an offer of insurance."
@@ -423,6 +426,9 @@ def main(argv: list[str] | None = None) -> int:
                    help=f"long-stop date in days after T (default: {LONG_STOP_DAY}, an assumption)")
     p.add_argument("--vessel-exposure", type=float, default=0.0,
                    help="agreed value of other swaps already on the same vessel, USD (default: 0)")
+    p.add_argument("--stock-feed", type=Path,
+                   help="read distributor stock from this CSV (format: poc/STOCK_FEED.md); "
+                        "days are counted from the match day, T-10 of --arrival, else the feed's snapshot date")
     p.add_argument("--html", type=Path, help="also write a self-contained HTML page to this path")
     args = p.parse_args(argv)
     case = SwapCase()
@@ -430,13 +436,33 @@ def main(argv: list[str] | None = None) -> int:
         case = replace(case, delay_days=args.delay)
     if args.stock_days is not None:
         case = replace(case, safety_stock_days=args.stock_days)
+    stock, feed_note = None, None
+    if args.stock_feed:
+        match_date = args.arrival + timedelta(days=Schedule().match) if args.arrival else None
+        try:
+            report = load_feed(args.stock_feed, match_date)
+        except FeedError as err:
+            print(f"error: {args.stock_feed}:", file=sys.stderr)
+            for problem in err.report.errors:
+                print(f"   {problem}", file=sys.stderr)
+            return 2
+        except (OSError, UnicodeDecodeError) as err:
+            print(f"error: cannot read {args.stock_feed}: {err}", file=sys.stderr)
+            return 2
+        for problem in report.warnings:
+            print(f"warning: {args.stock_feed}: {problem}", file=sys.stderr)
+        stock = report.lots
+        feed_note = (f"Stock read from {args.stock_feed} (snapshot {report.snapshot_date}, "
+                     f"counted from {report.match_date}, {len(stock)} lots).")
     try:
-        demo = build_demo(case, arrival=args.arrival, long_stop_day=args.long_stop,
+        demo = build_demo(case, stock=stock, arrival=args.arrival, long_stop_day=args.long_stop,
                           other_on_vessel_usd=args.vessel_exposure)
     except ValueError as err:
         print(f"error: {err}", file=sys.stderr)
         return 2
     print(render_text(demo))
+    if feed_note:
+        print(feed_note)
     if args.html:
         args.html.parent.mkdir(parents=True, exist_ok=True)
         args.html.write_text(render_html(demo), encoding="utf-8")

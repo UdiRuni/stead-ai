@@ -17,6 +17,7 @@ class Lot:
     port: str
     teu: int
     days_until_available: int = 0   # 0 = already bonded at the port
+    lot_id: str = ""                # the distributor's reference, when read from a feed
 
 
 @dataclass(frozen=True)
