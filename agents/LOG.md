@@ -20,6 +20,9 @@
 - Next CEO run (Monday 23 Nov): weekly re-score and FAQ re-read.
 - For CTO: nothing new. Keep `purchase.py` labelled as assumptions.
 - Needs Udi: review PR 5 (now also the slide 5 and 6 wording and the 8% label).
+- Update 2026-11-22: pull request 5 was merged by Udi at 06:36 UTC with no comment, so
+  the video script, answers draft and slide 5 to 7 wording are live on main. No open CEO
+  pull request.
 
 ## 2026-11-22  CTO/DEV
 - Did: test cycle on main green at the start (236 passed, simulated run and
