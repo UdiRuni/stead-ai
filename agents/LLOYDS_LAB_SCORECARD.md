@@ -52,8 +52,8 @@ now has a public-data backtest, but no demo yet and it is not in the materials.
 |---|---|---|---|---|
 | Domain skill in cargo, TDI or distribution | Nothing; deck says two advisors "to recruit" | Largest gap in the application | Udi | Recruit one cargo or TDI underwriting advisor and one polymer distribution advisor; name them in the deck |
 | Ability to build it | Bios; a working POC, cited on the team slide and in the brief since 2026-11-18 (pull request 4, merged) | Built by agents under the team's direction; a reviewer may ask who wrote it | CEO | Keep the wording true as the demo changes; mention the POC in the video and application answers |
-| Commitment | Not stated | Reviewers cannot tell if this is full time | Udi | Decide what we can truthfully say (full time, hours, start date); CEO agent adds it |
-| Evidence of customer contact | "12 to 15 interviews" planned, none done | Plan, not evidence | Udi | Hold interviews before 9 Dec; CEO agent keeps a question list and records findings Udi reports |
+| Commitment | Udi full time (told the CEO agent 2026-11-22), proposed in pull request 5 on slide 9, brief, answers and video | Ronit's commitment and London attendance not yet stated | Udi | Say what is true for Ronit; CEO agent adds it |
+| Evidence of customer contact | None done. Pull request 5 proposes first interviews before the Lab and more in the Lab, through mentors (Udi's plan, 2026-11-22) | Plan, not evidence | Udi | Hold a first few interviews before 9 Dec if possible; CEO agent keeps a question list and records findings Udi reports |
 
 ## 2. Product: a specific use case for the Lloyd's market, not tech looking for a problem?
 

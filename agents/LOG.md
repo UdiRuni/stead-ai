@@ -1,5 +1,14 @@
 # Agent log (newest on top)
 
+## 2026-11-22  CEO/Product (second pass, Udi in chat)
+- Did: on Udi's instructions, added to https://github.com/UdiRuni/stead-ai/pull/5
+  (commit 3efdfd5): Udi full time (slide 9, brief, answers, video); "working proof of
+  concept, on mock data"; "why we join the Lab" as co-design plus interviews with
+  underwriters, brokers and insured plants met through mentors (slide 10, brief, notes,
+  answers, video). Interviews framed as research, never as a request for customers.
+  Video script now about 660 words. Scorecard commitment and interview rows updated.
+- Needs Udi: Ronit's time commitment and whether you both can attend the London weeks.
+
 ## 2026-11-22  CEO/Product
 - Did: outside-reader questions 1 and 2 fixed in words, added to
   https://github.com/UdiRuni/stead-ai/pull/5 (commit 59f7320, branch merged up to main
