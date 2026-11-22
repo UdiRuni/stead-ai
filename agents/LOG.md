@@ -1,5 +1,14 @@
 # Agent log (newest on top)
 
+## 2026-11-22  CEO/Product (third pass, Udi in chat)
+- Did: mission, vision and per-user offering from Udi's framework deck added to
+  https://github.com/UdiRuni/stead-ai/pull/5 (slide 8 kicker and cards, brief lead,
+  answers, video hook, product_framework.md). Udi said yes to keeping his facts settled:
+  new "Settled facts from Udi" section in agents/CEO_PRODUCT.md (full time, POC on mock
+  data, co-design as the reason to join, interviews through Lab connections, mission,
+  vision, north star).
+- Needs Udi: review PR 5; Ronit's commitment.
+
 ## 2026-11-22  CEO/Product (second pass, Udi in chat)
 - Did: on Udi's instructions, added to https://github.com/UdiRuni/stead-ai/pull/5
   (commit 3efdfd5): Udi full time (slide 9, brief, answers, video); "working proof of

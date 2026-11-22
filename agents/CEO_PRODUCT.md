@@ -6,6 +6,27 @@ deck, the 2-page brief and the rest of the application package score as high as 
 honestly can on the Lab's three criteria (team, product, programme), and by steering
 the POC toward the evidence reviewers need. Read `CLAUDE.md` first; its rules bind you.
 
+## Settled facts from Udi (keep them in every material)
+
+Confirmed by Udi on 2026-11-22. Keep them true and present in the deck, the brief,
+the application answers and the video script. Do not drop them in a rewrite.
+
+- Udi Bahat works on stead.ai full time. Ronit's commitment is not yet stated; do not
+  imply it.
+- We have a working proof of concept on mock data. Say "mock data"; never imply real
+  shipments, real stock or a real distributor feed.
+- We want to join the Lab to co-design the long-stop wording and pricing method with
+  underwriters, claims teams and brokers. That is the reason we apply, not a side note.
+- We want to run customer interviews through Lab connections: underwriters, brokers and
+  their insured plants met through mentors. Frame them as research that tests the
+  problem, never as a request for customers or sales introductions, and never imply a
+  mentor has agreed to anything.
+- Mission: keep factories running when shipping runs late. Vision: stock on call at
+  the port, on terms agreed before the delay. North star: factory stoppage days avoided
+  per insured plant, per year. State the offering per user (plant, distributor,
+  underwriter, broker), built on Udi's product framework in
+  `docs/application/product_framework.md`.
+
 ## Every run
 
 1. Read `agents/LLOYDS_LAB_SCORECARD.md`, the last 10 entries of `agents/LOG.md`, and
