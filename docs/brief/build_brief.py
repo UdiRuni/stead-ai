@@ -23,15 +23,15 @@ from reportlab.platypus import Flowable, Paragraph, Table, TableStyle
 HERE = Path(__file__).resolve().parent
 DEFAULT_OUT = HERE / "stead.ai_Stock_Swap_Brief_2pages.pdf"
 
-NAVY = HexColor("#0E1726")
-TEXT = HexColor("#3B4656")
-ORANGE = HexColor("#E8590C")
-DEEP_ORANGE = HexColor("#C2410C")
-SLATE = HexColor("#4A5568")
-LINK = "#1D5C9E"
-RULE = HexColor("#D5DBE3")
-PANEL = HexColor("#F5F7FA")
-HIGHLIGHT = HexColor("#FFF1E6")
+NAVY = HexColor("#0B2530")
+TEXT = HexColor("#3E525C")
+ORANGE = HexColor("#0C9D98")  # accent, now teal (2026-11-22 theme)
+DEEP_ORANGE = HexColor("#0B6E6A")  # dark teal
+SLATE = HexColor("#5B6F78")
+LINK = "#0B6E6A"
+RULE = HexColor("#E3EAEC")
+PANEL = HexColor("#F6F8F8")
+HIGHLIGHT = HexColor("#DFF2F1")
 BAR_COLORS = {"navy": NAVY, "slate": SLATE, "orange": DEEP_ORANGE}
 
 PAGE_W, PAGE_H = A4
@@ -40,10 +40,10 @@ TOP = 40
 BOTTOM = 40
 WIDTH = PAGE_W - 2 * MARGIN_X
 
-for _name in ("Inter-Regular", "Inter-Medium", "Inter-SemiBold", "SpaceGrotesk-Bold"):
+for _name in ("Carlito-Regular", "Carlito-Bold", "Caladea-Bold"):
     pdfmetrics.registerFont(TTFont(_name, str(HERE / "fonts" / f"{_name}.ttf")))
 
-R, M, SB, H = "Inter-Regular", "Inter-Medium", "Inter-SemiBold", "SpaceGrotesk-Bold"
+R, M, SB, H = "Carlito-Regular", "Carlito-Regular", "Carlito-Bold", "Caladea-Bold"
 
 
 def style(name, font=R, size=7.6, lead=None, color=TEXT, **kw):
@@ -78,7 +78,7 @@ def markup(text):
     text = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)",
                   lambda m: f'<a href="{m.group(2)}" color="{LINK}">{m.group(1)}</a>', text)
     text = re.sub(r"\*\*(.+?)\*\*",
-                  lambda m: f'<font name="{SB}" color="#0E1726">{m.group(1)}</font>', text)
+                  lambda m: f'<font name="{SB}" color="#0B2530">{m.group(1)}</font>', text)
     return text
 
 
