@@ -53,6 +53,34 @@ stead.ai keeps a factory running when its shipping containers run late: we spot 
 delay early, find identical stock in a distributor's warehouse at the destination
 port, and make the deal safe with a proposed long-stop cover on the return leg.
 
+**Q. What is your mission and vision?** (Product)
+
+Mission: keep factories running when shipping runs late.
+
+Vision: stock on call at the port, on terms agreed before the delay. The cure for a
+late shipment is often already in a warehouse at the same port. What is missing is an
+early warning, a view of that stock and a safe way to borrow it. Insurance can supply
+the third, and gain what no delay cover has today: a way to stop the loss, not only to
+pay for it.
+
+North star: factory stoppage days avoided per insured plant, per year. It is the one
+number the plant, the lender and the syndicate all care about.
+
+**Q. Who is it for, and what does each party get?** (Product: suitability to the
+Lloyd's market)
+
+| Who | What they get | Stage |
+|---|---|---|
+| A plant that imports a commodity grade by sea and holds thin stock | Warned early, it buys or borrows identical stock at the port, so the line keeps running | In the Lab: one insured swap, arranged when the alert fires |
+| A distributor with bonded stock at the port | A yield on idle stock, with the return leg covered by the proposed long stop | In the Lab |
+| A marine cargo or trade disruption underwriter | A new short-duration premium line (the long stop) and, past the deductible, a lever that can make a stoppage claim smaller | Wording and pricing co-designed in the Lab |
+| The plant's broker | A standing swap line: a proposed yearly add-on to the cargo policy, with grades, lenders and the long-stop price agreed before any delay | Next, after the Lab. Direction, not built |
+| Underwriters pricing delay | Records of how late boxes really ran and how deep port stock was, which we could not find for sale | Later, only with volume |
+
+We start with the plant, because without a plant that wants the swap there is no
+deal, and with the underwriter, because the Lab is where the wording and price get
+made. Only the single swap runs in our proof of concept, on mock data.
+
 **Q. Which Lab theme does this fit?** (Product)
 
 Cohort 18 themes are not out yet. Cohort 17's "new products" theme asked for
@@ -150,8 +178,8 @@ Cornell PhD and algorithm developer there, then nearly six years leading product
 Wix (Head of Product for the Wix CMS platform, GM of Wix Multilingual, Wix Stores).
 
 We come from the loss side of payments: pricing and stopping losses in real time on
-noisy signals. Built so far: a working proof of concept that runs one swap from alert
-to stock match to term sheet on illustrative data, a backtest on 23 months of public
+noisy signals. Built so far: a working proof of concept, on mock data, that runs one
+swap from alert to stock match to term sheet, a backtest on 23 months of public
 schedule data, and a first pricing and accumulation method for the long stop.
 
 What we lack is marine cargo and trade disruption experience. We say so, and it is the
@@ -160,13 +188,19 @@ agreed]`
 
 **Q. How committed are you to the programme?** (Team: commitment)
 
-`[Udi: full time or not, from when, both founders or one, able to attend the London
-weeks. Reviewers cannot tell today; one honest sentence is enough.]`
+Both founders work on stead.ai full time: Udi Bahat, CEO, and Ronit Oren, PhD, CTO.
+We will be in London for the programme's mandatory weeks and main events, and work
+remotely between them. Earlier cohorts worked this way: the Cohort 16 handbook says
+teams "can work flexibly, either from Lloyd's in London or wherever best suits their
+business needs", with three mandatory weeks in London
+(https://www.enterprise-ireland.com/documents/lloyd-s-lab-accelerator-cohort-16-information-handbook-pdf-en-172386.pdf).
+`[CEO agent: check the Cohort 18 attendance terms when the form opens on 9 Dec]`
 
 **Q. Have you spoken to customers or the market?** (Programme: traction within the
 insurance industry)
 
-Not yet. `[Udi: number of interviews held by submission, with whom by role (plant,
+Not yet. In the Lab we plan more interviews with underwriters, brokers and insured plants
+met through mentors. `[Udi: number of interviews held by submission, with whom by role (plant,
 distributor, underwriter, broker), and one finding each. If none, say "planned: 12 to
 15 interviews" and the date of the first.]`
 
@@ -189,9 +223,13 @@ product development focus)
 
 **Q. What do you need from the Lab?** (Programme)
 
-Co-design, not customers: a marine cargo or trade disruption underwriter and a claims
-lead to shape the wording and the pricing method, and a specialty broker to tell us how
-it would be placed. We recruit the distributor ourselves; none is a partner yet.
+Co-design, not customers. That is why we want to join. We want a marine cargo or trade
+disruption underwriter and a claims lead to shape the wording and the pricing method
+with us, and a specialty broker to tell us how it would be placed. We also want to
+interview underwriters, claims teams, brokers and their insured plants met through
+mentors, to test the problem with the market before we build further. These are
+research interviews, not sales calls. We recruit the distributor ourselves; none is a
+partner yet.
 
 **Q. What does success look like at Demo Day?** (Programme)
 

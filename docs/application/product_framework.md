@@ -24,6 +24,10 @@ source below was opened on 2026-11-17.
 
 Keep factories running when shipping runs late.
 
+Updated 2026-11-22 on Udi's request: the mission now heads deck slide 8 and opens the
+brief and the video, and the offering below is stated per user on slide 8 and in the
+application answers.
+
 ## 3. Vision
 
 Stock on call at the port, on terms agreed before the delay.
@@ -55,8 +59,19 @@ earns a yield on. Premium and fees follow from it; the reverse is not true.
 | 5 | Claims lead on a trade disruption book | A cheaper outcome than a stoppage claim | Not sized |
 
 Priority for demand: group 1. Without a plant that wants the swap there is no deal.
-Priority for the Lab: group 4. The Lab can help with wording and pricing method; it
-cannot supply plants or distributors, and we do not ask it to.
+Priority for the Lab: group 4. The Lab can help with wording and pricing method, and
+mentors can lead us to underwriters, brokers and their insured plants for research
+interviews that test the problem. We do not ask the Lab for customers or distributors.
+
+### The offering, per user (2026-11-22)
+
+| User | Offering | Stage |
+|---|---|---|
+| Plant with thin stock (group 1) | Warned early, buys or borrows identical stock at the port; the line keeps running | Now: one insured swap (solution A) |
+| Distributor (group 3) | Yield on idle stock, return leg covered by the proposed long stop | Now (A) |
+| Underwriter (group 4) | A new long-stop premium line; past the deductible, a lever on the claim | Co-designed in the Lab |
+| Broker and risk manager (group 2) | A standing swap line to place each year | Next (solution B) |
+| Underwriters pricing delay (groups 4 and 5) | Delay and stock-depth records | Later (solution C) |
 
 Honest note on size. A sized market is part of the Product score in the scoring
 guidance we found (hosted by Sonr, not Lloyd's, undated). We can size the first market

@@ -2,7 +2,7 @@
 
 Draft by the CEO agent, 2026-11-19, for Udi's approval. Udi records it; the agents do
 not produce video. Target: under 5 minutes (the Lab's FAQ asks for a video under 5
-minutes). The spoken text below is about 630 words, which runs about 4 minutes 10
+minutes). The spoken text below is about 660 words, which runs about 4 minutes 25
 seconds at a calm 150 words a minute, leaving room for pauses on the demo.
 
 Serves all three criteria: Team (two founders on camera, a working proof of concept
@@ -26,7 +26,8 @@ Timings are cumulative and approximate. "Slide N" means the short deck,
 > before they are due, the boxes are moved to a later ship. They will now arrive eleven
 > days late, and the plant holds five days of stock. Often, the same resin, same
 > producer, same grade, is already sitting in a warehouse at the destination port.
-> I'm Udi Bahat, CEO of stead.ai, and we exist to close that gap.
+> I'm Udi Bahat, CEO of stead.ai. Our mission is to keep factories running when
+> shipping runs late.
 
 Caption on screen: "Illustrative case. Assumptions, not data."
 
@@ -57,7 +58,7 @@ Command, run from the `poc` folder: `python3 -m steadpoc.demo`. Use a large term
 font. Keep the first line, "ILLUSTRATIVE CASE: assumptions, not data", in view for
 two seconds. Pause on each point below.
 
-> This is our proof of concept, running one swap on illustrative data. Here are the
+> This is our working proof of concept, running one swap on mock data. Here are the
 > tracking updates. Two days late, four days late: no alert, because five days of
 > stock cover it. Then the boxes are rolled to a later ship, eleven days late, and the
 > engine raises an alert: the line would stop for six days.
@@ -100,13 +101,15 @@ committed."
 If Ronit records her own line, she says the second sentence in the first person
 instead, and Udi drops it.
 
-### 7. The ask (4:00 to 4:25). Slide 10, then Udi on camera to close
+### 7. The ask (4:00 to 4:35). Slide 10, then Udi on camera to close
 
 > In the ten weeks of the Lab, we want to extend our backtest on real vessel arrivals,
 > draft the long-stop wording with underwriters and counsel, define the risk feed an
 > underwriter would use, and walk one late Rotterdam shipment through every step on
-> paper. We are asking for co-design of wording and pricing, not for customers. Our
-> goal is a lead syndicate alongside us by Demo Day. Thank you.
+> paper. That is why we want to join: to co-design the wording and pricing with the
+> people who would underwrite it, and to interview underwriters, brokers and their
+> insured plants through the Lab's network. Not sales. We both work on this full time, and
+> our goal is a lead syndicate alongside us by Demo Day. Thank you.
 
 End card, 3 seconds: "stead.ai. Insured stock swaps that keep factories running
 through shipping delays."
