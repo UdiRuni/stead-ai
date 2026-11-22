@@ -53,6 +53,34 @@ stead.ai keeps a factory running when its shipping containers run late: we spot 
 delay early, find identical stock in a distributor's warehouse at the destination
 port, and make the deal safe with a proposed long-stop cover on the return leg.
 
+**Q. What is your mission and vision?** (Product)
+
+Mission: keep factories running when shipping runs late.
+
+Vision: stock on call at the port, on terms agreed before the delay. The cure for a
+late shipment is often already in a warehouse at the same port. What is missing is an
+early warning, a view of that stock and a safe way to borrow it. Insurance can supply
+the third, and gain what no delay cover has today: a way to stop the loss, not only to
+pay for it.
+
+North star: factory stoppage days avoided per insured plant, per year. It is the one
+number the plant, the lender and the syndicate all care about.
+
+**Q. Who is it for, and what does each party get?** (Product: suitability to the
+Lloyd's market)
+
+| Who | What they get | Stage |
+|---|---|---|
+| A plant that imports a commodity grade by sea and holds thin stock | Warned early, it buys or borrows identical stock at the port, so the line keeps running | In the Lab: one insured swap, arranged when the alert fires |
+| A distributor with bonded stock at the port | A yield on idle stock, with the return leg covered by the proposed long stop | In the Lab |
+| A marine cargo or trade disruption underwriter | A new short-duration premium line (the long stop) and, past the deductible, a lever that can make a stoppage claim smaller | Wording and pricing co-designed in the Lab |
+| The plant's broker | A standing swap line: a proposed yearly add-on to the cargo policy, with grades, lenders and the long-stop price agreed before any delay | Next, after the Lab. Direction, not built |
+| Underwriters pricing delay | Records of how late boxes really ran and how deep port stock was, which we could not find for sale | Later, only with volume |
+
+We start with the plant, because without a plant that wants the swap there is no
+deal, and with the underwriter, because the Lab is where the wording and price get
+made. Only the single swap runs in our proof of concept, on mock data.
+
 **Q. Which Lab theme does this fit?** (Product)
 
 Cohort 18 themes are not out yet. Cohort 17's "new products" theme asked for
