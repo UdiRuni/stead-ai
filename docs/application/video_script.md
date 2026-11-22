@@ -108,7 +108,7 @@ instead, and Udi drops it.
 > underwriter would use, and walk one late Rotterdam shipment through every step on
 > paper. That is why we want to join: to co-design the wording and pricing with the
 > people who would underwrite it, and to interview underwriters, brokers and their
-> insured plants through the Lab's network. Not sales. I work on this full time, and
+> insured plants through the Lab's network. Not sales. We both work on this full time, and
 > our goal is a lead syndicate alongside us by Demo Day. Thank you.
 
 End card, 3 seconds: "stead.ai. Insured stock swaps that keep factories running

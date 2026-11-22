@@ -188,8 +188,13 @@ agreed]`
 
 **Q. How committed are you to the programme?** (Team: commitment)
 
-Udi Bahat, our CEO, works on stead.ai full time. `[Udi: Ronit's time commitment, from
-when, and whether you can both attend the London weeks.]`
+Both founders work on stead.ai full time: Udi Bahat, CEO, and Ronit Oren, PhD, CTO.
+We will be in London for the programme's mandatory weeks and main events, and work
+remotely between them. Earlier cohorts worked this way: the Cohort 16 handbook says
+teams "can work flexibly, either from Lloyd's in London or wherever best suits their
+business needs", with three mandatory weeks in London
+(https://www.enterprise-ireland.com/documents/lloyd-s-lab-accelerator-cohort-16-information-handbook-pdf-en-172386.pdf).
+`[CEO agent: check the Cohort 18 attendance terms when the form opens on 9 Dec]`
 
 **Q. Have you spoken to customers or the market?** (Programme: traction within the
 insurance industry)
