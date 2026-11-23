@@ -23,6 +23,13 @@ Run:  (cd poc && python3 -m steadpoc.demo)
       (cd poc && python3 -m steadpoc.demo --vessel-exposure 2500000)  vessel limit full
       (cd poc && python3 -m steadpoc.demo --stock-feed data/sample_stock_feed.csv)
                                               stock read from a feed file (steadpoc.stockfeed)
+      (cd poc && python3 -m steadpoc.demo --no-cash)          purchase route blocked
+      (cd poc && python3 -m steadpoc.demo --price-change -0.05 --hold-days 60)
+
+The term sheet also sets the loan against buying the same lots outright
+(steadpoc.purchase): cost to the plant, what stead.ai earns, and when the loan wins.
+Every purchase input (8% a year cost of capital, 30 days held, own room, no spot
+premium, no price move, 2% fee) is an assumption, not data.
 """
 import argparse
 import sys
@@ -34,6 +41,7 @@ from pathlib import Path
 from .accumulation import Book, Decision, Limits, Swap
 from .economics import SwapCase
 from .longstop import LongStop
+from .purchase import PURCHASE, PurchaseCase
 from .matching import Lot, Match, Need, find_match, why_not
 from .stockfeed import FeedError, load_feed
 from .warning import Alert, EtaUpdate, evaluate
@@ -119,6 +127,7 @@ class TermSheet:
     case: SwapCase
     schedule: Schedule
     cover: Cover
+    purchase: PurchaseCase | None = None    # the same lots bought outright; assumptions
 
     @property
     def return_day(self) -> int:
@@ -184,7 +193,10 @@ def _verdict(lot: Lot, need: Need, match: Match | None, stock: list[Lot]) -> str
 def build_demo(case: SwapCase = SwapCase(), schedule: Schedule = Schedule(),
                stock: list[Lot] | None = None, feed: tuple[Feed, ...] | None = None,
                arrival: date | None = None, long_stop_day: int = LONG_STOP_DAY,
-               limits: Limits = Limits(), other_on_vessel_usd: float = 0.0) -> Demo:
+               limits: Limits = Limits(), other_on_vessel_usd: float = 0.0,
+               purchase: PurchaseCase | None = None) -> Demo:
+    """`purchase` holds the purchase-route assumptions; its `swap` is always replaced
+    by `case`, so both routes price the same shipment."""
     if case.delay_days < 0 or case.safety_stock_days < 0:
         raise ValueError("delay_days and safety_stock_days must be non-negative")
     if case.teu <= 0:
@@ -231,8 +243,9 @@ def build_demo(case: SwapCase = SwapCase(), schedule: Schedule = Schedule(),
     if not cover.decision.accepted:
         return done("No swap: " + "; ".join(cover.decision.reasons) + ". The assumed limit is "
                     "full, so the cover could not be bound.", verdicts, match)
+    purchase = replace(purchase or PurchaseCase(), swap=case)
     sheet = TermSheet(BOOKING, match.distributor, f"{producer} {grade}, produced at {plant}",
-                      port, case.teu, match.lots, case, schedule, cover)
+                      port, case.teu, match.lots, case, schedule, cover, purchase)
     return done("Swap offered: the term sheet below goes to the plant, the distributor and "
                 "the underwriter.", verdicts, match, sheet)
 
@@ -252,6 +265,56 @@ def day(offset: int, arrival: date | None = None) -> str:
 
 def _days(n: int) -> str:
     return f"{n} day" if n == 1 else f"{n} days"
+
+
+def _when_loan_wins(p: PurchaseCase) -> str:
+    """Plain list of the break-evens, other inputs held."""
+    if p.purchase_blockers:
+        return "Here: buying is not possible"
+    if p.cheaper_route != PURCHASE:
+        fall = p.breakeven_price_fall
+        why = (f"the price fall of {-p.price_change:.1%} passes the {fall:.1%} break-even"
+               if p.price_change < 0 and fall > 0 else "even with no price move")
+        return f"Here, on these assumptions: {why}"
+    parts = [f"the price of the extra lot falls more than {p.breakeven_price_fall:.1%} while held"]
+    hold = p.breakeven_holding_days
+    if hold is not None:
+        parts.append(f"it is held longer than {hold:,.0f} days")
+    store = p.breakeven_storage_usd_per_teu_day
+    if store is not None:
+        parts.append(f"outside storage costs more than {usd(store)} per TEU per day")
+    parts.append("the plant has no cash or no room for double stock")
+    return "If " + ", or ".join(parts) + " (other inputs held)"
+
+
+def purchase_rows(p: PurchaseCase) -> list[tuple[str, str]]:
+    """Rows comparing the loan with buying the same lots outright. Assumptions."""
+    if p.swap.downtime_days == 0:
+        return [("Route", "No action needed: the plant's stock covers the delay")]
+    move = (usd(p.price_loss_usd) if p.price_loss_usd >= 0
+            else f"a gain of {usd(-p.price_loss_usd)}")
+    total = (usd(p.purchase_cost_usd) if p.purchase_cost_usd >= 0
+             else f"A net gain of {usd(-p.purchase_cost_usd)}")
+    cost = (f"{total}: capital on the extra lot at "
+            f"{p.cost_of_capital:.0%} a year for {_days(p.extra_holding_days)} ({usd(p.capital_usd)}), "
+            f"storage {usd(p.storage_usd)}, spot premium {usd(p.spot_premium_usd)}, "
+            f"price move {move}, stead.ai fee {p.purchase_fee_rate:.1%} "
+            f"({usd(p.purchase_fee_usd)}). All assumptions")
+    if p.purchase_blockers:
+        verdict = "Not possible: " + "; ".join(p.purchase_blockers) + ". The loan is the route"
+    elif p.cheaper_route == PURCHASE:
+        verdict = (f"Buying is cheaper than the {usd(p.loan_cost_usd)} loan on these assumptions; "
+                   f"the plant keeps the late boxes as stock and takes the price risk on them")
+    else:
+        verdict = (f"The {usd(p.loan_cost_usd)} loan is cheaper on these assumptions; "
+                   f"buying would cost {usd(p.purchase_cost_usd - p.loan_cost_usd)} more")
+    return [
+        ("Same lots, bought", "The plant buys the lots and keeps the late boxes as stock; no loan, no long stop"),
+        ("Cost to the plant", cost),
+        ("Against the loan", verdict),
+        ("The loan wins", _when_loan_wins(p)),
+        ("stead.ai earns", f"{usd(p.stead_on_loan_usd)} on the loan, {usd(p.stead_on_purchase_usd)} on the purchase"),
+    ]
 
 
 def term_sheet_rows(sheet: TermSheet, arrival: date | None = None) -> list[tuple[str, list[tuple[str, str]]]]:
@@ -304,6 +367,8 @@ def term_sheet_rows(sheet: TermSheet, arrival: date | None = None) -> list[tuple
                      f"{c.loss_reduction_vs(c.air_bridge_usd):.0%} to "
                      f"{c.loss_reduction_vs(c.stoppage_cost_usd):.0%} below the two rows above"),
         ]),
+    ] + ([("Or the plant buys the stock outright (assumptions)", purchase_rows(sheet.purchase))]
+         if sheet.purchase is not None else []) + [
         ("What makes the return leg safe", [
             ("Boxes lost", "Existing cover: the plant's cargo policy, with the lender named loss payee"),
             ("General Average", "Existing practice: the plant's cargo insurer issues the average guarantee"),
@@ -429,6 +494,14 @@ def main(argv: list[str] | None = None) -> int:
     p.add_argument("--stock-feed", type=Path,
                    help="read distributor stock from this CSV (format: poc/STOCK_FEED.md); "
                         "days are counted from the match day, T-10 of --arrival, else the feed's snapshot date")
+    p.add_argument("--hold-days", type=int, default=30,
+                   help="purchase route: days the extra lot is held (default: 30, an assumption)")
+    p.add_argument("--price-change", type=float, default=0.0,
+                   help="purchase route: price move on the extra lot while held, -0.05 is a 5%% fall (default: 0)")
+    p.add_argument("--storage", type=float, default=0.0,
+                   help="purchase route: outside storage, USD per TEU per day (default: 0, own room)")
+    p.add_argument("--no-cash", action="store_true", help="purchase route: the plant has no cash or credit for it")
+    p.add_argument("--no-room", action="store_true", help="purchase route: the plant has no room for double stock")
     p.add_argument("--html", type=Path, help="also write a self-contained HTML page to this path")
     args = p.parse_args(argv)
     case = SwapCase()
@@ -455,8 +528,11 @@ def main(argv: list[str] | None = None) -> int:
         feed_note = (f"Stock read from {args.stock_feed} (snapshot {report.snapshot_date}, "
                      f"counted from {report.match_date}, {len(stock)} lots).")
     try:
+        purchase = PurchaseCase(swap=case, extra_holding_days=args.hold_days,
+                                price_change=args.price_change, storage_usd_per_teu_day=args.storage,
+                                has_cash=not args.no_cash, has_room=not args.no_room)
         demo = build_demo(case, stock=stock, arrival=args.arrival, long_stop_day=args.long_stop,
-                          other_on_vessel_usd=args.vessel_exposure)
+                          other_on_vessel_usd=args.vessel_exposure, purchase=purchase)
     except ValueError as err:
         print(f"error: {err}", file=sys.stderr)
         return 2

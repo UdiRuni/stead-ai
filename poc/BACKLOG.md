@@ -24,9 +24,9 @@ will score.
       our backtest with real vessel arrivals"; a first cut before 17 Jan makes that
       line evidence, not a promise.
 
-- [ ] Product: purchase route, next. Slice 1 done 2026-11-22 (`steadpoc/purchase.py`,
-      see Done). Still open: (a) add the purchase route as a row on the demo term
-      sheet; (b) replace the assumed 8% cost of capital and 30 holding days with
+- [ ] Product: purchase route, next. Slice 1 done 2026-11-22 (`steadpoc/purchase.py`)
+      and (a) done 2026-11-23 (demo term sheet section), see Done. Still open:
+      (b) replace the assumed 8% cost of capital and 30 holding days with
       figures a plant or a public source gives; (c) a sourced polypropylene monthly
       price move, so the 3 to 5% break-even can be set against how often it happens.
 
@@ -67,6 +67,14 @@ will score.
       limit, if that matters for the return leg; check the customs rule first.
 
 ## Done
+
+- [x] 2026-11-23 Product: purchase route on the demo term sheet. New section "Or the
+      plant buys the stock outright (assumptions)" between the alternatives and the
+      return leg: cost to the plant with each part, loan or purchase cheaper and why,
+      when the loan wins (break-evens), what stead.ai earns on each. Blocked routes
+      (no cash, no room) say the loan is the route; the swap is still offered. New
+      demo flags `--hold-days`, `--price-change`, `--storage`, `--no-cash`,
+      `--no-room`. The $68,000 loan rows are unchanged. 32 new tests.
 
 - [x] 2026-11-22 Product: purchase route against loan route, slice 1.
       `(cd poc && python3 -m steadpoc.purchase)`: cost to the plant of buying the
