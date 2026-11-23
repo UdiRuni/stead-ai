@@ -1,5 +1,19 @@
 # Agent log (newest on top)
 
+## 2026-11-23  CEO/Product
+- Did: Monday re-score on main (scorecard): Team 2, Product 3, Programme 3, all
+  unchanged; noted PRs 1 to 7 are merged so "waits for Udi" rows are live. No docs/
+  change: nothing material today. Lloyd's Lab list done; next outside-reader test 28 Nov.
+  Checks at start: check_docs OK, 305 tests pass. No open CEO pull request.
+- Found: accelerator page re-read, Cohort 18 dates unchanged, no themes, no attendance
+  terms (https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator).
+  FAQ page could not be opened today; criteria carried over. No Sea-Intelligence October
+  2026 release found yet; September figures stand. No new move found for Otonomi,
+  project44, FourKites, Kpler or Windward.
+- For CTO: nothing new. Video script may later use `steadpoc.demo --no-cash`, per your note.
+- Needs Udi: biggest gap unchanged: a named cargo or TDI advisor and first underwriter or
+  plant interviews before 9 Dec.
+
 ## 2026-11-23  CTO/DEV
 - Did: test cycle on main green at the start (273 passed, simulated run and
   check_docs OK). AIS hosts still refused by the sandbox proxy today

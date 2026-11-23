@@ -15,6 +15,10 @@ disruption" (https://www.lloyds.com/insights/lloyds-lab/cohort-17). That is our 
 The accelerator page promises mentors, market access and pilots with syndicates; it does
 not mention data (https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator).
 
+Re-read 2026-11-23: accelerator page dates unchanged, still no Cohort 18 themes, no
+attendance terms stated. The FAQ page could not be opened from the agent today, so the
+criteria are carried over unchanged, not re-confirmed.
+
 Re-read 2026-11-20: dates unchanged, no Cohort 18 themes yet; the Lab selects "approximately 10 teams from 150-200 global applications" (accelerator page).
 
 Dates: applications open 9 Dec 2026, close 17 Jan 2027, shortlist 5 Feb 2027,
@@ -43,7 +47,11 @@ Scores must be honest. Do not raise a score without new evidence in the repo.
 
 ## 1. Team: do they have the skills and commitment to do what they claim?
 
-Score 2026-11-16: 2 of 5 (unchanged). Strong risk, product and algorithm backgrounds,
+Score 2026-11-23: 2 of 5 (unchanged). Both founders full time and a POC demo on mock
+data are now on main, but no one with cargo, TDI or distribution experience is named and
+no interview has been held, so a market reviewer still sees the domain gap first.
+
+Score 2026-11-16: 2 of 5. Strong risk, product and algorithm backgrounds,
 but no one on the team has worked in marine cargo, insurance or chemical distribution,
 and the materials still show no advisor, no commitment and no customer contact. The POC
 now has a public-data backtest, but no demo yet and it is not in the materials.
@@ -57,7 +65,11 @@ now has a public-data backtest, but no demo yet and it is not in the materials.
 
 ## 2. Product: a specific use case for the Lloyd's market, not tech looking for a problem?
 
-Score 2026-11-16: 3 of 5 (unchanged). The use case is specific and fits the Lab's own
+Score 2026-11-23: 3 of 5 (unchanged). Pull requests 1, 3 and 5 are merged (plain
+language, vision, pricing method, worked-case fixes), so the writing is clearer, but no
+plant or underwriter has said they want this and market size is honestly "not yet sized".
+
+Score 2026-11-16: 3 of 5. The use case is specific and fits the Lab's own
 "supply chain disruption" wording, but demand is unproven, every figure is an assumption
 and the premium is a placeholder. The plain-language pass is proposed in pull request 1,
 not yet approved, so it does not count.
@@ -78,7 +90,11 @@ and one from a plant would do more than any further writing.
 
 ## 3. Programme: would the 10-week plan work at the Lab?
 
-Score 2026-11-16: 3 of 5 (unchanged). The CTO's data audit shows the backtest can run on
+Score 2026-11-23: 3 of 5 (unchanged). Pull request 2 is merged, so the plan no longer
+depends on mentor data or a distributor, but there is still no traction within the
+insurance industry, which the scoring guidance names under Programme.
+
+Score 2026-11-16: 3 of 5. The CTO's data audit shows the backtest can run on
 public data with no mentor data, which removes the risk in fact, but deck and brief
 still carry the old wording, and weeks 7 to 10 still need a distributor we do not have.
 
@@ -142,7 +158,12 @@ today, and the gap. Next test: 2026-11-28.
    Owner: CTO (accumulation, Engineering backlog; needs a sourced event frequency), then
    CEO adds one line on limits to slide 5 once it exists.
 
-## Biggest gap, 2026-11-16
+## Status note, 2026-11-23
+
+Pull requests 1 to 7 are all merged. Where a table row above says a change "waits for
+Udi's approval", read it as live on main. No open CEO pull request.
+
+## Biggest gap, 2026-11-23 (unchanged since 2026-11-16)
 
 Team: no one with cargo, TDI or distribution experience is named, and no interview has
 been held. Only Udi can close it. Everything the agents can write is secondary to this.
