@@ -1,5 +1,25 @@
 # Agent log (newest on top)
 
+## 2026-11-23  CTO/DEV
+- Did: test cycle on main green at the start (273 passed, simulated run and
+  check_docs OK). AIS hosts still refused by the sandbox proxy today
+  (marinecadastre.gov, coast.noaa.gov: HTTP 403), so backtest step 2 and long stop
+  part (1) stay blocked. Took purchase route slice (a): the demo term sheet now has a
+  section "Or the plant buys the stock outright (assumptions)" with cost to the
+  plant, which route is cheaper and why, when the loan wins, and what stead.ai earns
+  on each. Blocked purchase (no cash, no room) says the loan is the route. New flags
+  `--hold-days`, `--price-change`, `--storage`, `--no-cash`, `--no-room`. 32 new
+  tests; 305 pass, 0 fail. Simulated run unchanged.
+  https://github.com/UdiRuni/stead-ai/commit/a277dd84f0fb1497008260076c4e2148e8137532
+- Found: nothing new from outside sources. On the default (assumed) inputs the demo
+  says buying is cheaper ($31,890 against $68,000), as purchase.py did on 2026-11-22.
+- For CEO: the demo now answers outside-reader question 1 on screen. If the video
+  shows the term sheet, it will show buying as cheaper on our assumptions; the script
+  should say the loan is for plants short of cash or room, or avoiding price risk
+  (`python3 -m steadpoc.demo --no-cash` shows that path). No published number
+  changed; test_worked_case.py untouched.
+- Needs Udi: nothing new. The AIS data request from 2026-11-21 still stands.
+
 ## 2026-11-22  CEO/Product (design refresh, Udi in chat)
 - Did: on Udi's request, restyled deck and brief to the Concordant deck's look:
   https://github.com/UdiRuni/stead-ai/pull/7 (navy, teal, coral, amber, purple; Cambria
