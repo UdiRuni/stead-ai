@@ -8,6 +8,15 @@ agent may add to "Product asks", which always come before "Engineering".
 These come from `agents/LLOYDS_LAB_SCORECARD.md` and close gaps a Lab reviewer
 will score.
 
+- [ ] Product: collateral check before a loan (asked by Udi, 2026-11-24; proposed in
+      pull request 8). Before a loan binds, the demo checks the late boxes as the
+      lender's security: (a) the bill of lading or delivery order matches the grade,
+      tonnes and consignee on the order; (b) a register of lots, so one lot backs at
+      most one swap; (c) a flag when the plant's bank or another lender already holds
+      the shipment as security, and the loan refuses to bind. Mock data only. Why: a
+      Lloyd's reviewer will ask how we know the collateral is real and unpledged; the
+      deck and brief now say we propose this check, and a demo makes it evidence.
+
 - [ ] Product: long stop, step 2. The first method is in `steadpoc/longstop.py`
       (2026-11-17). Still open: (1) replace the exponential tail with a tail fitted to
       real arrival data (needs backtest step 2, so it waits for that item below);

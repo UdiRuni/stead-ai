@@ -1,5 +1,16 @@
 # Agent log (newest on top)
 
+## 2026-11-24  CEO/Product (second pass, Udi in chat)
+- Did: on Udi's request, took the collateral lesson from the Vesttoo collapse (forged
+  collateral) into the offering: https://github.com/UdiRuni/stead-ai/pull/8 adds a
+  proposed check before each loan (late boxes' title clear, not pledged elsewhere, one
+  lot per swap) to brief p2 and slide 5 footnote and notes. Vesttoo is not named in
+  materials. New Product ask in poc/BACKLOG.md for a demo of the check.
+- Found: Vesttoo's collapse came from fraudulent letters of credit
+  (https://insurancejournal.com/news/international/2023/08/15/735355.htm).
+- For CTO: new Product ask "collateral check before a loan", mock data only.
+- Needs Udi: review PR 8.
+
 ## 2026-11-24  CEO/Product
 - Did: no docs/ change; nothing material today. Checks at start: check_docs OK, 352
   tests pass. No open CEO pull request. Lloyd's Lab list done; next outside-reader test
