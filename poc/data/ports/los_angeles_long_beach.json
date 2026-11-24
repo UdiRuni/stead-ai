@@ -1,0 +1,94 @@
+{
+  "name": "Los Angeles and Long Beach (anchorages only, PARTIAL)",
+  "source": "33 CFR 110.214 (Los Angeles and Long Beach harbors, California), datum NAD 83 as stated in 110.214(b). Anchorages F and G: final rule 90 FR 43392, 9 Sept 2025, effective 9 Oct 2025, tables 6 and 7 (https://www.govinfo.gov/content/pkg/FR-2025-09-09/pdf/2025-17318.pdf). Anchorages B, C, D and E: full text of 110.214 as published by FindLaw, marked current as of 2 Jan 2025 (https://codes.findlaw.com/cfr/title-33-navigation-and-navigable-waters/cfr-sect-33-110-214/); the 2025 rule does not amend these paragraphs. Read 2026-11-24. eCFR itself could not be opened from the agent sandbox; check every vertex against eCFR before a real run.",
+  "missing": "no berth areas yet; container terminal berths must be drawn from a sourced chart or port map, not from memory",
+  "notes": [
+    "Vertices are copied as printed in the source, in the source's order; the last vertex joins the first, as the regulation says.",
+    "NAD 83 and the WGS 84 used by AIS differ by about a metre or two here, far less than an anchorage.",
+    "Left out on purpose: sub-anchorage circles inside B and D (already inside those polygons), the explosives anchorage (a circle, used only when activated), and general anchorages N, P and Q (small craft; parts of their bounds follow shorelines with no coordinates printed).",
+    "Anchorage A (Los Angeles Harbor) was removed in 2015 (79 FR 71654), as the 2025 rule notes."
+  ],
+  "boxes": [
+    {
+      "name": "Anchorage F (outside the Long Beach Breakwater)",
+      "kind": "anchorage",
+      "source": "33 CFR 110.214(b)(6), table 6, as amended by 90 FR 43392 (2025)",
+      "vertices_dms": [
+        "33°43′05.1″ N 118°08′04.0″ W",
+        "33°43′05.0″ N 118°10′32.5″ W",
+        "33°42′13.3″ N 118°09′54.8″ W",
+        "33°40′51.3″ N 118°09′32.2″ W",
+        "33°38′36.2″ N 118°07′43.8″ W",
+        "33°40′44.4″ N 118°06′51.4″ W"
+      ]
+    },
+    {
+      "name": "Anchorage G (outside the Middle Breakwater)",
+      "kind": "anchorage",
+      "source": "33 CFR 110.214(b)(7), table 7, as amended by 90 FR 43392 (2025)",
+      "vertices_dms": [
+        "33°43′05.4″ N 118°11′17.9″ W",
+        "33°43′05.4″ N 118°12′18.6″ W",
+        "33°42′25.8″ N 118°14′19.2″ W",
+        "33°40′50.4″ N 118°13′01.2″ W",
+        "33°41′02.9″ N 118°12′19.0″ W",
+        "33°42′10.8″ N 118°11′36.0″ W"
+      ]
+    },
+    {
+      "name": "Anchorage B (Long Beach Harbor)",
+      "kind": "anchorage",
+      "source": "33 CFR 110.214(b)(2)",
+      "vertices_dms": [
+        "33°-44'-37.0\" N 118°-13'-00.0\" W",
+        "33°-44'-12.0\" N 118°-12'-36.2\" W",
+        "33°-43'-38.2\" N 118°-11'-36.9\" W",
+        "33°-43'-26.1\" N 118°-11'-47.2\" W",
+        "33°-43'-26.1\" N 118°-12'-22.7\" W",
+        "33°-42'-58.9\" N 118°-13'-53.0\" W",
+        "33°-43'-46.0\" N 118°-14'-13.6\" W",
+        "33°-43'-54.5\" N 118°-13'-50.0\" W",
+        "33°-44'-22.8\" N 118°-13'-51.0\" W"
+      ]
+    },
+    {
+      "name": "Anchorage C (Long Beach Harbor)",
+      "kind": "anchorage",
+      "source": "33 CFR 110.214(b)(3)",
+      "vertices_dms": [
+        "33°-44′-20.0″N 118°-08′-26.2″W",
+        "33°-44′-23.5″N 118°-09′-32.6″W",
+        "33°-44′-52.8″N 118°-09′-33.2″W",
+        "33°-44′-25.2″N 118°-08′-26.2″W"
+      ]
+    },
+    {
+      "name": "Anchorage D (Long Beach Harbor, inside the breakwater)",
+      "kind": "anchorage",
+      "source": "33 CFR 110.214(b)(4)",
+      "vertices_dms": [
+        "33°-43′-27.2″N 118°-08′-12.6″W",
+        "33°-43′-27.2″N 118°-10′-46.5″W",
+        "33°-43′-51.0″N 118°-10′-46.5″W",
+        "33°-44′-18.5″N 118°-10′-27.2″W",
+        "33°-44′-18.5″N 118°-08′-12.6″W"
+      ]
+    },
+    {
+      "name": "Anchorage E (Long Beach Harbor)",
+      "kind": "anchorage",
+      "source": "33 CFR 110.214(b)(5)",
+      "vertices_dms": [
+        "33°-44'-37.0\" N 118°-09'-48.5\" W",
+        "33°-44'-18.5\" N 118°-09'-56.8\" W",
+        "33°-44'-18.5\" N 118°-10'-27.2\" W",
+        "33°-44'-27.6\" N 118°-10'-41.0\" W",
+        "33°-44'-29.0\" N 118°-10'-57.4\" W",
+        "33°-45'-06.4\" N 118°-11'-09.5\" W",
+        "33°-45'-15.2\" N 118°-10'-46.1\" W",
+        "33°-45'-11.0\" N 118°-10'-32.0\" W",
+        "33°-44'-52.0\" N 118°-10'-32.0\" W"
+      ]
+    }
+  ]
+}

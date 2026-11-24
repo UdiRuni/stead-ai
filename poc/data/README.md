@@ -27,3 +27,12 @@ ILLUSTRATIVE stock feed in the proposed format (`poc/STOCK_FEED.md`). Every lot 
 invented: the same seven lots as the demo's built-in stock, so the demo gives the same
 match when it reads this file. It is not stock of any real distributor. Written by us,
 free to share.
+
+## ports/los_angeles_long_beach.json
+
+Port areas for `steadpoc.portcalls`: the six commercial anchorages of Los Angeles and
+Long Beach (B, C, D, E, F, G) from 33 CFR 110.214, vertices copied as printed, with the
+Federal Register 2025 amendment for F and G. Sources and read date are in the file.
+US federal regulations are public domain. PARTIAL: no berth areas yet, so the file is
+refused for a run (`python3 -m steadpoc.portcalls --check-port FILE` describes it).
+Check every vertex against eCFR before a real run.

@@ -164,6 +164,25 @@ whose past bookings can be replayed.
   at one port, commit the derived call list (CC0 allows it), then feed real waiting
   and lateness into the backtest and the long-stop tail.
 
+### Step 2 progress, 2026-11-24
+
+- Built: polygon port areas in `steadpoc/portcalls.py` (`Area`, point in polygon,
+  edges that cross are refused) and `parse_dms`, which reads positions as printed in a
+  regulation, so a port file can be checked line by line against its source.
+- First real port file: `data/ports/los_angeles_long_beach.json`, the six commercial
+  anchorages B, C, D, E, F and G of 33 CFR 110.214 (datum NAD 83). F and G are the
+  waiting areas outside the breakwaters, from the final rule of 9 Sept 2025, effective
+  9 Oct 2025 (https://www.govinfo.gov/content/pkg/FR-2025-09-09/pdf/2025-17318.pdf).
+  B to E come from FindLaw's copy of 110.214, marked current as of 2 Jan 2025
+  (https://codes.findlaw.com/cfr/title-33-navigation-and-navigable-waters/cfr-sect-33-110-214/);
+  the 2025 rule does not amend them. All read 2026-11-24 through a text tool; eCFR
+  itself was not reachable. Cross-check in the tests: the sub-anchorage and explosives
+  anchorage centres printed in the same section all fall inside the right polygon.
+- Still missing: berth areas. The file is marked partial; `--check-port` describes it,
+  a run refuses it. Without berths, ships that go straight to a berth are never seen
+  and waiting time cannot be measured, so a run on anchorages alone would be biased.
+  Next: berth (terminal) areas from a sourced chart or port map.
+
 ## 5. Not verified today
 
 - Sea-Intelligence's definition of "on time" (a secondary source cites plus or minus

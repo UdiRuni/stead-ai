@@ -19,7 +19,8 @@ will score.
       extractor (`steadpoc/portcalls.py`), tested on invented reports. Blocked next:
       the AIS download hosts are not reachable from the agent sandbox (see
       DATA_AUDIT.md, "Step 2 progress"). Next slices: (a) a real port definition with
-      its chart source; (b) run real files once a host is reachable or a file is put
+      its chart source: anchorages done 2026-11-24 (see Done), berth areas still
+      open, needs a sourced chart or port map of the container terminals; (b) run real files once a host is reachable or a file is put
       in the repo; (c) feed the call list into the backtest. Why: pull request 2 says weeks 1 to 3 "extend
       our backtest with real vessel arrivals"; a first cut before 17 Jan makes that
       line evidence, not a promise.
@@ -67,6 +68,13 @@ will score.
       limit, if that matters for the return leg; check the customs rule first.
 
 ## Done
+
+- [x] 2026-11-24 Programme: backtest step 2, slice (a) part 1. Polygon port areas and
+      positions as printed in a regulation (`Area`, `parse_dms` in `portcalls.py`);
+      first real port file `data/ports/los_angeles_long_beach.json` with the six
+      commercial anchorages of 33 CFR 110.214 (F and G as amended in 2025). Marked
+      partial (no berths): `--check-port` describes it, a run refuses it. 47 new tests,
+      including printed sub-anchorage centres falling inside the right polygon.
 
 - [x] 2026-11-23 Product: purchase route on the demo term sheet. New section "Or the
       plant buys the stock outright (assumptions)" between the alternatives and the

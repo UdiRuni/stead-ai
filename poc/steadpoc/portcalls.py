@@ -19,9 +19,12 @@ them against the first real file before trusting a run.
 No real AIS file has been run through this yet. On 2026-11-21 the download hosts
 (coast.noaa.gov, marinecadastre.gov and the Azure blob store with the GeoParquet
 files) were not reachable from the agent's sandbox. Every test uses invented
-reports. Port areas are read from a JSON file (see load_port); no real port is
-defined in the repo yet, because the boxes must be drawn from a chart or from the
-anchorage areas in 33 CFR Part 110, not from memory.
+reports. Port areas are read from a JSON file (see load_port). Areas may be boxes or
+polygons; polygon vertices may be given as printed in a regulation (degrees, minutes,
+seconds), so the file can be checked line by line against its source. The first real
+port file is poc/data/ports/los_angeles_long_beach.json (2026-11-24): its anchorages
+come from 33 CFR 110.214, but it has no berth areas yet, so it passes --check-port and
+is refused for a run until berths are drawn from a sourced chart.
 
 Method, with every assumption in Rules:
   - Only reports inside one of the port's boxes are kept, so a day of national data
@@ -38,12 +41,14 @@ Method, with every assumption in Rules:
     waiting time figures.
 
 Run:  (cd poc && python3 -m steadpoc.portcalls --port PORT.json AIS_2024_01_01.zip ...)
+Check a port file only:  (cd poc && python3 -m steadpoc.portcalls --check-port PORT.json)
 """
 import argparse
 import csv
 import io
 import json
 import math
+import re
 import statistics
 import sys
 import zipfile
@@ -77,17 +82,143 @@ class Box:
         return self.lat_min <= lat <= self.lat_max and self.lon_min <= lon <= self.lon_max
 
 
+_DMS = re.compile(
+    r"(\d{1,2})\D+?(\d{1,2})\D+?(\d{1,2}(?:\.\d+)?)[^NSns\d]*([NSns])"
+    r"[^\d]*?(\d{1,3})\D+?(\d{1,2})\D+?(\d{1,2}(?:\.\d+)?)[^EWew\d]*([EWew])")
+
+
+def parse_dms(text: str) -> tuple[float, float]:
+    """One position as printed in a US regulation, to decimal (lat, lon).
+
+    Accepts the layouts found in 33 CFR 110.214 and its Federal Register amendments,
+    for example "33°43′05.1″ N 118°08′04.0″ W", "33°-44'-37.0\" N 118°-13'-00.0\" W"
+    and "33-43' 40.5' N, 118-10' 30\" W". Minutes and seconds must be under 60.
+    """
+    m = _DMS.search(text)
+    if not m:
+        raise ValueError(f"cannot read a degrees-minutes-seconds position from {text!r}")
+    out = []
+    for deg, mins, secs, hemi, limit in ((m[1], m[2], m[3], m[4], 90), (m[5], m[6], m[7], m[8], 180)):
+        d, mi, se = int(deg), int(mins), float(secs)
+        if mi >= 60 or se >= 60:
+            raise ValueError(f"minutes and seconds must be under 60 in {text!r}")
+        value = d + mi / 60 + se / 3600
+        if value > limit:
+            raise ValueError(f"position out of range in {text!r}")
+        out.append(-value if hemi.upper() in "SW" else value)
+    return out[0], out[1]
+
+
+def _segments_cross(p1, p2, p3, p4) -> bool:
+    """True if segment p1-p2 properly crosses segment p3-p4 (shared ends do not count)."""
+    def orient(a, b, c):
+        v = (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0])
+        return (v > 1e-15) - (v < -1e-15)
+    d1, d2 = orient(p3, p4, p1), orient(p3, p4, p2)
+    d3, d4 = orient(p1, p2, p3), orient(p1, p2, p4)
+    return d1 * d2 < 0 and d3 * d4 < 0
+
+
+def _on_segment(p, a, b, eps=1e-12) -> bool:
+    cross = (b[0] - a[0]) * (p[1] - a[1]) - (b[1] - a[1]) * (p[0] - a[0])
+    if abs(cross) > eps:
+        return False
+    return (min(a[0], b[0]) - eps <= p[0] <= max(a[0], b[0]) + eps
+            and min(a[1], b[1]) - eps <= p[1] <= max(a[1], b[1]) + eps)
+
+
+@dataclass(frozen=True)
+class Area:
+    """A polygon port area: vertices (lat, lon) in order; the last joins the first.
+
+    Positions are treated as flat x-y over the few kilometres of a port, which is
+    accurate enough to decide whether a ship is inside an anchorage. A point on an
+    edge counts as inside. Areas may not cross the 180th meridian.
+    """
+    name: str
+    kind: str                     # "anchorage" or "berth"
+    vertices: tuple[tuple[float, float], ...]
+
+    def __post_init__(self):
+        if self.kind not in BOX_KINDS:
+            raise ValueError(f"area {self.name!r}: kind must be one of {BOX_KINDS}, not {self.kind!r}")
+        vs = self.vertices
+        if len(vs) >= 2 and vs[0] == vs[-1]:
+            vs = vs[:-1]          # a closing vertex repeated from the source is allowed
+            object.__setattr__(self, "vertices", vs)
+        if len(vs) < 3:
+            raise ValueError(f"area {self.name!r}: needs at least 3 distinct vertices")
+        for lat, lon in vs:
+            if not (-90 <= lat <= 90 and -180 <= lon <= 180):
+                raise ValueError(f"area {self.name!r}: vertex ({lat}, {lon}) out of range")
+        if len(set(vs)) != len(vs):
+            raise ValueError(f"area {self.name!r}: repeated vertex")
+        if max(v[1] for v in vs) - min(v[1] for v in vs) > 180:
+            raise ValueError(f"area {self.name!r}: crosses the 180th meridian, not supported")
+        n = len(vs)
+        edges = [(vs[i], vs[(i + 1) % n]) for i in range(n)]
+        for i in range(n):
+            for j in range(i + 1, n):
+                if j == i + 1 or (i == 0 and j == n - 1):
+                    continue      # neighbours share a vertex
+                if _segments_cross(*edges[i], *edges[j]):
+                    raise ValueError(f"area {self.name!r}: edges {i + 1} and {j + 1} cross;"
+                                     " check the vertex order against the source")
+        if self.area_km2() < 1e-6:
+            raise ValueError(f"area {self.name!r}: has no area (vertices in a line)")
+
+    @property
+    def bounds(self) -> tuple[float, float, float, float]:
+        lats = [v[0] for v in self.vertices]
+        lons = [v[1] for v in self.vertices]
+        return min(lats), max(lats), min(lons), max(lons)
+
+    def contains(self, lat: float, lon: float) -> bool:
+        lat_min, lat_max, lon_min, lon_max = self.bounds
+        if not (lat_min <= lat <= lat_max and lon_min <= lon <= lon_max):
+            return False
+        vs = self.vertices
+        n = len(vs)
+        inside = False
+        for i in range(n):
+            a, b = vs[i], vs[(i + 1) % n]
+            if _on_segment((lat, lon), a, b):
+                return True
+            if (a[0] > lat) != (b[0] > lat):
+                cross_lon = a[1] + (lat - a[0]) * (b[1] - a[1]) / (b[0] - a[0])
+                if lon < cross_lon:
+                    inside = not inside
+        return inside
+
+    def area_km2(self) -> float:
+        """Shoelace area on a local flat projection (km per degree at the mean latitude)."""
+        vs = self.vertices
+        mean_lat = math.radians(sum(v[0] for v in vs) / len(vs))
+        ky, kx = 111.32, 111.32 * math.cos(mean_lat)
+        pts = [(v[1] * kx, v[0] * ky) for v in vs]
+        s = sum(pts[i][0] * pts[(i + 1) % len(pts)][1] - pts[(i + 1) % len(pts)][0] * pts[i][1]
+                for i in range(len(pts)))
+        return abs(s) / 2
+
+
 @dataclass(frozen=True)
 class Port:
     name: str
-    boxes: tuple[Box, ...]
-    source: str                   # where the boxes were drawn from
+    boxes: tuple                  # Box or Area, each with name, kind and contains()
+    source: str                   # where the areas were drawn from
+    missing: str = ""             # what the file still lacks (a partial port), else ""
 
     def __post_init__(self):
         if not self.boxes:
             raise ValueError(f"port {self.name!r}: needs at least one box")
-        if not any(b.kind == "berth" for b in self.boxes):
+        if not any(b.kind == "berth" for b in self.boxes) and not self.missing:
             raise ValueError(f"port {self.name!r}: needs at least one berth box")
+
+    @property
+    def runnable(self) -> bool:
+        """A run needs a berth area, or waiting time and arrivals of ships that never
+        anchor cannot be measured."""
+        return any(b.kind == "berth" for b in self.boxes)
 
     def locate(self, lat: float, lon: float) -> str | None:
         """'berth' if in any berth box (berth wins on overlap), 'anchorage', or None."""
@@ -97,17 +228,63 @@ class Port:
         return "anchorage" if kinds else None
 
 
-def load_port(path: str | Path) -> Port:
-    """Read a port definition: {"name", "source", "boxes": [{name, kind, lat_min, ...}]}."""
+def _area_from_json(b: dict):
+    name, kind = str(b["name"]), str(b["kind"])
+    given = [k for k in ("lat_min", "polygon", "vertices_dms") if k in b]
+    if len(given) != 1:
+        raise ValueError(f"area {name!r}: give exactly one of lat_min..lon_max (a box),"
+                         " polygon or vertices_dms")
+    if given[0] == "lat_min":
+        return Box(name=name, kind=kind, lat_min=float(b["lat_min"]), lat_max=float(b["lat_max"]),
+                   lon_min=float(b["lon_min"]), lon_max=float(b["lon_max"]))
+    if given[0] == "polygon":
+        return Area(name, kind, tuple((float(lat), float(lon)) for lat, lon in b["polygon"]))
+    return Area(name, kind, tuple(parse_dms(str(t)) for t in b["vertices_dms"]))
+
+
+def load_port(path: str | Path, allow_partial: bool = False) -> Port:
+    """Read a port definition: {"name", "source", "boxes": [...]}.
+
+    Each entry of "boxes" has a name and a kind and one of: lat_min, lat_max, lon_min,
+    lon_max (a box); "polygon": [[lat, lon], ...]; or "vertices_dms": positions as
+    printed in the source. Other keys (for example a per-area "source") are kept in the
+    file for the reader and ignored here. A file may say what it still lacks in
+    "missing"; such a partial port loads only with allow_partial=True.
+    """
     data = json.loads(Path(path).read_text(encoding="utf-8"))
     try:
-        boxes = tuple(Box(name=str(b["name"]), kind=str(b["kind"]),
-                          lat_min=float(b["lat_min"]), lat_max=float(b["lat_max"]),
-                          lon_min=float(b["lon_min"]), lon_max=float(b["lon_max"]))
-                      for b in data["boxes"])
-        return Port(name=str(data["name"]), boxes=boxes, source=str(data["source"]))
-    except KeyError as missing:
-        raise ValueError(f"{path}: port file is missing {missing}") from None
+        boxes = tuple(_area_from_json(b) for b in data["boxes"])
+        missing = str(data.get("missing", "") or "")
+        if missing and not allow_partial:
+            raise ValueError(f"{path}: port file is partial and cannot be used for a run yet:"
+                             f" {missing}")
+        return Port(name=str(data["name"]), boxes=boxes, source=str(data["source"]),
+                    missing=missing)
+    except KeyError as missing_key:
+        raise ValueError(f"{path}: port file is missing {missing_key}") from None
+
+
+def describe_port(port: Port) -> str:
+    """Plain text check of a port file: every area, its size and where it lies."""
+    lines = [f"port: {port.name}", f"source: {port.source}"]
+    for b in port.boxes:
+        if isinstance(b, Area):
+            lat_min, lat_max, lon_min, lon_max = b.bounds
+            lines.append(f"  {b.kind:9} {b.name}: polygon, {len(b.vertices)} vertices,"
+                         f" {b.area_km2():.2f} km2, lat {lat_min:.4f} to {lat_max:.4f},"
+                         f" lon {lon_min:.4f} to {lon_max:.4f}")
+        else:
+            lines.append(f"  {b.kind:9} {b.name}: box, lat {b.lat_min:.4f} to {b.lat_max:.4f},"
+                         f" lon {b.lon_min:.4f} to {b.lon_max:.4f}")
+    kinds = [b.kind for b in port.boxes]
+    lines.append(f"areas: {len(kinds)} ({kinds.count('anchorage')} anchorage,"
+                 f" {kinds.count('berth')} berth)")
+    if port.runnable:
+        lines.append("status: ready for a run")
+    else:
+        lines.append("status: NOT ready for a run, no berth area"
+                     + (f" ({port.missing})" if port.missing else ""))
+    return "\n".join(lines)
 
 
 @dataclass(frozen=True)
@@ -443,12 +620,23 @@ def render(port: Port, report: ReadReport, s: Summary, excluded: dict[str, str])
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(prog="python3 -m steadpoc.portcalls",
                                  description="Port calls and waiting times from AIS files.")
-    ap.add_argument("files", nargs="+", help="Marine Cadastre AIS CSV or ZIP files")
-    ap.add_argument("--port", required=True, help="port definition JSON")
+    ap.add_argument("files", nargs="*", help="Marine Cadastre AIS CSV or ZIP files")
+    ap.add_argument("--port", help="port definition JSON")
+    ap.add_argument("--check-port", metavar="PORT.json",
+                    help="only read and describe a port file (partial files allowed), then stop")
     ap.add_argument("--csv", help="write one row per call to this file")
     ap.add_argument("--min-length", type=float, default=Rules.min_length_m)
     ap.add_argument("--gap-hours", type=float, default=Rules.visit_gap_hours)
     args = ap.parse_args(argv)
+    if args.check_port:
+        try:
+            print(describe_port(load_port(args.check_port, allow_partial=True)))
+        except (OSError, ValueError) as e:
+            print(f"error: {e}", file=sys.stderr)
+            return 2
+        return 0
+    if not args.port or not args.files:
+        ap.error("a run needs --port and at least one AIS file (or use --check-port)")
     try:
         port = load_port(args.port)
         rules = Rules(min_length_m=args.min_length, visit_gap_hours=args.gap_hours)
