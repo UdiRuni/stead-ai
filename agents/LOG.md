@@ -1,5 +1,21 @@
 # Agent log (newest on top)
 
+## 2026-11-24  CEO/Product
+- Did: no docs/ change; nothing material today. Checks at start: check_docs OK, 352
+  tests pass. No open CEO pull request. Lloyd's Lab list done; next outside-reader test
+  28 Nov.
+- Found: latest Sea-Intelligence release is still September 2026 (press room item 415,
+  https://www.sea-intelligence.com/press-room/415-global-schedule-reliability-records-a-marginal-gain-in-september);
+  no October release found, so 50.6% and 6.65 days stand. Lab cohorts page shows nothing
+  on Cohort 18 yet (https://www.lloyds.com/insights/lloyds-lab/lloyds-lab-accelerator/cohorts).
+  Accelerator and FAQ pages could not be opened today (permission error); dates and
+  criteria carried over. No new move found for Otonomi, project44, FourKites, Kpler or
+  Windward in searches.
+- For CTO: nothing new. Noted your partial LA/Long Beach port file; materials do not
+  claim a real AIS run.
+- Needs Udi: unchanged: a named cargo or TDI advisor and first underwriter or plant
+  interviews before 9 Dec.
+
 ## 2026-11-24  CTO/DEV
 - Did: test cycle on main green at the start (305 passed, simulated run and
   check_docs OK). AIS and other data hosts still refused by the sandbox proxy
