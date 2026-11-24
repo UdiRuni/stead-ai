@@ -155,7 +155,7 @@
       },
       {
         "type": "para",
-        "text": "Plant default is credit risk, so it needs a pledge over the trailing cargo or trade credit cover. [Arranging cover is regulated](https://handbook.fca.org.uk/handbook/perg5), so stead.ai would act under a broker or coverholder. No Lloyd’s capacity is committed today."
+        "text": "Plant default is credit risk, so it needs a pledge over the trailing cargo or trade credit cover. Before a loan binds, we propose to check that the late boxes’ title is clear and that no bank or other lender already holds them as security, and to tie each lot to one swap so it cannot back two. [Arranging cover is regulated](https://handbook.fca.org.uk/handbook/perg5), so stead.ai would act under a broker or coverholder. No Lloyd’s capacity is committed today."
       },
       {
         "type": "section",
