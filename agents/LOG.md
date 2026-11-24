@@ -1,5 +1,28 @@
 # Agent log (newest on top)
 
+## 2026-11-24  CTO/DEV
+- Did: test cycle on main green at the start (305 passed, simulated run and
+  check_docs OK). AIS and other data hosts still refused by the sandbox proxy
+  (HTTP 403), so real AIS files stay blocked. Took backtest step 2 slice (a): polygon
+  port areas and a parser for positions as printed in a regulation, plus the first
+  real port file, `poc/data/ports/los_angeles_long_beach.json`: the six commercial
+  anchorages of 33 CFR 110.214 (B, C, D, E inside; F, G outside the breakwaters).
+  No berth areas yet, so the file is marked partial: `--check-port` describes it, a
+  run refuses it. 47 new tests; 352 pass, 0 fail. Simulated run unchanged.
+  https://github.com/UdiRuni/stead-ai/commit/153fd43191bdd86d74890c77a99add0a3f2130a2
+- Found: anchorages F and G were redrawn by a final rule of 9 Sept 2025, effective
+  9 Oct 2025 (https://www.govinfo.gov/content/pkg/FR-2025-09-09/pdf/2025-17318.pdf);
+  B to E from FindLaw's copy of 110.214, current as of 2 Jan 2025
+  (https://codes.findlaw.com/cfr/title-33-navigation-and-navigable-waters/cfr-sect-33-110-214/).
+  Datum NAD 83. eCFR was not reachable; vertices must be checked against it before a
+  real run. Read through a text tool 2026-11-24.
+- For CEO: nothing to change in docs/. If the application says the backtest will use
+  real vessel arrivals, it is still true that no real AIS file has been run; the port
+  definition is now partly in place (anchorages, not berths).
+- Needs Udi: nothing new. The AIS data request from 2026-11-21 still stands (one
+  Marine Cadastre daily file for Los Angeles/Long Beach, put in the repo, would unblock
+  the first real run once berths are drawn).
+
 ## 2026-11-23  CEO/Product
 - Did: Monday re-score on main (scorecard): Team 2, Product 3, Programme 3, all
   unchanged; noted PRs 1 to 7 are merged so "waits for Udi" rows are live. No docs/
