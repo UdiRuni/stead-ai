@@ -8,14 +8,14 @@ agent may add to "Product asks", which always come before "Engineering".
 These come from `agents/LLOYDS_LAB_SCORECARD.md` and close gaps a Lab reviewer
 will score.
 
-- [ ] Product: collateral check before a loan (asked by Udi, 2026-11-24; proposed in
-      pull request 8). Before a loan binds, the demo checks the late boxes as the
-      lender's security: (a) the bill of lading or delivery order matches the grade,
-      tonnes and consignee on the order; (b) a register of lots, so one lot backs at
-      most one swap; (c) a flag when the plant's bank or another lender already holds
-      the shipment as security, and the loan refuses to bind. Mock data only. Why: a
-      Lloyd's reviewer will ask how we know the collateral is real and unpledged; the
-      deck and brief now say we propose this check, and a demo makes it evidence.
+- [ ] Product: collateral check before a loan, next (asked by Udi, 2026-11-24;
+      proposed in pull request 8). Slice 1 done 2026-11-25 (`steadpoc/collateral.py`,
+      see Done). Still open: (a) show the check on the demo term sheet before "bind",
+      with a flag for a pledged or mismatched lot so the "no swap" path can be shown on
+      screen; (b) a shipment split across several bills of lading (today the document
+      must carry the whole order); (c) ask counsel or a trade finance reader which
+      document and register a real check would read (title transfer, pledge filing);
+      until then the rules stay assumptions. Mock data only.
 
 - [ ] Product: long stop, step 2. The first method is in `steadpoc/longstop.py`
       (2026-11-17). Still open: (1) replace the exponential tail with a tail fitted to
@@ -77,6 +77,15 @@ will score.
       limit, if that matters for the return leg; check the customs rule first.
 
 ## Done
+
+- [x] 2026-11-25 Product: collateral check before a loan, slice 1.
+      `(cd poc && python3 -m steadpoc.collateral)`: four checks before a loan binds,
+      all run every time so a refusal lists every reason: the bill of lading or
+      delivery order matches the order (booking, consignee, producer, plant, grade,
+      TEU, tonnes within an assumed tolerance, default exact); the plant holds the
+      original document; no security interest in force on the bind day; a lot
+      register so one lot backs one live swap, freed on repayment. Five mock cases.
+      62 new tests. Mock data, proposed check, not a live system.
 
 - [x] 2026-11-24 Programme: backtest step 2, slice (a) part 1. Polygon port areas and
       positions as printed in a regulation (`Area`, `parse_dms` in `portcalls.py`);
