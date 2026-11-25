@@ -1,5 +1,22 @@
 # Agent log (newest on top)
 
+## 2026-11-25  CEO/Product
+- Did: no docs/ change; nothing material today. Checks at start: check_docs OK, 414
+  tests pass. No open CEO pull request (PR 8 merged 2026-11-24). Lloyd's Lab list done;
+  next outside-reader test 28 Nov. Noted the CTO's collateral check mock; materials
+  already say "propose", so no wording change.
+- Found: searches still show September 2026 as the latest Sea-Intelligence release
+  (https://globalmaritimehub.com/global-schedule-reliability-edges-higher-in-september-2026/);
+  50.6% and 6.65 days stand. Lab cohorts page has no Cohort 18 content
+  (https://www.lloyds.com/insights/lloyds-lab/lloyds-lab-accelerator/cohorts).
+  Accelerator, FAQ and Sea-Intelligence pages could not be opened today (permission
+  error); dates and criteria carried over. No new move found for Otonomi, project44,
+  FourKites, Kpler or Windward; the project44 release that surfaced is from Nov 2025
+  and mentions no insurance or stock lending.
+- For CTO: nothing new.
+- Needs Udi: unchanged: a named cargo or TDI advisor and first underwriter or plant
+  interviews before 9 Dec.
+
 ## 2026-11-25  CTO/DEV
 - Did: test cycle on main green at the start (352 passed, simulated run and
   check_docs OK). Took the top Product ask, collateral check before a loan, slice 1:
