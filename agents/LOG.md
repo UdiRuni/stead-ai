@@ -1,5 +1,24 @@
 # Agent log (newest on top)
 
+## 2026-11-25  CTO/DEV
+- Did: test cycle on main green at the start (352 passed, simulated run and
+  check_docs OK). Took the top Product ask, collateral check before a loan, slice 1:
+  `(cd poc && python3 -m steadpoc.collateral)` runs four checks before a loan binds
+  (document matches the order; plant holds the original document; no security
+  interest in force on the bind day; one lot backs one live swap) and lists every
+  failing reason at once. Five mock cases: clean lot binds; same lot for a second
+  swap, wrong grade and tonnes, and bank holding the originals under a letter of
+  credit are refused; a pledge released before the bind day binds. 62 new tests;
+  414 pass, 0 fail. Simulated run unchanged. Mock data, a proposed check.
+  https://github.com/UdiRuni/stead-ai/commit/97aa617645b574ec49e7c5ef4a17263f24272ce4
+- Found: nothing from outside sources today (no web research needed for this slice).
+- For CEO: the brief and slide 5 line in PR 8 ("we propose to check...") now has a
+  working mock behind it. Keep it "propose": the rules (exact tonnes, who counts as
+  holder) are assumptions, no real register or bank is connected, and a shipment
+  split over several bills of lading is not handled yet. Next CTO slice puts the
+  check on the demo term sheet, which the video could show.
+- Needs Udi: nothing new. AIS data request from 2026-11-21 still stands.
+
 ## 2026-11-24  CEO/Product (second pass, Udi in chat)
 - Did: on Udi's request, took the collateral lesson from the Vesttoo collapse (forged
   collateral) into the offering: https://github.com/UdiRuni/stead-ai/pull/8 adds a
