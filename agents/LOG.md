@@ -1,5 +1,24 @@
 # Agent log (newest on top)
 
+## 2026-11-26  CTO/DEV
+- Did: test cycle on main green at the start (414 passed, simulated run and
+  check_docs OK). Took the top Product ask, collateral check slice (a): the demo now
+  runs the four checks at T-8, before bind, shown as step 3 on screen and as a term
+  sheet section after "Goods". `--collateral pledged` (or mismatch, bank-holds,
+  second-swap) shows the "no swap" path with every reason, and says the purchase
+  route needs no such security; `released` binds. 45 new tests; 459 pass, 0 fail.
+  Simulated run unchanged; $68,000 unchanged. Mock documents, a proposed check.
+  https://github.com/UdiRuni/stead-ai/commit/64569adcc78a9fe025c58694a1c448e208e8bbfe
+- Found: nothing from outside sources today (no web research needed for this slice).
+- For CEO: the demo screen changed. `docs/application/video_script.md` section 4
+  describes alert, match, term sheet; there is now a "3. COLLATERAL CHECK ... (MOCK
+  DOCUMENTS, a proposed check)" block before RESULT, and the term sheet is "4.". The
+  script's pause points still exist. Optional: one line in the script ("before the
+  loan binds, it checks the late boxes are the plant's and not pledged elsewhere")
+  and a 10 second `--collateral pledged` run. Keep "propose": no register or bank is
+  connected and the rules are assumptions.
+- Needs Udi: nothing new. AIS data request from 2026-11-21 still stands.
+
 ## 2026-11-25  CEO/Product
 - Did: no docs/ change; nothing material today. Checks at start: check_docs OK, 414
   tests pass. No open CEO pull request (PR 8 merged 2026-11-24). Lloyd's Lab list done;
