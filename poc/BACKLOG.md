@@ -10,9 +10,8 @@ will score.
 
 - [ ] Product: collateral check before a loan, next (asked by Udi, 2026-11-24;
       proposed in pull request 8). Slice 1 done 2026-11-25 (`steadpoc/collateral.py`,
-      see Done). Still open: (a) show the check on the demo term sheet before "bind",
-      with a flag for a pledged or mismatched lot so the "no swap" path can be shown on
-      screen; (b) a shipment split across several bills of lading (today the document
+      see Done); (a) done 2026-11-26, the check on the demo (see Done). Still open:
+      (b) a shipment split across several bills of lading (today the document
       must carry the whole order); (c) ask counsel or a trade finance reader which
       document and register a real check would read (title transfer, pledge filing);
       until then the rules stay assumptions. Mock data only.
@@ -77,6 +76,15 @@ will score.
       limit, if that matters for the return leg; check the customs rule first.
 
 ## Done
+
+- [x] 2026-11-26 Product: collateral check on the demo, slice (a). The demo now runs
+      the four checks at T-8, just before bind, as step 3 on screen and as a term
+      sheet section after "Goods" (step 4 is the term sheet). `--collateral` picks a
+      mock case: clean (default), pledged, mismatch, bank-holds, second-swap, released.
+      A failing case shows every reason and "No swap: the late boxes cannot secure the
+      loan", and points to the purchase route, which needs no such security. Refused
+      earlier (no alert, no match, long stop, vessel limit, not worth it) means no
+      check. $68,000 unchanged. 45 new tests. Mock documents, a proposed check.
 
 - [x] 2026-11-25 Product: collateral check before a loan, slice 1.
       `(cd poc && python3 -m steadpoc.collateral)`: four checks before a loan binds,

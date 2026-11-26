@@ -25,6 +25,14 @@ Run:  (cd poc && python3 -m steadpoc.demo)
                                               stock read from a feed file (steadpoc.stockfeed)
       (cd poc && python3 -m steadpoc.demo --no-cash)          purchase route blocked
       (cd poc && python3 -m steadpoc.demo --price-change -0.05 --hold-days 60)
+      (cd poc && python3 -m steadpoc.demo --collateral pledged)   loan does not bind
+
+Before the swap binds, the demo runs the collateral check of steadpoc.collateral
+on MOCK documents for the late boxes: the document matches the order, the plant
+holds the original, no other lender holds it as security, one lot backs one swap.
+`--collateral` picks a mock case (clean, pledged, mismatch, bank-holds,
+second-swap, released). Every document, bank and pledge is invented; it is a
+proposed check, and no register, bank or document system is connected.
 
 The term sheet also sets the loan against buying the same lots outright
 (steadpoc.purchase): cost to the plant, what stead.ai earns, and when the loan wins.
@@ -39,6 +47,8 @@ from html import escape
 from pathlib import Path
 
 from .accumulation import Book, Decision, Limits, Swap
+from .collateral import (CollateralResult, LotRegister, Order, SecurityInterest, TransportDoc,
+                         check_collateral)
 from .economics import SwapCase
 from .longstop import LongStop
 from .purchase import PURCHASE, PurchaseCase
@@ -52,7 +62,74 @@ NO_CAPACITY = ("The long-stop cover is proposed. Its premium is a placeholder, n
 BOOKING = "BK-DEMO-001"
 TEMPORARY_STORAGE_LIMIT_DAYS = 90     # customs limit quoted in the brief
 VESSEL = "MV DEMO"                    # invented vessel carrying the late boxes
+NEED_GOODS = ("SABIC", "Geleen", "PP 575P", "Rotterdam")
 LONG_STOP_DAY = LongStop().long_stop_day   # T+30, assumption, as in longstop.py
+
+# ---------- collateral check before bind (MOCK documents, all invented) ----------
+
+PLANT = "Demo Plant BV"               # invented consignee, as in steadpoc.collateral
+DOC_REF = "BL-DEMO-001"               # invented bill of lading for the late boxes
+SWAP_ID = "SW-" + BOOKING
+TONNES_PER_TEU = 24                   # mock, as steadpoc.collateral (960 t on 40 TEU); not data
+OTHER_BANK = "Demo Bank"              # invented
+
+
+@dataclass(frozen=True)
+class CollateralCase:
+    """Mock documents for the late boxes, checked before the swap binds. Invented.
+
+    The document starts as a clean copy of the order and these fields change it."""
+    note: str
+    holder: str | None = None              # who holds the original; None = the plant
+    grade: str | None = None               # grade code on the document; None = as ordered
+    tonnes_short: float = 0.0              # tonnes missing on the document against the order
+    interests: tuple[SecurityInterest, ...] = ()
+    earlier_swap: str | None = None        # a live swap already tied to this lot
+
+    def __post_init__(self):
+        if self.tonnes_short < 0:
+            raise ValueError("tonnes_short cannot be negative")
+
+
+COLLATERAL_CASES = {
+    "clean": CollateralCase("the plant holds a clean bill of lading for the late boxes"),
+    "pledged": CollateralCase("a bank already holds a pledge over the late boxes",
+                              interests=(SecurityInterest(DOC_REF, OTHER_BANK, "bank pledge"),)),
+    "mismatch": CollateralCase("the document shows another grade and fewer tonnes",
+                               grade="PP 571P", tonnes_short=60),
+    "bank-holds": CollateralCase("a bank holds the originals under a letter of credit",
+                                 holder=OTHER_BANK,
+                                 interests=(SecurityInterest(DOC_REF, OTHER_BANK, "letter of credit"),)),
+    "second-swap": CollateralCase("the same lot already backs another live swap",
+                                  earlier_swap="SW-EARLIER"),
+    "released": CollateralCase("an earlier bank pledge was released at T-20, before the bind",
+                               interests=(SecurityInterest(DOC_REF, OTHER_BANK, "bank pledge",
+                                                           released_on=-20),)),
+}
+
+
+def collateral_order(case: SwapCase) -> Order:
+    """The plant's order for the late shipment, from the demo's goods. Mock tonnes."""
+    producer, plant, grade, _ = NEED_GOODS
+    return Order(BOOKING, PLANT, producer, plant, grade, case.teu, case.teu * TONNES_PER_TEU)
+
+
+def collateral_doc(case: SwapCase, cc: CollateralCase) -> TransportDoc:
+    order = collateral_order(case)
+    if cc.tonnes_short >= order.tonnes:
+        raise ValueError("tonnes_short must leave some tonnes on the document")
+    return TransportDoc(DOC_REF, "bill of lading", BOOKING, PLANT, cc.holder or PLANT,
+                        order.producer, order.plant, cc.grade or order.grade, order.teu,
+                        order.tonnes - cc.tonnes_short, VESSEL)
+
+
+def run_collateral(case: SwapCase, cc: CollateralCase, bind_day: int) -> CollateralResult:
+    """All four checks, on a fresh mock register, as they would run at the bind day."""
+    register = LotRegister()
+    if cc.earlier_swap:
+        register.tie(DOC_REF, cc.earlier_swap)
+    return check_collateral(SWAP_ID, collateral_order(case), collateral_doc(case, cc), register,
+                            list(cc.interests), bind_day)
 
 
 @dataclass(frozen=True)
@@ -128,6 +205,7 @@ class TermSheet:
     schedule: Schedule
     cover: Cover
     purchase: PurchaseCase | None = None    # the same lots bought outright; assumptions
+    collateral: CollateralResult | None = None   # check on mock documents before bind
 
     @property
     def return_day(self) -> int:
@@ -146,9 +224,7 @@ class Demo:
     term_sheet: TermSheet | None
     outcome: str
     arrival: date | None = None
-
-
-NEED_GOODS = ("SABIC", "Geleen", "PP 575P", "Rotterdam")
+    collateral: CollateralResult | None = None   # set once the check has run (mock documents)
 
 
 def demo_feed(case: SwapCase, schedule: Schedule) -> tuple[Feed, ...]:
@@ -194,9 +270,12 @@ def build_demo(case: SwapCase = SwapCase(), schedule: Schedule = Schedule(),
                stock: list[Lot] | None = None, feed: tuple[Feed, ...] | None = None,
                arrival: date | None = None, long_stop_day: int = LONG_STOP_DAY,
                limits: Limits = Limits(), other_on_vessel_usd: float = 0.0,
-               purchase: PurchaseCase | None = None) -> Demo:
+               purchase: PurchaseCase | None = None,
+               collateral: CollateralCase = COLLATERAL_CASES["clean"]) -> Demo:
     """`purchase` holds the purchase-route assumptions; its `swap` is always replaced
-    by `case`, so both routes price the same shipment."""
+    by `case`, so both routes price the same shipment. `collateral` holds the mock
+    documents for the late boxes; the check runs last, just before the swap would bind,
+    so a swap already refused for another reason is never checked."""
     if case.delay_days < 0 or case.safety_stock_days < 0:
         raise ValueError("delay_days and safety_stock_days must be non-negative")
     if case.teu <= 0:
@@ -219,9 +298,9 @@ def build_demo(case: SwapCase = SwapCase(), schedule: Schedule = Schedule(),
             alert = found
             break                      # the first alert starts the search; later updates wait
 
-    def done(outcome, verdicts=(), match=None, sheet=None):
+    def done(outcome, verdicts=(), match=None, sheet=None, checked=None):
         return Demo(case, schedule, need, tuple(steps), alert, tuple(verdicts), match, sheet,
-                    outcome, arrival)
+                    outcome, arrival, checked)
 
     if alert is None:
         return done("No alert: the plant's stock covers the delay, so nothing is offered.")
@@ -243,11 +322,17 @@ def build_demo(case: SwapCase = SwapCase(), schedule: Schedule = Schedule(),
     if not cover.decision.accepted:
         return done("No swap: " + "; ".join(cover.decision.reasons) + ". The assumed limit is "
                     "full, so the cover could not be bound.", verdicts, match)
+    checked = run_collateral(case, collateral, schedule.bind)
+    if not checked.binds:
+        return done("No swap: the late boxes cannot secure the loan, so it does not bind ("
+                    + "; ".join(checked.reasons) + "). Buying the lots outright needs no "
+                    "such security, so that route stays open if the plant has the cash and "
+                    "the room.", verdicts, match, checked=checked)
     purchase = replace(purchase or PurchaseCase(), swap=case)
     sheet = TermSheet(BOOKING, match.distributor, f"{producer} {grade}, produced at {plant}",
-                      port, case.teu, match.lots, case, schedule, cover, purchase)
+                      port, case.teu, match.lots, case, schedule, cover, purchase, checked)
     return done("Swap offered: the term sheet below goes to the plant, the distributor and "
-                "the underwriter.", verdicts, match, sheet)
+                "the underwriter.", verdicts, match, sheet, checked)
 
 
 # ---------- rendering ----------
@@ -317,6 +402,34 @@ def purchase_rows(p: PurchaseCase) -> list[tuple[str, str]]:
     ]
 
 
+COLLATERAL_SECTION = "Collateral, checked before the swap binds (mock documents)"
+COLLATERAL_LABELS = {          # short term-sheet labels for the four checks
+    "document matches the order": "Document",
+    "plant holds the documents": "Holder",
+    "no other lender holds it as security": "Security",
+    "lot backs one swap only": "One lot",
+}
+
+
+def collateral_rows(result: CollateralResult, bind_day: int,
+                    arrival: date | None = None) -> list[tuple[str, str]]:
+    rows = [(COLLATERAL_LABELS[f.check], f"{'Pass' if f.passed else 'FAIL'}: {f.detail}")
+            for f in result.findings]
+    rows.append(("Checked", f"At {day(bind_day, arrival)}, before bind. A proposed check on "
+                            f"invented documents; no register, bank or document system is connected"))
+    return rows
+
+
+def collateral_lines(d: Demo) -> list[str]:
+    """The four checks as the screen shows them, step 3 of the demo."""
+    r = d.collateral
+    head = "LOAN MAY BIND" if r.binds else "LOAN DOES NOT BIND"
+    out = [f"3. COLLATERAL CHECK at {day(d.schedule.bind, d.arrival)}, before bind "
+           f"(MOCK DOCUMENTS, a proposed check): {head}"]
+    out += [f"   [{'pass' if f.passed else 'FAIL'}] {f.check}: {f.detail}" for f in r.findings]
+    return out
+
+
 def term_sheet_rows(sheet: TermSheet, arrival: date | None = None) -> list[tuple[str, list[tuple[str, str]]]]:
     """The term sheet as sections of (label, value) rows; text and HTML both render this."""
     c, s, cv = sheet.case, sheet.schedule, sheet.cover
@@ -336,6 +449,8 @@ def term_sheet_rows(sheet: TermSheet, arrival: date | None = None) -> list[tuple
             ("Value", f"{usd(c.notional_usd)} (assumption)"),
             ("Lots", lots),
         ]),
+    ] + ([(COLLATERAL_SECTION, collateral_rows(sheet.collateral, s.bind, arrival))]
+         if sheet.collateral is not None else []) + [
         ("Dates (T is the late shipment's scheduled arrival)", [
             ("Alert", f"{day(s.alert, arrival)}: delay of {c.delay_days} days against "
                       f"{c.safety_stock_days} days of stock"),
@@ -416,9 +531,11 @@ def render_text(d: Demo) -> str:
         for v in d.verdicts:
             who, what, size, verdict = _lot_line(v)
             out.append(f"   {who:<6} {what:<38} {size:<19} {verdict}")
+    if d.collateral:
+        out += [""] + collateral_lines(d)
     out += ["", f"RESULT: {d.outcome}"]
     if d.term_sheet:
-        out += ["", "3. TERM SHEET", "=" * 78]
+        out += ["", "4. TERM SHEET", "=" * 78]
         for title, rows in term_sheet_rows(d.term_sheet, d.arrival):
             out.append(title.upper())
             out += [f"   {label:<20} {value}" for label, value in rows]
@@ -468,9 +585,20 @@ def render_html(d: Demo) -> str:
             cls = ' class="chosen"' if v.verdict == "chosen" else ""
             h.append(f"<tr{cls}>" + "".join(f"<td>{e(x)}</td>" for x in _lot_line(v)) + "</tr>")
         h.append("</table>")
+    if d.collateral:
+        r = d.collateral
+        h += [f"<h2>3. Collateral check</h2><p>At {e(day(d.schedule.bind, d.arrival))}, before bind. "
+              f"Mock documents, a proposed check: "
+              f"<strong>{'loan may bind' if r.binds else 'loan does not bind'}</strong>.</p>",
+              "<table><tr><th>Check</th><th>Result</th><th>Detail</th></tr>"]
+        for f in r.findings:
+            cls = "" if f.passed else ' class="alert"'
+            h.append(f"<tr{cls}><td>{e(f.check)}</td><td>{'pass' if f.passed else 'FAIL'}</td>"
+                     f"<td>{e(f.detail)}</td></tr>")
+        h.append("</table>")
     h.append(f'<p class="result">{e(d.outcome)}</p>')
     if d.term_sheet:
-        h.append('<h2>3. Term sheet</h2><div class="sheet">')
+        h.append('<h2>4. Term sheet</h2><div class="sheet">')
         for title, rows in term_sheet_rows(d.term_sheet, d.arrival):
             h.append(f"<h3>{e(title)}</h3><table>")
             for label, value in rows:
@@ -502,6 +630,8 @@ def main(argv: list[str] | None = None) -> int:
                    help="purchase route: outside storage, USD per TEU per day (default: 0, own room)")
     p.add_argument("--no-cash", action="store_true", help="purchase route: the plant has no cash or credit for it")
     p.add_argument("--no-room", action="store_true", help="purchase route: the plant has no room for double stock")
+    p.add_argument("--collateral", choices=list(COLLATERAL_CASES), default="clean",
+                   help="mock documents for the late boxes, checked before bind (default: clean)")
     p.add_argument("--html", type=Path, help="also write a self-contained HTML page to this path")
     args = p.parse_args(argv)
     case = SwapCase()
@@ -532,7 +662,8 @@ def main(argv: list[str] | None = None) -> int:
                                 price_change=args.price_change, storage_usd_per_teu_day=args.storage,
                                 has_cash=not args.no_cash, has_room=not args.no_room)
         demo = build_demo(case, stock=stock, arrival=args.arrival, long_stop_day=args.long_stop,
-                          other_on_vessel_usd=args.vessel_exposure, purchase=purchase)
+                          other_on_vessel_usd=args.vessel_exposure, purchase=purchase,
+                          collateral=COLLATERAL_CASES[args.collateral])
     except ValueError as err:
         print(f"error: {err}", file=sys.stderr)
         return 2
