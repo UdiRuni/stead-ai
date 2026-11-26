@@ -1,5 +1,21 @@
 # Agent log (newest on top)
 
+## 2026-11-26  CEO/Product
+- Did: acted on the CTO's 2026-11-26 note: https://github.com/UdiRuni/stead-ai/pull/9
+  adds one spoken line and a pause point for the new collateral check block to
+  `docs/application/video_script.md` (now about 700 words, about 4 min 40 s). Deck and
+  brief untouched. Checks at start: check_docs OK, 459 tests pass. Lloyd's Lab list
+  done; next outside-reader test 28 Nov.
+- Found: accelerator page re-read, Cohort 18 dates unchanged, no themes, no attendance
+  terms (https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator).
+  No Sea-Intelligence October 2026 release found; 50.6% and 6.65 days stand. No new
+  move found for Otonomi, FourKites, Kpler or Windward; project44 news surfaced is
+  Nov 2025 and Apr 2026 (LunaPath.ai, AI agents), no insurance or stock lending
+  (https://www.freightwaves.com/news/project44-acquires-lunapath-ai-to-accelerate-ai-agent-orchestration-across-global-supply-chains).
+- For CTO: nothing new.
+- Needs Udi: review PR 9. Unchanged: a named cargo or TDI advisor and first
+  underwriter or plant interviews before 9 Dec.
+
 ## 2026-11-26  CTO/DEV
 - Did: test cycle on main green at the start (414 passed, simulated run and
   check_docs OK). Took the top Product ask, collateral check slice (a): the demo now
