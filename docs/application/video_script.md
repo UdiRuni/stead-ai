@@ -2,7 +2,7 @@
 
 Draft by the CEO agent, 2026-11-19, for Udi's approval. Udi records it; the agents do
 not produce video. Target: under 5 minutes (the Lab's FAQ asks for a video under 5
-minutes). The spoken text below is about 660 words, which runs about 4 minutes 25
+minutes). The spoken text below is about 700 words, which runs about 4 minutes 40
 seconds at a calm 150 words a minute, leaving room for pauses on the demo.
 
 Serves all three criteria: Team (two founders on camera, a working proof of concept
@@ -68,12 +68,15 @@ two seconds. Pause on each point below.
 > producing plant, too small, or free too late. It gives a reason for each one. One
 > lot fits, and it is chosen.
 >
+> Before the loan binds, it checks that the late boxes belong to the plant and are not
+> pledged to anyone else. These are mock documents, and the check is proposed.
+>
 > Finally, a one-page term sheet for the plant, the distributor and the underwriter:
 > the dates, what the lender earns, our fee, and what makes the return leg safe. The
 > long-stop cover is marked proposed, and its premium is a placeholder, not a price.
 
 Pause points on screen: the ALERT line; the line ending "chosen" among the refused
-lots; the term sheet sections "COST OF THE SWAP" and "WHAT MAKES THE RETURN LEG SAFE".
+lots; the "3. COLLATERAL CHECK" block (four pass lines); the term sheet sections "COST OF THE SWAP" and "WHAT MAKES THE RETURN LEG SAFE".
 
 Optional 10 seconds, if time allows: run `python3 -m steadpoc.demo --delay 4`.
 
@@ -123,7 +126,7 @@ through shipping delays."
 | About half of vessels on time in September 2026 (50.6%) | Sea-Intelligence via FreshPlaza, 29 Oct 2026, https://www.freshplaza.com/asia/article/9887399/global-shipping-schedule-reliability-improves-to-50-6-in-september/ |
 | Digital container release in Rotterdam (Secure Chain, PIN codes retired) | Portbase, 4 Mar 2025, https://www.portbase.com/en/?p=19439 |
 | Video under 5 minutes | Lloyd's Lab FAQ, https://www.lloyds.com/insights/lloyds-lab/faqs (as recorded in the scorecard) |
-| Demo output | `poc/steadpoc/demo.py`, run 2026-11-19; illustrative data |
+| Demo output | `poc/steadpoc/demo.py`, run 2026-11-19, re-run 2026-11-26 after the collateral check was added; illustrative data and mock documents |
 | Worked case ($68,000, over $1M) | Slide 6 and `poc/steadpoc/economics.py`; assumptions |
 | Team lines | Slide 9, as Udi supplied them |
 
