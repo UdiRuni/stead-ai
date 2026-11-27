@@ -210,7 +210,7 @@ def test_no_em_dash_no_banned_name_every_case(name):
 def test_cli_every_case_runs(name, capsys):
     assert main(["--collateral", name]) == 0
     out = capsys.readouterr().out
-    binds = name in ("clean", "released")
+    binds = name in ("clean", "released", "split")
     assert ("LOAN MAY BIND" in out) == binds and ("TERM SHEET" in out) == binds
 
 

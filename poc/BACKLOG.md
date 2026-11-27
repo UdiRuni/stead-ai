@@ -10,11 +10,12 @@ will score.
 
 - [ ] Product: collateral check before a loan, next (asked by Udi, 2026-11-24;
       proposed in pull request 8). Slice 1 done 2026-11-25 (`steadpoc/collateral.py`,
-      see Done); (a) done 2026-11-26, the check on the demo (see Done). Still open:
-      (b) a shipment split across several bills of lading (today the document
-      must carry the whole order); (c) ask counsel or a trade finance reader which
-      document and register a real check would read (title transfer, pledge filing);
-      until then the rules stay assumptions. Mock data only.
+      see Done); (a) done 2026-11-26, the check on the demo; (b) done 2026-11-27,
+      split shipments (see Done). Still open: (c) ask counsel or a trade finance
+      reader which document and register a real check would read (title transfer,
+      pledge filing); until then the rules stay assumptions. Needs a person, so the
+      agent cannot close it; (d) a split shipment over several vessels (refused
+      today, needs partial repayment on different days). Mock data only.
 
 - [ ] Product: long stop, step 2. The first method is in `steadpoc/longstop.py`
       (2026-11-17). Still open: (1) replace the exponential tail with a tail fitted to
@@ -76,6 +77,17 @@ will score.
       limit, if that matters for the return leg; check the customs rule first.
 
 ## Done
+
+- [x] 2026-11-27 Product: collateral check, slice (b), split shipments.
+      `check_split` and `bind_split` in `steadpoc/collateral.py` run the four checks
+      over several bills of lading or delivery orders together: each names the
+      order; together they carry exactly its TEU and tonnes; all on one vessel
+      (assumption; more than one is refused, not handled); each held by the plant
+      and free of security; the whole set tied to one swap at once, all or none,
+      and freed together on repayment. One document gives exactly the single check.
+      Demo: `--collateral split` (binds), `split-pledged`, `split-short`. Five split
+      cases in `python3 -m steadpoc.collateral`. $68,000 unchanged. 81 new tests.
+      Mock documents, a proposed check.
 
 - [x] 2026-11-26 Product: collateral check on the demo, slice (a). The demo now runs
       the four checks at T-8, just before bind, as step 3 on screen and as a term

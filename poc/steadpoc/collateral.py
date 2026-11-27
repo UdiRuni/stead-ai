@@ -26,9 +26,17 @@ Four checks, all run every time, so a refusal lists every reason at once:
    another live swap, and a swap that already has a lot. A lot is freed when its
    swap is released (the late boxes repaid the loan).
 
-Limits: a shipment split across several bills of lading is not handled yet (the
-document must carry the whole order). Names are compared ignoring case and outer
-spaces only; real documents need a stricter party identifier.
+Split shipments: an order may travel under several bills of lading or delivery
+orders. `check_split` runs the same four checks over all of them together: each
+document must name the order's booking, parties and goods; together they must
+carry exactly the order's TEU and its tonnes (within the tolerance); every one
+must be held by the plant and free of security; and the whole set is tied to one
+swap at once, so no part of it can back another. Assumption: all documents must
+name the same vessel, because boxes on different vessels may arrive, and so
+repay the loan, on different days; that case is refused, not handled.
+
+Limits: names are compared ignoring case and outer spaces only; real documents
+need a stricter party identifier.
 
 Run:  (cd poc && python3 -m steadpoc.collateral)
 """
@@ -124,8 +132,9 @@ class Finding:
 @dataclass(frozen=True)
 class CollateralResult:
     swap_id: str
-    doc_ref: str
+    doc_ref: str                        # one document, or several joined with ", "
     findings: tuple[Finding, ...]
+    doc_refs: tuple[str, ...] = ()      # every document checked
 
     @property
     def binds(self) -> bool:
@@ -146,10 +155,12 @@ class LotRegister:
         return self._by_doc.get(doc_ref)
 
     def doc_for(self, swap_id: str) -> Optional[str]:
-        for doc_ref, sid in self._by_doc.items():
-            if sid == swap_id:
-                return doc_ref
-        return None
+        docs = self.docs_for(swap_id)
+        return docs[0] if docs else None
+
+    def docs_for(self, swap_id: str) -> tuple[str, ...]:
+        """Every document tied to a swap, in the order they were tied."""
+        return tuple(d for d, sid in self._by_doc.items() if sid == swap_id)
 
     def problem(self, doc_ref: str, swap_id: str) -> Optional[str]:
         """Why tying this lot to this swap would break the one-lot rule, or None."""
@@ -161,6 +172,38 @@ class LotRegister:
             return f"swap {swap_id} already has lot {has}; one lot per swap"
         return None
 
+    def problems(self, doc_refs, swap_id: str) -> list[str]:
+        """Why tying this set of documents to this swap would break the one-lot rule.
+
+        The set is the lot. Any document already backing another swap is refused,
+        and so is a swap that already holds a different set."""
+        doc_refs = tuple(doc_refs)
+        out = []
+        for doc_ref in doc_refs:
+            tied_to = self.swap_for(doc_ref)
+            if tied_to is not None and tied_to != swap_id:
+                out.append(f"{doc_ref} already backs swap {tied_to}")
+        has = self.docs_for(swap_id)
+        if has and set(has) != set(doc_refs):
+            out.append(f"swap {swap_id} already has lot {', '.join(has)}; one lot per swap")
+        return out
+
+    def tie_all(self, doc_refs, swap_id: str) -> None:
+        """Tie every document of a split shipment to one swap, all or none."""
+        doc_refs = tuple(doc_refs)
+        _need_text(swap_id=swap_id)
+        if not doc_refs:
+            raise ValueError("at least one document must be given")
+        for doc_ref in doc_refs:
+            _need_text(doc_ref=doc_ref)
+        if len(set(doc_refs)) != len(doc_refs):
+            raise ValueError("a document is listed twice")
+        why = self.problems(doc_refs, swap_id)
+        if why:
+            raise ValueError("; ".join(why))
+        for doc_ref in doc_refs:
+            self._by_doc[doc_ref] = swap_id
+
     def tie(self, doc_ref: str, swap_id: str) -> None:
         _need_text(doc_ref=doc_ref, swap_id=swap_id)
         why = self.problem(doc_ref, swap_id)
@@ -169,11 +212,17 @@ class LotRegister:
         self._by_doc[doc_ref] = swap_id
 
     def release(self, swap_id: str) -> Optional[str]:
-        """Free the lot of a swap whose late boxes repaid the loan. Returns the doc, if any."""
-        doc_ref = self.doc_for(swap_id)
-        if doc_ref is not None:
+        """Free the whole lot of a swap whose late boxes repaid the loan.
+
+        Returns the first document freed, if any; `release_all` returns them all."""
+        docs = self.release_all(swap_id)
+        return docs[0] if docs else None
+
+    def release_all(self, swap_id: str) -> tuple[str, ...]:
+        docs = self.docs_for(swap_id)
+        for doc_ref in docs:
             del self._by_doc[doc_ref]
-        return doc_ref
+        return docs
 
     def __len__(self) -> int:
         return len(self._by_doc)
@@ -219,7 +268,7 @@ def check_collateral(swap_id: str, order: Order, doc: TransportDoc, register: Lo
     why = register.problem(doc.doc_ref, swap_id)
     findings.append(Finding(CHECK_ONE, why is None,
                             why or f"{doc.doc_ref} is tied to no other swap"))
-    return CollateralResult(swap_id, doc.doc_ref, tuple(findings))
+    return CollateralResult(swap_id, doc.doc_ref, tuple(findings), (doc.doc_ref,))
 
 
 def bind(swap_id: str, order: Order, doc: TransportDoc, register: LotRegister,
@@ -229,6 +278,105 @@ def bind(swap_id: str, order: Order, doc: TransportDoc, register: LotRegister,
     result = check_collateral(swap_id, order, doc, register, interests, bind_day, tonnes_tolerance)
     if result.binds:
         register.tie(doc.doc_ref, swap_id)
+    return result
+
+
+PLURALS = {"bill of lading": "bills of lading", "delivery order": "delivery orders"}
+IDENTITY_FIELDS = ("booking", "consignee", "producer", "plant", "grade")
+
+
+def _all(n: int) -> str:
+    return "both" if n == 2 else f"all {n}"
+
+
+def _same(a: str, b: str) -> bool:
+    return a.strip().casefold() == b.strip().casefold()
+
+
+def _split_match(order: Order, docs, tonnes_tolerance: float) -> list[str]:
+    gaps = []
+    seen = set()
+    for doc in docs:
+        if doc.doc_ref in seen:
+            gaps.append(f"{doc.doc_ref} is offered twice")
+        seen.add(doc.doc_ref)
+        for name in IDENTITY_FIELDS:
+            want, got = getattr(order, name), getattr(doc, name)
+            if not _same(want, got):
+                gaps.append(f"{doc.doc_ref}: {name} {got!r} on the document, {want!r} on the order")
+    vessels = {}
+    for doc in docs:
+        if doc.vessel.strip():
+            vessels.setdefault(doc.vessel.strip().casefold(), doc.vessel.strip())
+    if len(vessels) > 1:
+        gaps.append(f"documents name more than one vessel ({', '.join(sorted(vessels.values()))}); "
+                    "boxes on different vessels may repay on different days, not handled")
+    teu = sum(d.teu for d in docs)
+    tonnes = sum(d.tonnes for d in docs)
+    if teu != order.teu:
+        gaps.append(f"documents carry {teu} TEU together, the order {order.teu}")
+    if abs(tonnes - order.tonnes) > order.tonnes * tonnes_tolerance + 1e-9:
+        gaps.append(f"documents carry {tonnes:g} t together, the order {order.tonnes:g} t")
+    return gaps
+
+
+def check_split(swap_id: str, order: Order, docs, register: LotRegister,
+                interests: list[SecurityInterest] = (), bind_day: int = BIND_DAY,
+                tonnes_tolerance: float = 0.0) -> CollateralResult:
+    """The four checks over every document that together carry the order.
+
+    One document gives exactly the result of `check_collateral`. Does not change
+    the register; `bind_split` does."""
+    docs = tuple(docs)
+    if not docs:
+        raise ValueError("at least one document must be given")
+    for doc in docs:
+        if not isinstance(doc, TransportDoc):
+            raise ValueError("every document must be a TransportDoc")
+    if len(docs) == 1:
+        return check_collateral(swap_id, order, docs[0], register, interests, bind_day,
+                                tonnes_tolerance)
+    _need_text(swap_id=swap_id)
+    if not 0 <= tonnes_tolerance < 1:
+        raise ValueError("tonnes_tolerance must be at least 0 and below 1")
+    refs = tuple(dict.fromkeys(d.doc_ref for d in docs))   # unique, in order
+    label = ", ".join(refs)
+    kinds = {d.kind for d in docs}
+    what = (f"{len(docs)} {PLURALS[docs[0].kind]}" if len(kinds) == 1 else f"{len(docs)} documents")
+    findings = []
+
+    gaps = _split_match(order, docs, tonnes_tolerance)
+    findings.append(Finding(CHECK_MATCH, not gaps,
+                            "; ".join(gaps) if gaps else
+                            f"{what} ({label}) together match booking {order.booking}: "
+                            f"{order.teu} TEU, {order.tonnes:g} t"))
+
+    others = [d for d in docs if not _same(d.holder, order.consignee)]
+    findings.append(Finding(CHECK_HOLDER, not others,
+                            "; ".join(f"{d.holder} holds the original {d.kind} {d.doc_ref}, "
+                                      f"not {order.consignee}" for d in others) if others else
+                            f"{order.consignee} holds the originals of {_all(len(docs))} documents"))
+
+    live = [i for i in interests if i.doc_ref in refs and i.in_force_on(bind_day)]
+    findings.append(Finding(CHECK_FREE, not live,
+                            "; ".join(f"{i.holder} holds a {i.kind} over {i.doc_ref}" for i in live)
+                            if live else f"no security interest over {label} on day {bind_day:+d}"))
+
+    why = register.problems(refs, swap_id)
+    findings.append(Finding(CHECK_ONE, not why,
+                            "; ".join(why) if why else
+                            f"none of {label} is tied to another swap; {_all(len(refs))} "
+                            "would back this swap together"))
+    return CollateralResult(swap_id, label, tuple(findings), refs)
+
+
+def bind_split(swap_id: str, order: Order, docs, register: LotRegister,
+               interests: list[SecurityInterest] = (), bind_day: int = BIND_DAY,
+               tonnes_tolerance: float = 0.0) -> CollateralResult:
+    """Check, and tie every document to the swap only if every check passes."""
+    result = check_split(swap_id, order, docs, register, interests, bind_day, tonnes_tolerance)
+    if result.binds:
+        register.tie_all(result.doc_refs, swap_id)
     return result
 
 
@@ -271,9 +419,30 @@ def scenarios() -> list[tuple[str, CollateralResult]]:
     return out
 
 
+def split_scenarios() -> list[tuple[str, CollateralResult]]:
+    """Five mock split shipments: the 40 TEU order under two bills of lading."""
+    reg = LotRegister()
+    a = mock_doc(doc_ref="BL-SPLIT-A", teu=25, tonnes=600)
+    b = mock_doc(doc_ref="BL-SPLIT-B", teu=15, tonnes=360)
+    out = [("Split: two clean bills of lading, 25 + 15 TEU", bind_split("SP-1", ORDER, (a, b), reg))]
+    out.append(("Split: only one of the two bills offered",
+                bind_split("SP-2", ORDER, (mock_doc(doc_ref="BL-SPLIT-C", teu=25, tonnes=600),), reg)))
+    out.append(("Split: second bill pledged to a bank",
+                bind_split("SP-3", ORDER, (mock_doc(doc_ref="BL-SPLIT-D", teu=25, tonnes=600),
+                                           mock_doc(doc_ref="BL-SPLIT-E", teu=15, tonnes=360)), reg,
+                           [SecurityInterest("BL-SPLIT-E", "Demo Bank", "bank pledge")])))
+    out.append(("Split: the two bills name different vessels",
+                bind_split("SP-4", ORDER, (mock_doc(doc_ref="BL-SPLIT-F", teu=25, tonnes=600),
+                                           mock_doc(doc_ref="BL-SPLIT-G", teu=15, tonnes=360,
+                                                    vessel="MV OTHER")), reg)))
+    out.append(("Split: one bill already backs swap SP-1",
+                bind_split("SP-5", ORDER, (mock_doc(doc_ref="BL-SPLIT-H", teu=25, tonnes=600), b), reg)))
+    return out
+
+
 def report() -> str:
     lines = [BANNER, ""]
-    for title, result in scenarios():
+    for title, result in scenarios() + split_scenarios():
         lines += [f"{title}", format_result(result), ""]
     lines.append("The loan binds only when all four checks pass. Rules and tolerance are "
                  "assumptions for the lender and counsel to set.")

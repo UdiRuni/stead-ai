@@ -31,7 +31,8 @@ Before the swap binds, the demo runs the collateral check of steadpoc.collateral
 on MOCK documents for the late boxes: the document matches the order, the plant
 holds the original, no other lender holds it as security, one lot backs one swap.
 `--collateral` picks a mock case (clean, pledged, mismatch, bank-holds,
-second-swap, released). Every document, bank and pledge is invented; it is a
+second-swap, released, and split shipments: split, split-pledged, split-short,
+where the late boxes travel under two bills of lading checked together). Every document, bank and pledge is invented; it is a
 proposed check, and no register, bank or document system is connected.
 
 The term sheet also sets the loan against buying the same lots outright
@@ -48,7 +49,7 @@ from pathlib import Path
 
 from .accumulation import Book, Decision, Limits, Swap
 from .collateral import (CollateralResult, LotRegister, Order, SecurityInterest, TransportDoc,
-                         check_collateral)
+                         check_collateral, check_split)
 from .economics import SwapCase
 from .longstop import LongStop
 from .purchase import PURCHASE, PurchaseCase
@@ -85,10 +86,21 @@ class CollateralCase:
     tonnes_short: float = 0.0              # tonnes missing on the document against the order
     interests: tuple[SecurityInterest, ...] = ()
     earlier_swap: str | None = None        # a live swap already tied to this lot
+    parts: int = 1                         # bills of lading the shipment travels under
+    offered_parts: int | None = None       # how many of them the plant offers; None = all
 
     def __post_init__(self):
         if self.tonnes_short < 0:
             raise ValueError("tonnes_short cannot be negative")
+        if isinstance(self.parts, bool) or not isinstance(self.parts, int) or self.parts < 1:
+            raise ValueError("parts must be a whole number of at least 1")
+        if self.offered_parts is not None and not 1 <= self.offered_parts <= self.parts:
+            raise ValueError("offered_parts must be between 1 and parts")
+
+
+def split_ref(i: int) -> str:
+    """Invented reference of part i (0 = first) of a split shipment: BL-DEMO-001A, ...B."""
+    return f"{DOC_REF}{chr(ord('A') + i)}"
 
 
 COLLATERAL_CASES = {
@@ -105,6 +117,13 @@ COLLATERAL_CASES = {
     "released": CollateralCase("an earlier bank pledge was released at T-20, before the bind",
                                interests=(SecurityInterest(DOC_REF, OTHER_BANK, "bank pledge",
                                                            released_on=-20),)),
+    "split": CollateralCase("the late boxes travel under two clean bills of lading, checked together",
+                            parts=2),
+    "split-pledged": CollateralCase("two bills of lading; a bank holds a pledge over the second",
+                                    parts=2, interests=(SecurityInterest(split_ref(1), OTHER_BANK,
+                                                                         "bank pledge"),)),
+    "split-short": CollateralCase("two bills of lading, but the plant offers only the first",
+                                  parts=2, offered_parts=1),
 }
 
 
@@ -123,13 +142,42 @@ def collateral_doc(case: SwapCase, cc: CollateralCase) -> TransportDoc:
                         order.tonnes - cc.tonnes_short, VESSEL)
 
 
+def split_teu(teu: int, parts: int) -> list[int]:
+    """TEU per bill of lading, as even as whole boxes allow, larger parts first."""
+    if parts > teu:
+        raise ValueError(f"cannot split {teu} TEU over {parts} bills of lading")
+    base, extra = divmod(teu, parts)
+    return [base + (1 if i < extra else 0) for i in range(parts)]
+
+
+def collateral_docs(case: SwapCase, cc: CollateralCase) -> list[TransportDoc]:
+    """The documents the plant offers for the late boxes. One, unless the case is split."""
+    if cc.parts == 1:
+        return [collateral_doc(case, cc)]
+    order = collateral_order(case)
+    sizes = split_teu(order.teu, cc.parts)
+    docs = []
+    for i, teu in enumerate(sizes):
+        last = i == len(sizes) - 1
+        tonnes = teu * TONNES_PER_TEU - (cc.tonnes_short if last else 0)
+        if tonnes <= 0:
+            raise ValueError("tonnes_short must leave some tonnes on the document")
+        docs.append(TransportDoc(split_ref(i), "bill of lading", BOOKING, PLANT, cc.holder or PLANT,
+                                 order.producer, order.plant, cc.grade or order.grade, teu,
+                                 tonnes, VESSEL))
+    return docs[:cc.offered_parts or cc.parts]
+
+
 def run_collateral(case: SwapCase, cc: CollateralCase, bind_day: int) -> CollateralResult:
     """All four checks, on a fresh mock register, as they would run at the bind day."""
     register = LotRegister()
+    docs = collateral_docs(case, cc)
     if cc.earlier_swap:
-        register.tie(DOC_REF, cc.earlier_swap)
-    return check_collateral(SWAP_ID, collateral_order(case), collateral_doc(case, cc), register,
-                            list(cc.interests), bind_day)
+        register.tie(docs[0].doc_ref, cc.earlier_swap)
+    if cc.parts == 1:
+        return check_collateral(SWAP_ID, collateral_order(case), docs[0], register,
+                                list(cc.interests), bind_day)
+    return check_split(SWAP_ID, collateral_order(case), docs, register, list(cc.interests), bind_day)
 
 
 @dataclass(frozen=True)
