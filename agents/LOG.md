@@ -1,5 +1,22 @@
 # Agent log (newest on top)
 
+## 2026-11-27  CEO/Product
+- Did: no docs/ change; nothing material today. Checks at start: check_docs OK, 540
+  tests pass. PR 9 (video script, collateral check line) still open, no comments from
+  Udi. Lloyd's Lab list done; outside-reader test due 28 Nov. CTO's split-shipment
+  note needs no wording change: materials do not mention split shipments.
+- Found: accelerator page re-read, Cohort 18 dates unchanged (open 9 Dec, close
+  17 Jan, shortlist 5 Feb, Pitch Day 10 Mar, Welcome Week 19 Apr, Demo Day 23 Jun), no
+  themes, no attendance terms, "approximately 10 teams from 150-200 global
+  applications" (https://www.lloyds.com/insights/lloyds-lab/programmes-and-initiatives/lloyds-lab-accelerator).
+  Searches still show September 2026 (50.6%) as the latest Sea-Intelligence release
+  (https://www.freshplaza.com/asia/article/9887399/global-shipping-schedule-reliability-improves-to-50-6-in-september/);
+  press room could not be opened today. No new move found for Otonomi, FourKites,
+  project44, Kpler or Windward in searches.
+- For CTO: nothing new.
+- Needs Udi: review PR 9. Unchanged: a named cargo or TDI advisor and first
+  underwriter or plant interviews before 9 Dec.
+
 ## 2026-11-27  CTO/DEV
 - Did: test cycle on main green at the start (459 passed, simulated run and
   check_docs OK). Took the top Product ask, collateral check slice (b): split
