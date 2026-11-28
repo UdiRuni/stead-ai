@@ -37,8 +37,10 @@ will score.
 - [ ] Product: purchase route, next. Slice 1 done 2026-11-22 (`steadpoc/purchase.py`)
       and (a) done 2026-11-23 (demo term sheet section), see Done. Still open:
       (b) replace the assumed 8% cost of capital and 30 holding days with
-      figures a plant or a public source gives; (c) a sourced polypropylene monthly
-      price move, so the 3 to 5% break-even can be set against how often it happens.
+      figures a plant or a public source gives; (c) first cut done 2026-11-28 on a
+      public proxy (see Done). Still open in (c): a polypropylene-only or European
+      spot series that may be stored in the repo, to replace the proxy; (d) show the
+      price-move shares on the demo term sheet, beside the break-evens.
 
 ## Engineering
 
@@ -77,6 +79,18 @@ will score.
       limit, if that matters for the return leg; check the customs rule first.
 
 ## Done
+
+- [x] 2026-11-28 Product: purchase route (c), first cut on public data.
+      `(cd poc && python3 -m steadpoc.pricemoves)` sets the purchase break-evens
+      against BLS PPI WPU06621201 (US thermoplastic resins, monthly, Jan 2019 to Oct
+      2026, public domain, via FRED, `poc/data/ppi_thermoplastic_resins_monthly.csv`).
+      30-day hold: the price fell more than the 3.0% break-even (through stead.ai) in
+      8 of 93 months (9%) and more than 5.0% (direct) in 3 of 93 (3%); worst -6.6%
+      (Jun to Jul 2026). 90-day hold: 32 of 91 (35%) and 19 of 91 (21%). A PROXY, not
+      polypropylene: an index of all thermoplastics moves less than one grade's spot
+      price, so the shares are a floor. Break-evens read from `purchase.py`, not
+      retyped. Series checks list every gap, duplicate, bad month or value. 54 new
+      tests. $68,000 unchanged.
 
 - [x] 2026-11-27 Product: collateral check, slice (b), split shipments.
       `check_split` and `bind_split` in `steadpoc/collateral.py` run the four checks

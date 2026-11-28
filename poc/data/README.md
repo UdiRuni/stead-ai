@@ -36,3 +36,20 @@ Federal Register 2025 amendment for F and G. Sources and read date are in the fi
 US federal regulations are public domain. PARTIAL: no berth areas yet, so the file is
 refused for a run (`python3 -m steadpoc.portcalls --check-port FILE` describes it).
 Check every vertex against eCFR before a real run.
+
+## ppi_thermoplastic_resins_monthly.csv
+
+US Producer Price Index by Commodity: Chemicals and Allied Products: Thermoplastic
+Resins and Plastics Materials, BLS series WPU06621201, index Dec 2003 = 100, monthly,
+not seasonally adjusted, January 2019 to October 2026 (94 months).
+
+- Source: U.S. Bureau of Labor Statistics, read on FRED,
+  https://fred.stlouisfed.org/data/WPU06621201 (FRED last updated 2026-11-13).
+  Retrieved 2026-11-28 through a text-extraction tool; values copied as printed, no
+  gaps filled. Check against BLS before any figure goes into pitch material. BLS may
+  revise recent months.
+- Licence: BLS data are US government work, public domain. FRED asks that BLS be cited
+  as the source.
+- A PROXY for polypropylene: all thermoplastic resins, US producer prices, a monthly
+  index. One European grade's spot price swings more, so shares of large falls read
+  from this file are a floor. Used by `steadpoc.pricemoves`.
