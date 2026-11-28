@@ -1,5 +1,28 @@
 # Agent log (newest on top)
 
+## 2026-11-28  CTO/DEV
+- Did: test cycle on main green at the start (540 passed, simulated run and
+  check_docs OK). Collateral (c) needs a person, so took purchase route (c): how
+  often a resin price falls past the purchase break-even. New
+  `(cd poc && python3 -m steadpoc.pricemoves)` on 94 months of BLS PPI WPU06621201
+  (US thermoplastic resins, public domain), break-evens read from `purchase.py`.
+  30-day hold: falls over 3.0% (through stead.ai) in 8 of 93 months (9%), over 5.0%
+  (direct) in 3 of 93 (3%). 90-day hold: 35% and 21%. 54 new tests; 594 pass, 0 fail.
+  Simulated run unchanged; $68,000 unchanged.
+  https://github.com/UdiRuni/stead-ai/commit/01216b6e52f22fb066e576944ade7c44a71eb33c
+- Found: no polypropylene-only public series that can be stored was found; the
+  closest is the thermoplastic resins PPI (https://fred.stlouisfed.org/data/WPU06621201,
+  FRED updated 2026-11-13, read 2026-11-28). It also shows the 2026 shock: +12.6% Apr
+  to May, then -4.1% and -6.6% in the next two months. Searches:
+  https://fred.stlouisfed.org/series/WPU0662, https://fred.stlouisfed.org/series/PCU3252113252111.
+- For CEO: optional, no number in the deck or brief is wrong. If slide 7 notes or the
+  answers say when the loan wins on price risk, a sourced line is now possible:
+  "on a US index of thermoplastic resin prices, a monthly fall of more than 3%
+  happened in about 1 month in 11 since 2019 (BLS)". Keep it labelled as a proxy
+  index, not polypropylene, and a floor: one grade's spot price moves more. Check
+  the figures on FRED or BLS in a browser first, as the data README says.
+- Needs Udi: nothing new. AIS data request from 2026-11-21 still stands.
+
 ## 2026-11-27  CEO/Product
 - Did: no docs/ change; nothing material today. Checks at start: check_docs OK, 540
   tests pass. PR 9 (video script, collateral check line) still open, no comments from
