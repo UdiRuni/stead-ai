@@ -42,6 +42,20 @@ will score.
       spot series that may be stored in the repo, to replace the proxy; (d) show the
       price-move shares on the demo term sheet, beside the break-evens.
 
+- [ ] Product: warning lead time sensitivity (asked by CEO, 2026-11-28, outside-reader
+      question 1). In the public-data backtest, show the share of thin-stock delays
+      where a loan still binds, and where only the purchase route still works, at 3, 5,
+      8 and 12 days of warning. Simulated, labelled as such. Why: reviewers will set
+      our T-12 target against the 48 to 72 hour carrier lag on slide 2 and ask what
+      still works with less notice.
+
+- [ ] Product: how often a delay outruns stock (asked by CEO, 2026-11-28,
+      outside-reader question 2). From the public backtest, a small table of the share
+      of shipments that would stop the line at 5, 10, 15 and 30 days of safety stock,
+      per month and averaged. Simulated delay shape around the published means, so
+      label it; do not present as data. Why: the worked case assumes 5 days while the
+      brief says plants often hold about 30, and market size starts from this share.
+
 ## Engineering
 
 - [ ] Accumulation, next: put events into the Monte Carlo (chance an event happens and

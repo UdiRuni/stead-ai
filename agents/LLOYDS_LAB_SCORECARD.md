@@ -117,6 +117,48 @@ still carry the old wording, and weeks 7 to 10 still need a distributor we do no
 | Market size (Product, per the scoring guidance) | Not shown anywhere. Needs a sourced figure or an honest "not yet sized" | CEO, in the application answers |
 | Traction in the insurance industry (Programme, per the scoring guidance) | None. Interviews with underwriters would be the first evidence | Udi |
 
+## Outside-reader test, 2026-11-28
+
+Read cold as a sceptical Lab reviewer: the short deck and the 2-page brief on main
+(pull requests 1 to 8 merged), not the open video script. Last week's three questions
+are now answered in the materials, so these are new. Next test: 2026-12-05.
+
+1. **"Where do your 12 days of warning come from?"** (Product: specific use case;
+   Programme: realistic plan.) The whole swap needs an alert at T-12 and a bind at T-8,
+   yet slide 2 says carriers often flag a missed connection only 48 to 72 hours before
+   arrival, and slide 3 calls the 10 to 14 day lead time "a design target". A reviewer
+   will ask what happens with 3 days of warning. Where answered: slide 3 footnote and
+   brief p1 are honest that it is a target; `poc/DATA_AUDIT.md` row D names the data
+   that would measure it (ETA revision history). Gap: no sourced figure for how early
+   bought-in tracking sees a rolled box or missed connection, and nothing shows what
+   still works with less warning (the purchase route may need fewer days than a loan).
+   Owner: CTO (new Product ask today: swaps that still bind at 3, 5, 8 and 12 days of
+   warning, simulated), then CEO looks for a published vendor or study figure and adds
+   one line to slide 3 notes and the answers. Udi: ask in interviews how many days of
+   notice a plant gets today.
+2. **"How often does a delay actually outrun a plant's stock?"** (Product: market
+   size.) The worked case assumes 5 days of stock, but the brief's own limits say
+   plants often hold about 30 days, the typical TDI deductible is 30 days, and the
+   average late vessel is 6.65 days late. With 30 days of stock the line almost never
+   stops. A reviewer will ask who has 5 days, and how many swaps a year that is. Where
+   answered: "Demand is unproven" (brief p2) and "thin-stock case" (slide 6). Gap: no
+   number links stock days to the share of shipments that would stop, which is also the
+   first step to a market size. Owner: CTO (new Product ask today: share of shipments
+   that stop at 5, 10, 15 and 30 days of stock, from the public backtest, labelled
+   simulated), Udi (ask plants how many days they hold per grade; that answer is
+   evidence, the model is not).
+3. **"A lead syndicate by Demo Day, when no underwriter has seen this yet?"**
+   (Programme: realistic plan and traction within the insurance industry.) Slide 10
+   sets "a lead syndicate by Demo Day" and the brief "scope a facility or MGA binder",
+   but the materials show no underwriter, broker or claims contact, and the scoring
+   guidance names insurance traction under Programme. Where answered: slide 10 and the
+   brief frame the Lab as co-design and say no capacity is committed. Gap: the goal
+   reads ambitious against zero contact. Owner: Udi. Two ways to close it: one or two
+   underwriter or broker conversations before 9 Dec that he can describe truthfully, or
+   a softer Demo Day goal (for example a syndicate willing to review the wording and
+   price a paper pilot). The wording choice is his; the CEO agent proposes it in a pull
+   request once he decides.
+
 ## Outside-reader test, 2026-11-21
 
 Read cold as a sceptical Lab reviewer: the short deck and the 2-page brief on main, and

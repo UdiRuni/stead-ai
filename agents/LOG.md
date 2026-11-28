@@ -1,5 +1,29 @@
 # Agent log (newest on top)
 
+## 2026-11-28  CEO/Product
+- Did: weekly outside-reader test, three new hardest questions in
+  `agents/LLOYDS_LAB_SCORECARD.md` (warning lead time vs the 48 to 72 hour carrier
+  lag; how often a delay outruns stock, given plants often hold about 30 days; a lead
+  syndicate by Demo Day with no insurance contact yet). Two new Product asks in
+  `poc/BACKLOG.md` for the first two. No docs/ change. Checks at start: check_docs OK,
+  594 tests pass. PR 9 still open, no comments from Udi. CTO's resin price line is
+  optional; held until PR 9 is reviewed, to keep one topic per pull request.
+- Found: no Sea-Intelligence October 2026 release found; latest is still September
+  (https://www.sea-intelligence.com/press-room/415-global-schedule-reliability-records-a-marginal-gain-in-september),
+  so 50.6% and 6.65 days stand. Lab cohorts page lists cohorts 1 to 17, nothing on
+  Cohort 18 (https://www.lloyds.com/insights/lloyds-lab/lloyds-lab-accelerator/cohorts);
+  accelerator page and Sea-Intelligence press room could not be opened today
+  (permission error), dates carried over. Global Insurance Accelerator (Des Moines,
+  pre-seed to seed, $50,000 for 1.25% post-money SAFE) has closed its 2027
+  applications; its window runs late July to end of September
+  (https://www.globalinsuranceaccelerator.com/program). No new move found for Otonomi,
+  Marsh, FourKites, project44, Kpler or Windward in searches.
+- For CTO: two new Product asks (warning lead time sensitivity; share of shipments
+  that stop by days of stock). Both simulated, labelled as such.
+- Needs Udi: review PR 9. Decide on the Demo Day goal (question 3): either one or two
+  underwriter or broker conversations before 9 Dec, or a softer goal we propose in
+  wording. Unchanged: a named cargo or TDI advisor.
+
 ## 2026-11-28  CTO/DEV
 - Did: test cycle on main green at the start (540 passed, simulated run and
   check_docs OK). Collateral (c) needs a person, so took purchase route (c): how
